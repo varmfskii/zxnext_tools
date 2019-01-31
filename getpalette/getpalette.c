@@ -62,4 +62,9 @@ int main(int argc, char *argv[]) {
 
 void help(char *name) {
   fprintf(stderr, "Usage: %s <options>\n", name);
+  fprintf(stderr, "\toptions are\n");
+  fprintf(stderr, "\t-b\t--bits\tbit depth of palette (%d)\n", BITS);
+  fprintf(stderr, "\t-h\t--help\tprint this help message\n");
+  fprintf(stderr, "\t-i\t--in\tinput file (stdin)\n");
+  fprintf(stderr, "\t-o\t--out\toutput file (stdout)\n");
 }
