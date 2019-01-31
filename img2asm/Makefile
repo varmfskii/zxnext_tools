@@ -1,12 +1,10 @@
 CC=gcc
-
 CFLAGS=-O3 -Wall
 
 img2asm: img2asm.o palette.o readimage.o readpal.o rgb2index.o \
 	writeasm.o writepgm.o writeraw.o
 	$(CC) -o $@ $^ -lnetpbm
 
-test: test.o rgb2index.o writeasm.o palette.o
 img2asm.o: img2asm.c img2asm.h
 palette.o: palette.c img2asm.h
 readimage.o: readimage.c img2asm.h

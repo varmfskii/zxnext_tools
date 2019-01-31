@@ -14,6 +14,12 @@
 
 void help(char *);
 
+/*
+ * img2asm: a tool for splitting image files into assembly code
+ *
+ * Theodore (Alex) Evans - 2019
+ */
+
 int main(int argc, char *argv[]) {
     struct option opts[] = {
       { "arm", 0, NULL, 'a' },

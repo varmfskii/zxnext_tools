@@ -4,6 +4,11 @@
 
 int palix(char *color, char *pal, int palsz);
 
+/*
+ * rgb2index(): convert an rgb image into an indexed image using a
+ * given palette
+ */
+
 ixed_t rgb2index(rgb_t rdat, pal_t pdat,
 		int xoff, int yoff, int xstep, int ystep) {
   int ixx, ixy, ixsz, xsz, ysz, psz;

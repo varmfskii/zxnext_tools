@@ -1,6 +1,10 @@
 #include <stdio.h>
 #include "img2asm.h"
 
+/*
+ * writeasm(): write an assembly file (tiled) from an indexed image
+ */
+
 int writeasm(FILE *out, ixed_t idat, int txsz, int tysz, char *label) {
   int tr, tc, r, c;
   int b, v, mask, cnt;

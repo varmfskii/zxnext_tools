@@ -1,6 +1,10 @@
 #include <stdio.h>
 #include "img2asm.h"
 
+/*
+ * writepgm(): write a pgm file (tiled) from an indexed image
+ */
+
 int writepgm(FILE *out, ixed_t idat, int txsz, int tysz) {
   int tr, tc, r, c, mask;
   int ix, ntiles;

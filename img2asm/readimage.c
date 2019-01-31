@@ -2,6 +2,10 @@
 #include <stdlib.h>
 #include <pam.h>
 
+/*
+ * readimage(): read a ppm file returning an rgb image
+ */
+
 rgb_t readimage(FILE *in) {
   rgb_t rgb;
   struct pam inpam;

@@ -1,6 +1,10 @@
 #include "img2asm.h"
 #include <stdlib.h>
 
+/*
+ * readpal(): read a palette from a raw binary file
+ */
+
 pal_t readpal(int len, FILE *in) {
   pal_t pal;
   int i, c;

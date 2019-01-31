@@ -1,6 +1,10 @@
 #include <stdio.h>
 #include "img2asm.h"
 
+/*
+ * writeraw(): write a raw binary file (tiled) from an indexed image
+ */
+
 int writeraw(FILE *out, ixed_t idat, int txsz, int tysz) {
   int tr, tc, r, c, mask;
   int ix;

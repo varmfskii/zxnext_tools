@@ -2,6 +2,10 @@
 #include <string.h>
 #include "img2asm.h"
 
+/*
+ * palette(): generate a palette of a given size
+ */
+
 pal_t palette(int n) {
   int i, ix;
   pal_t rv;
