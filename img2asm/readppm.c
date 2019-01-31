@@ -3,10 +3,10 @@
 #include <pam.h>
 
 /*
- * readimage(): read a ppm file returning an rgb image
+ * readppm(): read a ppm file returning an rgb image
  */
 
-rgb_t readimage(FILE *in) {
+rgb_t readppm(FILE *in) {
   rgb_t rgb;
   struct pam inpam;
   char *argv[]={ "a.out", NULL };

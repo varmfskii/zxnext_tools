@@ -23,4 +23,4 @@ int writepgm(FILE *out, ixed_t ixed, int txsz, int tysz);
 int writeraw(FILE *out, ixed_t ixed, int txsz, int tysz);
 pal_t palette(int n);
 pal_t readpal(int len, FILE *palfile);
-rgb_t readimage(FILE *in);
+rgb_t readppm(FILE *in);

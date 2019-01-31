@@ -118,7 +118,7 @@ int main(int argc, char *argv[]) {
       pal=palette(bits);
     }
     if (!pal.l) return 1;
-    rgb=readimage(infile);
+    rgb=readppm(infile);
     if (!rgb.dat) return 1;
     fclose(infile);
     ixed=rgb2index(rgb, pal, offset, offset, skip, skip);
