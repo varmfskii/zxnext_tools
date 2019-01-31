@@ -9,7 +9,7 @@ int writeraw(FILE *out, ixed_t idat, int txsz, int tysz) {
   int tr, tc, r, c, mask;
   int ix;
   int xsz, ysz, bits, b, v;
-  char *dat;
+  unsigned char *dat;
 
   xsz=idat.x;
   ysz=idat.y;

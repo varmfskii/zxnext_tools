@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "img2asm.h"
 
-int palix(char *color, char *pal, int palsz);
+int palix(unsigned char *color, unsigned char *pal, int palsz);
 
 /*
  * rgb2index(): convert an rgb image into an indexed image using a
@@ -13,7 +13,7 @@ ixed_t rgb2index(rgb_t rdat, pal_t pdat,
 		int xoff, int yoff, int xstep, int ystep) {
   int ixx, ixy, ixsz, xsz, ysz, psz;
   int ixr, ixc, rgbr, rgbc;
-  char *ix, *rgb, *pal;
+  unsigned char *ix, *rgb, *pal;
   ixed_t rv;
 
   xsz=rdat.x;
@@ -25,7 +25,7 @@ ixed_t rgb2index(rgb_t rdat, pal_t pdat,
   ixy=(ysz-yoff+ystep-1)/ystep;
   ixsz=ixx*ixy;
   //fprintf(stderr, "%dx%d\n", ixx, ixy);
-  ix=(char *)malloc(ixx*ixy);
+  ix=(unsigned char *)malloc(ixx*ixy);
   rgbr=3*xsz*yoff;
   for(ixr=0; ixr<ixsz; ixr+=ixx) {
     rgbc=3*xoff;
@@ -42,7 +42,7 @@ ixed_t rgb2index(rgb_t rdat, pal_t pdat,
   return rv;
 }
 
-int palix(char *color, char *pal, int palsz) {
+int palix(unsigned char *color, unsigned char *pal, int palsz) {
   int i, ix;
   unsigned int min, dist;
 

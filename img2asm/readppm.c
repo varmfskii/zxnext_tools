@@ -19,7 +19,7 @@ rgb_t readppm(FILE *in) {
   tuplerow=pnm_allocpamrow(&inpam);
   rgb.x=inpam.width;
   rgb.y=inpam.height;
-  rgb.dat=(char *)malloc(rgb.x*rgb.y*3);
+  rgb.dat=(unsigned char *)malloc(rgb.x*rgb.y*3);
   for(ix=r=0; r<rgb.y; r++) {
     pnm_readpamrow(&inpam, tuplerow);
     for(c=0; c<rgb.x; c++) {

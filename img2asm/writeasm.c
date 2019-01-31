@@ -10,7 +10,7 @@ int writeasm(FILE *out, ixed_t idat, int txsz, int tysz, char *label) {
   int b, v, mask, cnt;
   int ix, rbase, col;
   int xsz, ysz, bits;
-  char *dat;
+  unsigned char *dat;
   
   xsz=idat.x;
   ysz=idat.y;

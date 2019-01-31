@@ -1,17 +1,17 @@
 #include <stdio.h>
 
 typedef struct rgb_t {
-  char *dat;
+  unsigned char *dat;
   int x,y;
 } rgb_t;
 
 typedef struct pal_t {
-  char *dat;
+  unsigned char *dat;
   int l;
 } pal_t;
 
 typedef struct ixed_t {
-  char *dat;
+  unsigned char *dat;
   pal_t pal;
   int x, y;
 } ixed_t;

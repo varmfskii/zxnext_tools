@@ -9,7 +9,7 @@ int writepgm(FILE *out, ixed_t idat, int txsz, int tysz) {
   int tr, tc, r, c, mask;
   int ix, ntiles;
   int xsz, ysz;
-  char *dat;
+  unsigned char *dat;
 
   xsz=idat.x;
   ysz=idat.y;

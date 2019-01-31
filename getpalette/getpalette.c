@@ -59,3 +59,7 @@ int main(int argc, char *argv[]) {
   free(pal.dat);
   return 0;
 }
+
+void help(char *name) {
+  fprintf(stderr, "Usage: %s <options>\n", name);
+}

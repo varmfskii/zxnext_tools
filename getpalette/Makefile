@@ -2,7 +2,7 @@ CC=gcc
 CFLAGS=-O3 -Wall
 
 getpalette: getpalette.o readppm.o rgb2pal.o writepal.o
-	$(CC) -o $@ $^ -llibpbm
+	$(CC) -o $@ $^ -lnetpbm
 
 readppm.o : readppm.c getpalette.h
 rgb2pal.o : rgb2pal.c getpalette.h

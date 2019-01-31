@@ -42,22 +42,22 @@ pal_t palette(int n) {
 
   switch (n) {
     case 1:
-      rv.dat=(char *)malloc(6);
+      rv.dat=(unsigned char *)malloc(6);
       memcpy(rv.dat, pal1, 6);
       rv.l=2;
       return rv;
     case 2:
-      rv.dat=(char *)malloc(12);
+      rv.dat=(unsigned char *)malloc(12);
       memcpy(rv.dat, pal2, 12);
       rv.l=4;
       return rv;
     case 4:
-      rv.dat=(char *)malloc(48);
+      rv.dat=(unsigned char *)malloc(48);
       memcpy(rv.dat, pal4, 48);
       rv.l=16;
       return rv;
     case 8:
-      rv.dat=(char *)malloc(768);
+      rv.dat=(unsigned char *)malloc(768);
       for(ix=i=0; i<256; i++) {
           rv.dat[ix++]=v3to8[(i>>5)&7];
           rv.dat[ix++]=v3to8[(i>>2)&7];

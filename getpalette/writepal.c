@@ -1,4 +1,8 @@
 #include "getpalette.h"
+#include <stdio.h>
 
-int writepal(pal_t pal, FILE *out) {
+void writepal(pal_t pal, FILE *out) {
+  int i;
+
+  for(i=0; i<3*pal.l; i++) putc(pal.dat[i], out);
 }

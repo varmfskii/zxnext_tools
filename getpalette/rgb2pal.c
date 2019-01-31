@@ -13,15 +13,19 @@ pal_t rgb2pal(rgb_t rgb, int len) {
   int i, r, g, b;
   int ix, color;
 
-  for(i=0; i<512; i++) colors[i].color=i;
+  for(i=0; i<512; i++) {
+    colors[i].color=i;
+    colors[i].count=0;
+  }
   for(i=0; i<rgb.x*rgb.y*3; i+=3) {
     r=rgb.dat[i]*7/255;
     g=rgb.dat[i+1]*7/255;
     b=rgb.dat[i+2]*7/255;
-    colors[(r<<6)|(g<<3)|b].count++;
+    color=(r<<6)|(g<<3)|b;
+    colors[color].count++;
   }
   qsort(colors, 512, sizeof(pair), cmp);
-  pal.dat=(char *)malloc(3*len);
+  pal.dat=(unsigned char *)malloc(3*len);
   for(i=0; i<len; i++) {
     ix=3*i;
     color=colors[i].color;
@@ -36,5 +40,5 @@ pal_t rgb2pal(rgb_t rgb, int len) {
 int cmp(const void *a, const void *b) {
   pair *x, *y;
   x=(pair *)a; y=(pair *)b;
-  return x->count-y->count;
+  return (y->count)-(x->count);
 }
