@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "img2asm.h"
 
+inline int coldist(unsigned char *a, unsigned char *b);
 int palix(unsigned char *color, unsigned char *pal, int palsz);
 
 /*
@@ -24,7 +25,6 @@ ixed_t rgb2index(rgb_t rdat, pal_t pdat,
   ixx=(xsz-xoff+xstep-1)/xstep;
   ixy=(ysz-yoff+ystep-1)/ystep;
   ixsz=ixx*ixy;
-  //fprintf(stderr, "%dx%d\n", ixx, ixy);
   ix=(unsigned char *)malloc(ixx*ixy);
   rgbr=3*xsz*yoff;
   for(ixr=0; ixr<ixsz; ixr+=ixx) {
@@ -45,24 +45,26 @@ ixed_t rgb2index(rgb_t rdat, pal_t pdat,
 int palix(unsigned char *color, unsigned char *pal, int palsz) {
   int i, ix;
   unsigned int min, dist;
-
-  //fprintf(stderr, "%d %d %d\n", color[0], color[1], color[2]);
-  min=(color[0]-pal[0])*(color[0]-pal[0]);
-  min+=(color[1]-pal[1])*(color[1]-pal[1]);
-  min+=(color[2]-pal[2])*(color[2]-pal[2]);
-  //fprintf(stderr, "%d ", min);
+  min=coldist(color, pal);
   ix=0;
-  for(i=1, pal+=3; i<palsz; i++, pal+=3) {
-    dist=(color[0]-pal[0])*(color[0]-pal[0]);
-    dist+=(color[1]-pal[1])*(color[1]-pal[1]);
-    dist+=(color[2]-pal[2])*(color[2]-pal[2]);
-    //fprintf(stderr, "%d ", dist);
+  for(i=1; i<palsz; i++) {
+    dist=coldist(color, pal+3*i);
     if (dist<min) {
-      dist=min;
+      min=dist;
       ix=i;
     }
-    pal+=3;
   }
-  //fprintf(stderr, ": %d\n", min);
   return ix;
+}
+
+inline int coldist(unsigned char *a, unsigned char *b) {
+  int f, d;
+
+  f=(int)a[0]-(int)b[0];
+  d=f*f;
+  f=(int)a[1]-(int)b[1];
+  d+=f*f;
+  f=(int)a[2]-(int)b[2];
+  d+=f*f;
+  return d;
 }

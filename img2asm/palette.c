@@ -9,19 +9,19 @@
 pal_t palette(int n) {
   int i, ix;
   pal_t rv;
-  char v3to8[]={0, 36, 73, 109, 146, 182, 219, 255};
-  char v2to8[]={0, 109, 182, 255};
-  char pal1[]={
+  unsigned char v3to8[]={0, 36, 73, 109, 146, 182, 219, 255};
+  unsigned char v2to8[]={0, 109, 182, 255};
+  unsigned char pal1[]={
     0, 0, 0,
     255, 255, 255
   };
-  char pal2[]={
+  unsigned char pal2[]={
     0, 0, 0,
     255, 0, 0,
     0, 255, 255,
     255, 255, 255
   };
-  char pal4[]={
+  unsigned char pal4[]={
     0, 0, 0,
     109, 0, 0,
     0, 109, 0,
