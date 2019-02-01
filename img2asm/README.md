@@ -2,7 +2,7 @@ img2asm: A tool for generating assembly source code for ppm images. It
 takes a full image and splits it up into individual sprite or tile
 sized sections.
 
-Usage: img2asm <options>
+Usage: img2asm &lt;options&gt;
 
 options with defaults in parenthesis:
 
