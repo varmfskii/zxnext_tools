@@ -3,7 +3,9 @@ takes a full image and splits it up into individual sprite or tile
 sized sections.
 
 Usage: img2asm <options>
-	options with defaults in parenthesis:
+
+options with defaults in parenthesis:
+
 	-a	--asm		output assembly code (asm)
 	-b	--bits		number of bits per pixel (8)
 	-h	--help		show this help message
