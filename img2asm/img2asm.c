@@ -112,7 +112,7 @@ int main(int argc, char *argv[]) {
         }
     }
     if (palfile) {
-      pal=readpal(bits, palfile);
+      pal=readpal(1<<bits, palfile);
       fclose(palfile);
     } else {
       pal=palette(bits);

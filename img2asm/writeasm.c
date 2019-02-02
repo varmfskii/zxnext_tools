@@ -11,7 +11,9 @@ int writeasm(FILE *out, ixed_t idat, int txsz, int tysz, char *label) {
   int ix, rbase, col;
   int xsz, ysz, bits;
   unsigned char *dat;
-  
+  int trcnt, tccnt, rcnt, ccnt;
+
+  trcnt=tccnt=rcnt=ccnt=0;
   xsz=idat.x;
   ysz=idat.y;
   dat=idat.dat;
@@ -43,15 +45,19 @@ int writeasm(FILE *out, ixed_t idat, int txsz, int tysz, char *label) {
   mask=(1<<bits)-1;
   cnt=col=0;
   for(tr=0; tr<ysz; tr+=tysz) {
+    trcnt++;
     for(tc=0; tc<xsz; tc+=txsz) {
+      tccnt++;
       if (col) {
 	putc('\n', out);
 	col=0;
       }
       fprintf(out, ";; %s %02x\n", label, cnt++);
       for(r=0; r<tysz; r++) {
+	rcnt++;
 	rbase=(tr+r)*xsz;
 	for(c=0; c<txsz; c+=(8/bits)) {
+	  ccnt++;
 	  v=0;
 	  ix=rbase+tc+c;
 	  for(b=0; b<8-bits; b+=bits)
