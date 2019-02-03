@@ -14,7 +14,9 @@ getpalette : support
 clean :
 	make -C img2asm clean
 	make -C getpalette clean
+	make -C support clean
 
 distclean : clean
 	make -C img2asm distclean
 	make -C getpalette distclean
+	make -C support distclean
