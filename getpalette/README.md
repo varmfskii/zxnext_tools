@@ -1,5 +1,6 @@
 getpalette: extract a raw binary palette from a ppm file
-Usage: getpalette <options>
+
+Usage: getpalette &lt;options&gt;
 
 	-a --asm  set output type to asm (raw)
 	-b --bits  set bit depth of palette (8)
