@@ -1,4 +1,4 @@
-#include "img2asm.h"
+#include "support.h"
 #include <stdlib.h>
 #include <pam.h>
 

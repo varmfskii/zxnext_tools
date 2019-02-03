@@ -1,4 +1,5 @@
 #include "img2asm.h"
+#include "../support/support.h"
 #include <stdlib.h>
 #include <getopt.h>
 #include <string.h>
