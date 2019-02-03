@@ -8,6 +8,7 @@ typedef struct pal_t {
   int l;
 } pal_t;
 
-void writepal(pal_t pal, FILE *out);
+void writeasm(pal_t pal, FILE *out, char *label);
+void writeraw(pal_t pal, FILE *out);
 pal_t rgb2pal(rgb_t rgb, int len);
 #endif
