@@ -1,3 +1,4 @@
+img2asm version 1.0.0 20190205
 img2asm: A tool for generating assembly source code for ppm images. It
 takes a full image and splits it up into individual sprite or tile
 sized sections.
@@ -18,4 +19,5 @@ options with defaults in parenthesis:
 	-s	--sprite	generate sprites = -b8 -z16
 	-S	--skip		use ever nth pixel (1)
 	-t	--tile		generate tiles = -b4 -z8
+	-V  --ver       get version information
 	-z	--size		element size (16)

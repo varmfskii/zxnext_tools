@@ -1,3 +1,4 @@
+getpalette version 1.0.0 20190205
 getpalette: extract a raw binary palette from a ppm file
 
 Usage: getpalette &lt;options&gt;
@@ -9,3 +10,4 @@ Usage: getpalette &lt;options&gt;
 	-l --label set label for assembly file (palette)
 	-o --out   set output file (stdout)
 	-r --raw   set output type to raw (raw)
+    -V --ver   get version information

@@ -9,12 +9,15 @@
 #define RAW 0
 #define ASM 1
 #define LABEL "palette"
+#define VERSION "1.0.0"
+#define DATE "20190205"
 
 void help(char *);
+void version(void);
 
 int main(int argc, char *argv[]) {
   int opt, ix, bits, type;
-  char *opts="ab:hi:l:o:r";
+  char *opts="ab:hi:l:o:rV";
   char *label;
   struct option options[]={
     { "asm", 0, NULL, 'a' },
@@ -24,6 +27,7 @@ int main(int argc, char *argv[]) {
     { "label", 1, NULL, 'l' },
     { "out", 1, NULL, 'o' },
     { "raw", 0, NULL, 'r' },
+    { "ver", 0, NULL, 'V' },
     { NULL, 0, NULL, '\0' }
   };
   FILE *infile, *outfile;
@@ -49,8 +53,7 @@ int main(int argc, char *argv[]) {
       break;
     case 'h':
       help(argv[0]);
-      return 0;
-      break;
+      exit(0);
     case 'i':
       if(!(infile=fopen(optarg, "r"))) {
 	fprintf(stderr, "Unable to open %s\n", optarg);
@@ -66,8 +69,13 @@ int main(int argc, char *argv[]) {
 	return 1;
       }
       break;
+    case 'V':
+      version();
+      exit(0);
     default:
       fprintf(stderr, "Illegal option %c\n", opt);
+      help(argv[0]);
+      exit(1);
     }
   }
   rgb=readppm(infile);
@@ -88,6 +96,7 @@ int main(int argc, char *argv[]) {
 }
 
 void help(char *name) {
+  version();
   fprintf(stderr, "Usage: %s <options>\n", name);
   fprintf(stderr, "\toptions are\n");
   fprintf(stderr, "\t-a\t--asm\tset output type to asm (raw)\n");
@@ -97,4 +106,9 @@ void help(char *name) {
   fprintf(stderr, "\t-l\t--label\tset label for assembly file (%s)\n", LABEL);
   fprintf(stderr, "\t-o\t--out\toutput file (stdout)\n");
   fprintf(stderr, "\t-r\t--raw\tset output type to raw (raw)\n");
+  fprintf(stderr, "\t-V\t--ver\tget version information\n");
+}
+
+void version(void) {
+  fprintf(stderr, "getpalette version %s %s\n", VERSION, DATE);
 }

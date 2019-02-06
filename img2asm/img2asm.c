@@ -12,8 +12,11 @@
 #define RAW 0
 #define ASM 1
 #define PGM 2
+#define VERSION "1.0.0"
+#define DATE "20190205"
 
 void help(char *);
+void version(void);
 
 /*
  * img2asm: a tool for splitting image files into assembly code
@@ -22,128 +25,134 @@ void help(char *);
  */
 
 int main(int argc, char *argv[]) {
-    struct option opts[] = {
-      { "arm", 0, NULL, 'a' },
-      { "bits", 1, NULL, 'b' },
-      { "pgm", 0, NULL, 'g' },
-      { "help", 0, NULL, 'h' },
-      { "in", 1, NULL, 'i' },
-      { "label", 1, NULL, 'l' },
-      { "out", 1, NULL, 'o' },
-      { "offset", 1, NULL, 'O' },
-      { "pal", 1, NULL, 'p' },
-      { "raw", 0, NULL, 'r' },
-      { "sprite", 0, NULL, 's' },
-      { "skip", 1, NULL, 'S' },
-      { "tile", 0, NULL, 't' },
-      { "size", 1, NULL, 'z' },
-      { NULL, 0, NULL, 0 }
-    };
-    char optstring[]="ab:ghi:l:o:O:p:rsS:tz:";
-    int opt, ix;
-    FILE *infile, *outfile, *palfile;
-    int offset=OFFSET;
-    int skip=SKIP;
-    int size=SIZE;
-    int bits=BITS;
-    int type=ASM;
-    pal_t pal;
-    rgb_t rgb;
-    ixed_t ixed;
-    char *label=LABEL;
+  struct option opts[] = {
+    { "arm", 0, NULL, 'a' },
+    { "bits", 1, NULL, 'b' },
+    { "pgm", 0, NULL, 'g' },
+    { "help", 0, NULL, 'h' },
+    { "in", 1, NULL, 'i' },
+    { "label", 1, NULL, 'l' },
+    { "out", 1, NULL, 'o' },
+    { "offset", 1, NULL, 'O' },
+    { "pal", 1, NULL, 'p' },
+    { "raw", 0, NULL, 'r' },
+    { "sprite", 0, NULL, 's' },
+    { "skip", 1, NULL, 'S' },
+    { "tile", 0, NULL, 't' },
+    { "ver", 0, NULL, 'V' },
+    { "size", 1, NULL, 'z' },
+    { NULL, 0, NULL, 0 }
+  };
+  char optstring[]="ab:ghi:l:o:O:p:rsS:tVz:";
+  int opt, ix;
+  FILE *infile, *outfile, *palfile;
+  int offset=OFFSET;
+  int skip=SKIP;
+  int size=SIZE;
+  int bits=BITS;
+  int type=ASM;
+  pal_t pal;
+  rgb_t rgb;
+  ixed_t ixed;
+  char *label=LABEL;
 
-    infile=stdin;
-    outfile=stdout;
-    palfile=NULL;
-    while((opt=getopt_long(argc, argv, optstring, opts, &ix))!=-1) {
-        switch(opt) {
-          case 'b':
-            bits=atoi(optarg);
-            break;
-          case 'g':
-            type=PGM;
-            break;
-          case 'h':
-            help(argv[0]);
-            return 0;
-          case 'i':
-            if(!(infile=fopen(optarg, "r"))) {
-              fprintf(stderr, "Unable to open %s\n", optarg);
-              return 1;
-            }
-            break;
-          case 'l':
-            label=strdup(optarg);
-            break;
-          case 'o':
-            if(!(outfile=fopen(optarg, "w"))) {
-              fprintf(stderr, "Unable to open %s\n", optarg);
-              return 1;
-            }
-            break;
-          case 'O':
-            offset=atoi(optarg);
-            break;
-          case 'p':
-            if (!(palfile=fopen(optarg, "r"))) {
-              fprintf(stderr, "Unable to open %s\n", optarg);
-              return 1;
-            }
-            break;
-          case 'r':
-            type=RAW;
-            break;
-          case 's':
-            bits=8;
-            size=16;
-            break;
-          case 'S':
-            skip=atoi(optarg);
-            break;
-          case 't':
-            bits=4;
-            size=8;
-            break;
-          case 'z':
-            size=atoi(optarg);
-            break;
-          default:
-            fprintf(stderr, "Illegal argument %c\n", opt);
-            exit(1);
-        }
+  infile=stdin;
+  outfile=stdout;
+  palfile=NULL;
+  while((opt=getopt_long(argc, argv, optstring, opts, &ix))!=-1) {
+    switch(opt) {
+    case 'b':
+      bits=atoi(optarg);
+      break;
+    case 'g':
+      type=PGM;
+      break;
+    case 'h':
+      help(argv[0]);
+      exit(0);
+    case 'i':
+      if(!(infile=fopen(optarg, "r"))) {
+	fprintf(stderr, "Unable to open %s\n", optarg);
+	return 1;
+      }
+      break;
+    case 'l':
+      label=strdup(optarg);
+      break;
+    case 'o':
+      if(!(outfile=fopen(optarg, "w"))) {
+	fprintf(stderr, "Unable to open %s\n", optarg);
+	return 1;
+      }
+      break;
+    case 'O':
+      offset=atoi(optarg);
+      break;
+    case 'p':
+      if (!(palfile=fopen(optarg, "r"))) {
+	fprintf(stderr, "Unable to open %s\n", optarg);
+	return 1;
+      }
+      break;
+    case 'r':
+      type=RAW;
+      break;
+    case 's':
+      bits=8;
+      size=16;
+      break;
+    case 'S':
+      skip=atoi(optarg);
+      break;
+    case 't':
+      bits=4;
+      size=8;
+      break;
+    case 'V':
+      version();
+      exit(0);
+    case 'z':
+      size=atoi(optarg);
+      break;
+    default:
+      fprintf(stderr, "Illegal argument %c\n", opt);
+      help(argv[0]);
+      exit(1);
     }
-    if (palfile) {
-      pal=readpal(1<<bits, palfile);
-      fclose(palfile);
-    } else {
-      pal=palette(bits);
-    }
-    if (!pal.l) return 1;
-    rgb=readppm(infile);
-    if (!rgb.dat) return 1;
-    fclose(infile);
-    ixed=rgb2index(rgb, pal, offset, offset, skip, skip);
-    free(rgb.dat);
-    free(pal.dat);
-    switch (type) {
-      case RAW:
-        writeraw(outfile, ixed, size, size);
-        break;
-      case ASM:
-        writeasm(outfile, ixed, size, size, label);
-        break;
-      case PGM:
-        writepgm(outfile, ixed, size, size);
-        break;
-      default:
-        fprintf(stderr, "Error\n");
-    }
-    free(ixed.dat);
-    free(ixed.pal.dat);
-    fclose(outfile);
+  }
+  if (palfile) {
+    pal=readpal(1<<bits, palfile);
+    fclose(palfile);
+  } else {
+    pal=palette(bits);
+  }
+  if (!pal.l) return 1;
+  rgb=readppm(infile);
+  if (!rgb.dat) return 1;
+  fclose(infile);
+  ixed=rgb2index(rgb, pal, offset, offset, skip, skip);
+  free(rgb.dat);
+  free(pal.dat);
+  switch (type) {
+  case RAW:
+    writeraw(outfile, ixed, size, size);
+    break;
+  case ASM:
+    writeasm(outfile, ixed, size, size, label);
+    break;
+  case PGM:
+    writepgm(outfile, ixed, size, size);
+    break;
+  default:
+    fprintf(stderr, "Error\n");
+  }
+  free(ixed.dat);
+  free(ixed.pal.dat);
+  fclose(outfile);
 }
 
 void help(char *name) {
+  version();
   fprintf(stderr, "Usage: %s <options>\n", name);
   fprintf(stderr, "\toptions with defaults in parenthesis:\n");
   fprintf(stderr, "\t-a\t--asm\t\toutput assembly code (asm)\n");
@@ -158,5 +167,10 @@ void help(char *name) {
   fprintf(stderr, "\t-s\t--sprite\tgenerate sprites = -b8 -z16\n");
   fprintf(stderr, "\t-S\t--skip\t\tuse ever nth pixel (%d)\n", SKIP);
   fprintf(stderr, "\t-t\t--tile\t\tgenerate tiles = -b4 -z8\n");
+  fprintf(stderr, "\t-V\t--ver\t\tshow version information\n");
   fprintf(stderr, "\t-z\t--size\t\telement size (%d)\n", SIZE);
+}
+
+void version(void) {
+  fprintf(stderr, "img2asm version %s %s\n", VERSION, DATE);
 }
