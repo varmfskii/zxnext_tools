@@ -1,3 +1,5 @@
-Tools for ZX Spectrum Next
-- img2asm
-- getpalette
+Tools for ZX Spectrum Next:
+
+	- getpalette
+	- img2asm
+	- NexCreator
