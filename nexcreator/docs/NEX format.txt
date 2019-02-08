@@ -1,48 +1,35 @@
 NEX file begins with a 512 byte header followed by the actual data
 
-header:
-  char Next[4];
-  //"Next"
-  char VersionNumber[4];
-  //"V1.1" = Gold distro. V1.2 allows entering with PC in a 16K bank >= 8.
-  unsigned char RAM_Required;
-  //0=768K, 1=1792K
-  unsigned char NumBanksToLoad;
-  //0-112 x 16K banks
-  unsigned char LoadingScreen;
-  /* 1 = layer2 at 16K page 9, 2=ULA loading, 4=LORES, 8=HiRes,
-     16=HIColour, +128 = don't load palette. */
-  unsigned char BorderColour;
-  //0-7 ld a,BorderColour:out(254),a
-  unsigned short SP;
-  //Stack Pointer
-  unsigned short PC;
-  //Code Entry Point : $0000 = Don't run just load.
-  unsigned short NumExtraFiles;
-  //NumExtraFiles
-  unsigned char Banks[64 + 48];
-  /* Which 16K Banks load. : Bank 5 = $0000-$3fff, Bank 2 =
-     $4000-$7fff, Bank 0 = $c000-$ffff */
-  unsigned char loadingBar;
-  //Loading bar off=0/on=1
-  unsigned char loadingColour;
-  //Loading bar Layer2 index colour
-  unsigned char loadingBankDelay;
-  //Delay after each bank
-  unsigned char loadedDelay;
-  //Delay (frames) after loading before running
-  unsigned char dontResetRegs;
-  //Don't reset the registers
-  unsigned char CoreRequired[3];
-  /* CoreRequired byte per value, decimal, not
-     string. ordering... Major, Minor, Subminor */
-  unsigned char HiResColours;
-  /* to be anded with three, and shifted left three times, and add the
-     mode number for hires and out (255),a */
-  unsigned char EntryBank;
-  /* V1.2: 0-112, this 16K bank will be paged in at $C000 before
-     jumping to PC. The default is 0, which is the default upper 16K
-     bank anyway. */
-  unsigned char RestOf512Bytes[512-(4+4+1+1+1+1+2+2+2+64+48+1+1+1+1+1+3+1+1)];
+header: 512 bytes
+  0-3	  "Next"
+  4-7	  Version Number: currently either "V1.1" or "V1.2"
+  8	  RAM Required: 0 = 768k, 1 = 1792k
+  9	  Number of 16k Banks to Load: 0-112
+  10	  Loading Screen: bitwise or of loading screens present
+  	  1 = Layer2, 2 = ULA, 4 = Lo-Res,
+	  8 = Hi-Res, 16 = Hi-Colour, 128 = No Palette
+  11	  Border Colour: 0-7
+  12-13	  Stack Pointer
+  14-15   Program Counter: $0000 = Don't run, just load
+  16-17	  Number of Extra Files
+  18-129  Which 16k banks to load
+  130	  Loading Bar: 0 = Off, 1 = On
+  131	  Loading Colour: layer2 palette entry
+  132	  Loading Bank Delay: 
+  133	  Loaded Delay: Frames
+  134	  Don't Reset Registers: 0 = Reset, 1 = Don't Reset
+  135-137 Core Required: Major, Minor, Subminor
+  138	  Hi-Res Colours: 0-3
+  139	  Entry Bank: Bank to be placed at $C000 before jumping to PC (V1.2)
+  140-511 Rest of 512 bytes
+
+loading screen(s):
+  data for each loading screen indicated in header in this order
+  layer2    - optional 512 byte palette + 48k
+  ULA       - 6k + 768
+  Lo-Res    - optional 512 byte palette + 6k + 6k
+  Hi-Res    - 6k + 6k
+  Hi-Colour - 6k + 6k
 
 body:
+  16k for each bank with data in bank number order
