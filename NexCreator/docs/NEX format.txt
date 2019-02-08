@@ -1,3 +1,0 @@
-NEX file begins with a 512 byte header followed by the actual data
-
-header:

@@ -1,4 +1,4 @@
-#include "NexCreator.h"
+#include "nexcreator.h"
 
 int getHex() {
   int i = 0;

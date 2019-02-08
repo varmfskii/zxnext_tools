@@ -1,14 +1,17 @@
-#include "NexCreator.h"
 #include <string.h>
+#include "nexcreator.h"
 
 void addFile(char *fname) {
+  FILE *fin2;
+  int bank, address;
+  int sna = 0;
+  
   if (strlen(fname)<3) return;
   fin2 = fopen(fname, "rb");
   if (fin2 == NULL) {
     printf("Can't open '%s'\n", fname);
     return;
   }
-  int sna = 0;
   if ((fname[strlen(fname) - 3] & 0xdf) == 'S') {
     if ((fname[strlen(fname) - 2] & 0xdf) == 'N') {
       if ((fname[strlen(fname) - 1] & 0xdf) == 'A') {

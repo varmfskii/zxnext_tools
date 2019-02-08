@@ -1,4 +1,4 @@
-#include "NexCreator.h"
+#include "nexcreator.h"
 
 int bankOrder[] = { 5,2,0,1,3,4,6,7 };
 int getBankOrder(int bnk) {

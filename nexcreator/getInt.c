@@ -1,4 +1,4 @@
-#include "NexCreator.h"
+#include "nexcreator.h"
 
 int getInt() {
   int i = 0;

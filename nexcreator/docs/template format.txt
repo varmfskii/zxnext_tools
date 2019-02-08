@@ -1,0 +1,46 @@
+Basic template format is a series of CSV lines. Lines may be commands
+or data for the preceeding command. All commands being with '!'
+
+!COR : minimum core version
+     !COR<major>[,<minor>[,<subminor>]]
+     <major> = major version number
+     <minor> = minor version number
+     <subminor> = subminor version number
+
+!BMP : BMP file for loading screen
+     !BMP[!][8[,]]<filename>[,<border>[,<bar1>[,<bar2>[,<delay1>[,<delay2>]]]]]
+     ! = no palette
+     8 = 8 bit palette
+     <filename> = name of BMP file
+     <border> = border color (0-7)
+     <bar1> = loading bar (0-disable, 1-enable)
+     <bar2> = color of loading bar (0-255)
+     <delay1> = delay after loading each bank
+     <delay2> = delay before execution (frames)
+     !BMP,<color>
+     <color> = Hi Res Color
+
+!SCR : ULA loading screen
+     !SCR<filename>
+     <filename> = raw ULA screen filename (6192 bytes)
+
+!SLR : Lo-Res loading screen
+     !SLR
+
+!SHR : Hi-Res loading screen
+     !SHR
+
+!SHC : Hi-Color loading screen
+     !SHC
+
+!PCSP : Starting program counter and stack pointer
+      !PCSP
+
+!MMU : load 8k MMU bank with data
+     !MMU
+
+!BANK : Set startup bank (V1.2)
+      !BANK
+
+<none> : load 16k bank with data
+       <filename>

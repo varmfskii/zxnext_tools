@@ -1,4 +1,4 @@
-#include "NexCreator.h"
+#include "nexcreator.h"
 
 /* we're ignoring bank at $c000 initially being variable and keeping
    it as 0 as we're creating a large SNA not saving one mid game.

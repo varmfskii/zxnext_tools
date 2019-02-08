@@ -1,5 +1,5 @@
-#include "NexCreator.h"
 #include <string.h>
+#include "nexcreator.h"
 
 int use8BitPalette = 0;
 unsigned char convert8BitTo3Bits(unsigned char v) {

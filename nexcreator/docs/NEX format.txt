@@ -1,13 +1,6 @@
-#ifndef NEXCREATOR_H
-#define NEXCREATOR_H
+NEX file begins with a 512 byte header followed by the actual data
 
-#include <stdio.h>
-
-#define CORE_MAJOR	0
-#define CORE_MINOR	1
-#define CORE_SUBMINOR	2
-
-typedef struct {
+header:
   char Next[4];
   //"Next"
   char VersionNumber[4];
@@ -51,36 +44,5 @@ typedef struct {
      jumping to PC. The default is 0, which is the default upper 16K
      bank anyway. */
   unsigned char RestOf512Bytes[512-(4+4+1+1+1+1+2+2+2+64+48+1+1+1+1+1+3+1+1)];
-} HEADER;
 
-typedef struct {
-  unsigned char filename[64-8];
-  unsigned int offset;
-  unsigned int length;
-} EXTRAFILE;
-
-extern EXTRAFILE extrafiles[];
-extern FILE *fin1, *fin2, *fout;
-extern HEADER header512;
-extern char *ptr;
-extern char filename[], inputLine[];
-extern int HiResColour, fileadded, palcnt, versionDecimal, use8BitPalette;
-extern int line, filecount, bank, lastBank, address;
-extern int bankAdjust[], bankOrder[], nextBank[];
-extern long long filelen;
-extern unsigned char SNA128Header[], SNABank[], SNAHeader[], bigFile[];
-extern unsigned char dontSavePalette, loadingHiCol[];
-extern unsigned char loadingHiRes[], loadingLoRes[], loadingULA[], loading[];
-extern unsigned char temp16k[], tempHeader[], tempPalette[];
-extern unsigned short paletteLoRes[], palette[];
-
-int getHex();
-void skipSpace();
-void getString(char *dst, int maxlen);
-int getInt();
-int getRealBank(int bnk);
-int getBankOrder(int bnk);
-int getNextBank(int bnk);
-void addFile(char *fname);
-unsigned char convert8BitTo3Bits(unsigned char v);
-#endif
+body:

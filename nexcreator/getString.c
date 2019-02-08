@@ -1,5 +1,5 @@
-#include "NexCreator.h"
 #include <string.h>
+#include "nexcreator.h"
 
 void getString(char *dst, int maxlen) {
   int i = 0;
