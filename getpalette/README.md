@@ -11,3 +11,5 @@ Usage: getpalette &lt;options&gt;
 	-o --out   set output file (stdout)
 	-r --raw   set output type to raw (raw)
     -V --ver   get version information
+
+Requires libnetpbm

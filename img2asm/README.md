@@ -21,3 +21,5 @@ options with defaults in parenthesis:
 	-t	--tile		generate tiles = -b4 -z8
 	-V  --ver       get version information
 	-z	--size		element size (16)
+
+Requires libnetpbm
