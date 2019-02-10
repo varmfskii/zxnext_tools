@@ -2,7 +2,7 @@
 #include "nexcreator.h"
 
 void cmdMMU(void) {
-  int bank, bank8k, address, address8k;
+  int bank8k, address8k;
   char filename[NAMELEN];
 
   address=address8k=0;

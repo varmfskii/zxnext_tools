@@ -75,7 +75,7 @@ extern HEADER header512;
 extern char *ptr;
 extern char inputLine[];
 extern int HiResColour, fileadded, versionDecimal, use8BitPalette;
-extern int lastBank;
+extern int lastBank, bank, address;
 // end of checked globals
 extern int bankAdjust[], bankOrder[], nextBank[];
 extern long long filelen;

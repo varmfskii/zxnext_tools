@@ -3,9 +3,9 @@
 
 void cmddef(void) {
   char filename[NAMELEN];
-  int address=0;
-  int bank=0;
-  
+
+  address=0;
+  bank=0;
   ptr = inputLine;
   getString(filename, NAMELEN);
   if (ptr[0] == ',') {

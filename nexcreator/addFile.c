@@ -3,7 +3,6 @@
 
 void addFile(char *fname) {
   FILE *fin2;
-  int bank, address;
   int sna = 0;
   
   if (strlen(fname)<3) return;
