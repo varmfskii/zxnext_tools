@@ -1,7 +1,8 @@
-all : img2asm getpalette
+TARGETS=img2asm getpalette nexcreator ppmtolayer2 ppmtolores
 
-.PHONY: support clean distclean img2asm getpalette nexcreator ppmtolayer2 \
-	install
+all : $(TARGETS)
+
+.PHONY : $(TARGETS) support clean distclean install
 
 support :
 	make -C support
@@ -18,24 +19,17 @@ nexcreator :
 ppmtolayer2 : support
 	make -C ppmtolayer2 ppmtolayer2
 
-clean :
-	make -C img2asm clean
-	make -C getpalette clean
-	make -C support clean
-	make -C nexcreator clean
-	make -C ppmtolayer2 clean
+ppmtolores : support
+	make -C ppmtolores ppmtolores
 
+clean :
+	for file in $(TARGETS); do make -C $$file clean; done 
+	make -C support clean
 distclean : clean
-	make -C img2asm distclean
-	make -C getpalette distclean
+	for file in $(TARGETS); do make -C $$file distclean; done 
 	make -C support distclean
-	make -C nexcreator distclean
-	make -C ppmtolayer2 distclean
 	rm -f bin/*
 
 install : all
 	mkdir -p bin
-	cp -tbin getpalette/getpalette
-	cp -tbin img2asm/img2asm
-	cp -tbin nexcreator/nexcreator
-	cp -tbin ppmtolayer2/ppmtolayer2
+	for file in $(TARGETS); do cp $$file/$$file bin; done 

@@ -3,6 +3,8 @@ Tools for ZX Spectrum Next:
 	- getpalette
 	- img2asm
 	- nexcreator
+    - ppmtolayer2
+    - ppmtolores
 
 A note on programming philosophy and image formats.  These utilities
 are written in the tradition of having programs that do one thing and

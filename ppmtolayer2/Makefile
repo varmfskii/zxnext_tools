@@ -12,7 +12,7 @@ support.a : support
 .PHONY : clean distclean support
 
 clean :
-	rm -f *.o support.h *~
+	rm -f $(OBJS)  *~
 
 distclean : clean
 	rm -f ppmtolayer2
