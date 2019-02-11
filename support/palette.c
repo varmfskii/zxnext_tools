@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <string.h>
-#include "img2asm.h"
+#include "support.h"
 
 /*
  * palette(): generate a palette of a given size

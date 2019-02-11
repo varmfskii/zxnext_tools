@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "img2asm.h"
+#include "support.h"
 
-inline int coldist(unsigned char *a, unsigned char *b);
+int col_dist(unsigned char *a, unsigned char *b);
 int palix(unsigned char *color, unsigned char *pal, int palsz);
 
 /*
@@ -45,10 +45,10 @@ ixed_t rgb2index(rgb_t rdat, pal_t pdat,
 int palix(unsigned char *color, unsigned char *pal, int palsz) {
   int i, ix;
   unsigned int min, dist;
-  min=coldist(color, pal);
+  min=col_dist(color, pal);
   ix=0;
   for(i=1; i<palsz; i++) {
-    dist=coldist(color, pal+3*i);
+    dist=col_dist(color, pal+3*i);
     if (dist<min) {
       min=dist;
       ix=i;
@@ -57,7 +57,7 @@ int palix(unsigned char *color, unsigned char *pal, int palsz) {
   return ix;
 }
 
-inline int coldist(unsigned char *a, unsigned char *b) {
+int col_dist(unsigned char *a, unsigned char *b) {
   int f, d;
 
   f=(int)a[0]-(int)b[0];
