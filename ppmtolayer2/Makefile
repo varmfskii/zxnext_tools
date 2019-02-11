@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-O3 -Wall
+CFLAGS=-O3 -Wall -g
 OBJS=ppmtolayer2.o writelayer2.o support.a
 
 ppmtolayer2 : $(OBJS)

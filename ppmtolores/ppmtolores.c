@@ -5,10 +5,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define BITS 8
-#define RAW 0
-#define ASM 1
-#define LABEL "palette"
 #define VERSION "1.0.0"
 #define DATE "20190210"
 
@@ -81,7 +77,7 @@ int main(int argc, char *argv[]) {
     fclose(pin);
     fwrite(pal.dat, 0x200, 1, outfile);
   }  else
-    pal=palette(0x100);
+    pal=palette(8);
   ixed=rgb2index(rgb, pal, 0, 0, 1, 1);
   free(rgb.dat);
   free(pal.dat);

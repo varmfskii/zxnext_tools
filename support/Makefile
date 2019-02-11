@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-O3 -Wall
+CFLAGS=-O3 -Wall -g
 OBJS=palette.o readppm.o readpal.o rgb2index.o showpal.o 
 all : $(OBJS)
 
