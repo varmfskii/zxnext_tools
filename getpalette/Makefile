@@ -1,13 +1,20 @@
 CC=gcc
 CFLAGS=-O3 -Wall
-OBJS=getpalette.o rgb2pal.o writepal.o support.a
+OBJS=getpalette.o rgb2pal.o writeasm.o support.a
 getpalette : $(OBJS)
 	$(CC) -o $@ $^ -lnetpbm
 
-getpalette.o : getpalette.c getpalette.h ../support/support.h
+getpalette.o : getpalette.c getpalette.h
 rgb2pal.o : rgb2pal.c getpalette.h
-writepal.o : writepal.c getpalette.h
-support.a : support
+writeasm.o : writeasm.c getpalette.h
+
+support.a : ../support/support.a
+	cp ../support/support.a .
+
+../support/support.a : support
+
+getpalette.h : ../support/support.h
+	touch $@
 
 .PHONY : clean distclean support
 
@@ -19,4 +26,3 @@ distclean : clean
 
 support :
 	make -C ../support
-	cp ../support/support.a .

@@ -1,5 +1,5 @@
-#ifndef IMG2ASM_H
-#define IMG2ASM_H
+#ifndef IMAGETOASM_H
+#define IMAGETOASM_H
 #include <stdio.h>
 #include "../support/support.h"
 

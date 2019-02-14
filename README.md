@@ -3,9 +3,35 @@ Tools for ZX Spectrum Next:
 	- getpalette
 	- img2asm
 	- nexcreator
+    - paltoasm
     - ppmtolayer2
     - ppmtolores
 
+In general command format will be:
+
+&lt;command&gl; [&lt;options&gt;]  [&lt;infile&gt;]  [&lt;outfile&gt;]
+
+common options:
+
+	-h --help    show thie help message
+	-i --in      set input file (stdin)
+	-o --out     set output file (stdout)
+    -V --ver     get version information
+	-v --verbose increase verbosity
+	
+The input file will be one of:
+
+	1) file specified by --in
+	2) first unused command line option
+	3) standard input
+	
+The output file will be one of:
+
+	1) file specified by --out
+	2) first unused command line option if none have been used by input file
+	3) second unused command line option
+	4) standard output
+	
 A note on programming philosophy and image formats.  These utilities
 are written in the tradition of having programs that do one thing and
 (try to) do it well. For this reason the idea is to have a lot of

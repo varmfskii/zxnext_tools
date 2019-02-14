@@ -2,53 +2,39 @@
 #include <stdlib.h>
 #include "support.h"
 
-int col_dist(unsigned char *a, unsigned char *b);
-int palix(unsigned char *color, unsigned char *pal, int palsz);
+int col_dist(uint8_t *a, uint8_t *b);
+int palix(uint8_t *color, pal_t pal);
 
 /*
  * rgb2index(): convert an rgb image into an indexed image using a
  * given palette
  */
 
-ixed_t rgb2index(rgb_t rdat, pal_t pdat,
-		int xoff, int yoff, int xstep, int ystep) {
-  int ixx, ixy, ixsz, xsz, ysz, psz;
-  int ixr, ixc, rgbr, rgbc;
-  unsigned char *ix, *rgb, *pal;
-  ixed_t rv;
-
-  xsz=rdat.x;
-  ysz=rdat.y;
-  rgb=rdat.dat;
-  pal=pdat.dat;
-  psz=pdat.l;
-  ixx=(xsz-xoff+xstep-1)/xstep;
-  ixy=(ysz-yoff+ystep-1)/ystep;
-  ixsz=ixx*ixy;
-  ix=(unsigned char *)malloc(ixx*ixy);
-  rgbr=3*xsz*yoff;
-  for(ixr=0; ixr<ixsz; ixr+=ixx) {
-    rgbc=3*xoff;
-    for(ixc=0; ixc<ixx; ixc++) {
-      ix[ixr+ixc]=palix(rgb+rgbr+rgbc, pal, psz);
-      rgbc+=3;
+ixed_t rgb2index(rgb_t rgb, pal_t pal) {
+  ixed_t ixed;
+  int r, c;
+  
+  ixed.x=rgb.x;
+  ixed.y=rgb.y;
+  ixed.pal=pal;
+  ixed.dat=(uint8_t **)malloc(ixed.y*sizeof(uint8_t *));
+  ixed.dat[0]=(uint8_t *)malloc(ixed.x*ixed.y);
+  for (r=0; r<ixed.y; r++) {
+    ixed.dat[r]=ixed.dat[0]+ixed.x*r;
+    for (c=0; c<ixed.x; c++) {
+      ixed.dat[r][c]=palix(rgb.dat[r][c].p, pal);
     }
-    rgbr+=3*xsz;
   }
-  rv.dat=ix;
-  rv.x=ixx;
-  rv.y=ixy;
-  rv.pal=pdat;
-  return rv;
+  return ixed;
 }
 
-int palix(unsigned char *color, unsigned char *pal, int palsz) {
+int palix(uint8_t *color, pal_t pal) {
   int i, ix;
   unsigned int min, dist;
-  min=col_dist(color, pal);
+  min=col_dist(color, pal.dat[0].p);
   ix=0;
-  for(i=1; i<palsz; i++) {
-    dist=col_dist(color, pal+3*i);
+  for(i=1; i<pal.l; i++) {
+    dist=col_dist(color, pal.dat[i].p);
     if (dist<min) {
       min=dist;
       ix=i;
@@ -57,7 +43,7 @@ int palix(unsigned char *color, unsigned char *pal, int palsz) {
   return ix;
 }
 
-int col_dist(unsigned char *a, unsigned char *b) {
+int col_dist(uint8_t *a, uint8_t *b) {
   int f, d;
 
   f=(int)a[0]-(int)b[0];

@@ -1,22 +1,15 @@
 #include <stdio.h>
-#include "img2asm.h"
+#include "imagetoasm.h"
 
 /*
  * writeasm(): write an assembly file (tiled) from an indexed image
  */
 
 int writeasm(FILE *out, ixed_t idat, int txsz, int tysz, char *label) {
-  int tr, tc, r, c;
-  int b, v, mask, cnt;
-  int ix, rbase, col;
-  int xsz, ysz, bits;
-  unsigned char *dat;
-  int trcnt, tccnt, rcnt, ccnt;
+  int tr, tc, r, c, tx, ty;
+  int b, v, mask, cnt, col;
+  int rbase, cbase, bits;
 
-  trcnt=tccnt=rcnt=ccnt=0;
-  xsz=idat.x;
-  ysz=idat.y;
-  dat=idat.dat;
   switch(idat.pal.l) {
     case 2:
       bits=1;
@@ -33,7 +26,7 @@ int writeasm(FILE *out, ixed_t idat, int txsz, int tysz, char *label) {
     default:
       return 1;
   }
-  if (xsz%txsz || ysz%tysz) {
+  if (idat.x%txsz || idat.y%tysz) {
     fprintf(stderr, "Not perfectly tilable\n");
     return -1;
   }
@@ -41,28 +34,25 @@ int writeasm(FILE *out, ixed_t idat, int txsz, int tysz, char *label) {
     fprintf(stderr, "Illegal bit depth %d\n", bits);
     return -2;
   }
-  fprintf(out, "%s:\n", label);
+  tx=idat.x/txsz;
+  ty=idat.y/tysz;
   mask=(1<<bits)-1;
+  fprintf(out, "%s:\n", label);
   cnt=col=0;
-  for(tr=0; tr<ysz; tr+=tysz) {
-    trcnt++;
-    for(tc=0; tc<xsz; tc+=txsz) {
-      tccnt++;
+  for(tr=0; tr<ty; tr++) {
+    rbase=tr*tysz;
+    for(tc=0; tc<tx; tc++) {
+      cbase=tc*txsz;
       if (col) {
 	putc('\n', out);
 	col=0;
       }
       fprintf(out, ";; %s %02x\n", label, cnt++);
       for(r=0; r<tysz; r++) {
-	rcnt++;
-	rbase=(tr+r)*xsz;
 	for(c=0; c<txsz; c+=(8/bits)) {
-	  ccnt++;
 	  v=0;
-	  ix=rbase+tc+c;
-	  for(b=0; b<8-bits; b+=bits)
-	    v=(v<<bits)|(dat[ix++]&mask);
-	  v=(v<<bits)|(dat[ix]&mask);
+	  for(b=0; b<8/bits; b++)
+	    v=(v<<bits)|(idat.dat[r+rbase][c+cbase+b]&mask);
 	  if (col==0)
 	    fprintf(out, "\tdefb $%02x", v);
 	  else if (col!=15)

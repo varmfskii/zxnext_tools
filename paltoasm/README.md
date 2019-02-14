@@ -1,12 +1,14 @@
-getpalette version 1.1.0 20190213
+paltoasm version 1.0.0 20190213
 
-getpalette: extract a raw binary palette from a ppm file
+paltoasm: produce assembly code from a raw palette file as producred
+by getpalette
 
-Usage: getpalette [&lt;options&gt;]  [&lt;infile&gt;]  [&lt;outfile&gt;]
+Usage: paltoasm [&lt;options&gt;]  [&lt;infile&gt;]  [&lt;outfile&gt;]
 
 	-b --bits    set bit depth of palette (8)
 	-h --help    show thie help message
 	-i --in      set input file (stdin)
+	-l --label   set label for assembly file (palette)
 	-o --out     set output file (stdout)
     -V --ver     get version information
 	-v --verbose increase verbosity

@@ -1,11 +1,12 @@
-#include "getpalette.h"
+#include "paltoasm.h"
 #include <getopt.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 #define BITS 8
-#define VERSION "1.1.0"
+#define LABEL "palette"
+#define VERSION "1.0.0"
 #define DATE "20190213"
 
 void help(char *);
@@ -15,21 +16,23 @@ int verbose=0;
 
 int main(int argc, char *argv[]) {
   int opt, ix, bits;
-  char *opts="b:hi:o:Vv";
+  char *opts="b:hi:l:o:Vv";
+  char *label;
   struct option options[]={
     { "bits", 1, NULL, 'b' },
     { "help", 0, NULL, 'h' },
     { "in", 1, NULL, 'i' },
+    { "label", 1, NULL, 'l' },
     { "out", 1, NULL, 'o' },
     { "ver", 0, NULL, 'V' },
     { "verbose", 0, NULL, 'v' },
     { NULL, 0, NULL, '\0' }
   };
   FILE *infile, *outfile;
-  rgb_t rgb;
   pal_t pal;
-
   bits=BITS;
+  label=LABEL;
+    
   infile=stdin;
   outfile=stdout;
   while((opt=getopt_long(argc, argv, opts, options, &ix))!=-1) {
@@ -49,6 +52,9 @@ int main(int argc, char *argv[]) {
 	fprintf(stderr, "Unable to open %s\n", optarg);
 	return 1;
       }
+      break;
+    case 'l':
+      label=strdup(optarg);
       break;
     case 'o':
       if(!(outfile=fopen(optarg, "w"))) {
@@ -82,26 +88,27 @@ int main(int argc, char *argv[]) {
     }
     optind++;
   }
-  rgb=readrgb(infile);
-  pal=rgb2pal(rgb, 1<<bits);
-  free_rgb(rgb);
-  writepal(pal, outfile);
+  pal=readpal(1<<bits, infile);
+  fclose(infile);
+  writeasm(pal, outfile, label);
+  fclose(outfile);
   free_pal(pal);
   return 0;
 }
 
 void help(char *name) {
   version();
-  fprintf(stderr, "Usage: %s <options>\n", name);
+  fprintf(stderr, "Usage: %s [<options>] [<infile>] [<outfile>]\n", name);
   fprintf(stderr, "\toptions are\n");
   fprintf(stderr, "\t-b\t\t--bits\tbit depth of palette (%d)\n", BITS);
   fprintf(stderr, "\t-h\t\t--help\tprint this help message\n");
   fprintf(stderr, "\t-i\t\t--in\tinput file (stdin)\n");
+  fprintf(stderr, "\t-l\t\t--label\tset label for assembly file (%s)\n", LABEL);
   fprintf(stderr, "\t-o\t\t--out\toutput file (stdout)\n");
   fprintf(stderr, "\t-V\t\t--ver\tget version information\n");
   fprintf(stderr, "\t-v\t--verbose\tincrease verbosity\n");
 }
 
 void version(void) {
-  fprintf(stderr, "getpalette version %s %s\n", VERSION, DATE);
+  fprintf(stderr, "paltoasm version %s %s\n", VERSION, DATE);
 }

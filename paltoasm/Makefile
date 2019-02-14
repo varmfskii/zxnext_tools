@@ -1,18 +1,17 @@
 CC=gcc
 CFLAGS=-O3 -Wall -g
-OBJS=ppmtolores.o writelores.o support.a
-
-ppmtolores : $(OBJS)
+OBJS=paltoasm.o writeasm.o support.a
+paltoasm : $(OBJS)
 	$(CC) -o $@ $^ -lnetpbm
 
-ppmtolores.o : ppmtolores.c ppmtolores.h
-writelores.o : writelores.c ppmtolores.h
+paltoasm.o : paltoasm.c paltoasm.h
+writeasm.o : writeasm.c paltoasm.h
 ../support/support.a : support
 
 support.a : ../support/support.a
 	cp ../support/support.a .
 
-ppmtolores.h : ../support/support.h
+paltoasm.h : ../support/support.h
 	touch $@
 
 .PHONY : clean distclean support
@@ -21,7 +20,7 @@ clean :
 	rm -f $(OBJS)  *~
 
 distclean : clean
-	rm -f ppmtolores
+	rm -f paltoasm
 
 support :
 	make -C ../support

@@ -1,5 +1,4 @@
-#include "img2asm.h"
-#include "../support/support.h"
+#include "imagetoasm.h"
 #include <stdlib.h>
 #include <getopt.h>
 #include <string.h>
@@ -12,21 +11,23 @@
 #define RAW 0
 #define ASM 1
 #define PGM 2
-#define VERSION "1.0.0"
-#define DATE "20190205"
+#define VERSION "1.1.0"
+#define DATE "20190213"
 
 void help(char *);
 void version(void);
 
+int verbose=0;
+
 /*
- * img2asm: a tool for splitting image files into assembly code
+ * imagetoasm: a tool for splitting image files into assembly code
  *
  * Theodore (Alex) Evans - 2019
  */
 
 int main(int argc, char *argv[]) {
   struct option opts[] = {
-    { "arm", 0, NULL, 'a' },
+    { "asm", 0, NULL, 'a' },
     { "bits", 1, NULL, 'b' },
     { "pgm", 0, NULL, 'g' },
     { "help", 0, NULL, 'h' },
@@ -40,10 +41,11 @@ int main(int argc, char *argv[]) {
     { "skip", 1, NULL, 'S' },
     { "tile", 0, NULL, 't' },
     { "ver", 0, NULL, 'V' },
+    { "verbose", 0, NULL, 'v' },
     { "size", 1, NULL, 'z' },
     { NULL, 0, NULL, 0 }
   };
-  char optstring[]="ab:ghi:l:o:O:p:rsS:tVz:";
+  char optstring[]="ab:ghi:l:o:O:p:rsS:tvVz:";
   int opt, ix;
   FILE *infile, *outfile, *palfile;
   int offset=OFFSET;
@@ -52,7 +54,7 @@ int main(int argc, char *argv[]) {
   int bits=BITS;
   int type=ASM;
   pal_t pal;
-  rgb_t rgb;
+  rgb_t rgb, dec;
   ixed_t ixed;
   char *label=LABEL;
 
@@ -111,6 +113,9 @@ int main(int argc, char *argv[]) {
     case 'V':
       version();
       exit(0);
+    case 'v':
+      verbose++;
+      break;
     case 'z':
       size=atoi(optarg);
       break;
@@ -120,6 +125,22 @@ int main(int argc, char *argv[]) {
       exit(1);
     }
   }
+  for(int i=0; i<argc; i++) fprintf(stderr, "%s ", argv[i]);
+  putc('\n', stderr);
+  if (optind<argc && infile==stdin) {
+    if (!(infile=fopen(argv[optind], "r"))) {
+      fprintf(stderr, "Unable to open %s\n", argv[optind]);
+      return 1;
+    }
+    optind++;
+  }
+  if (optind<argc && outfile==stdout) {
+    if (!(outfile=fopen(argv[optind], "w"))) {
+      fprintf(stderr, "Unable to open %s\n", argv[optind]);
+      return 1;
+    }
+    optind++;
+  }
   if (palfile) {
     pal=readpal(1<<bits, palfile);
     fclose(palfile);
@@ -127,12 +148,14 @@ int main(int argc, char *argv[]) {
     pal=palette(bits);
   }
   if (!pal.l) return 1;
-  rgb=readppm(infile);
+  rgb=readrgb(infile);
   if (!rgb.dat) return 1;
   fclose(infile);
-  ixed=rgb2index(rgb, pal, offset, offset, skip, skip);
-  free(rgb.dat);
-  free(pal.dat);
+  dec=decimate(rgb, offset, offset, skip, skip);
+  free_rgb(rgb);
+  ixed=rgb2index(dec, pal);
+  free_rgb(dec);
+  free_pal(pal);
   switch (type) {
   case RAW:
     writeraw(outfile, ixed, size, size);
@@ -146,14 +169,13 @@ int main(int argc, char *argv[]) {
   default:
     fprintf(stderr, "Error\n");
   }
-  free(ixed.dat);
-  free(ixed.pal.dat);
+  free_ixed(ixed);
   fclose(outfile);
 }
 
 void help(char *name) {
   version();
-  fprintf(stderr, "Usage: %s <options>\n", name);
+  fprintf(stderr, "Usage: %s [<options>] [<infile>] [<outfile>]\n", name);
   fprintf(stderr, "\toptions with defaults in parenthesis:\n");
   fprintf(stderr, "\t-a\t--asm\t\toutput assembly code (asm)\n");
   fprintf(stderr, "\t-b\t--bits\t\tnumber of bits per pixel (%d)\n", BITS);
@@ -168,9 +190,10 @@ void help(char *name) {
   fprintf(stderr, "\t-S\t--skip\t\tuse ever nth pixel (%d)\n", SKIP);
   fprintf(stderr, "\t-t\t--tile\t\tgenerate tiles = -b4 -z8\n");
   fprintf(stderr, "\t-V\t--ver\t\tshow version information\n");
+  fprintf(stderr, "\t-v\t--verbose\tincrease verbosity\n");
   fprintf(stderr, "\t-z\t--size\t\telement size (%d)\n", SIZE);
 }
 
 void version(void) {
-  fprintf(stderr, "img2asm version %s %s\n", VERSION, DATE);
+  fprintf(stderr, "imagetoasm version %s %s\n", VERSION, DATE);
 }

@@ -1,5 +1,5 @@
-#ifndef PPMTOLORES_H
-#define PPMTOLORES_H
+#ifndef PPMTOLAYER2_H
+#define PPMTOLAYER2_H
 #include <stdio.h>
 #include "../support/support.h"
 
