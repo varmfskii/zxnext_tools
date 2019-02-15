@@ -1,3 +1,5 @@
+ZX Spectrum Next tools: See LICENSE.md for license
+
 Tools for ZX Spectrum Next:
 
 	- getpalette
