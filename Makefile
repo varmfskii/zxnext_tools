@@ -1,4 +1,5 @@
-TARGETS=getpalette imagetoasm nexcreator paltoasm ppmtolayer2 ppmtolores
+TARGETS=getpalette imagetoasm layer2toppm lorestoppm nexcreator paltoasm \
+	ppmtolayer2 ppmtolores
 
 all : $(TARGETS)
 
@@ -15,6 +16,12 @@ getpalette : support
 
 nexcreator :
 	make -C nexcreator nexcreator
+
+layer2toppm :
+	make -C layer2toppm layer2toppm
+
+lorestoppm :
+	make -C lorestoppm lorestoppm
 
 paltoasm :
 	make -C paltoasm paltoasm
