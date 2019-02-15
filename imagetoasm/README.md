@@ -1,9 +1,10 @@
-img2asm version 1.0.0 20190205
-img2asm: A tool for generating assembly source code for ppm images. It
+imagetoasm version 1.01.01 20190215
+
+imagettoasm: A tool for generating assembly source code for ppm images. It
 takes a full image and splits it up into individual sprite or tile
 sized sections.
 
-Usage: img2asm &lt;options&gt;
+Usage: imagetoasm [&lt;options&gt;]  [&lt;infile&gt;]  [&lt;outfile&gt;]
 
 options with defaults in parenthesis:
 
@@ -19,7 +20,21 @@ options with defaults in parenthesis:
 	-s	--sprite	generate sprites = -b8 -z16
 	-S	--skip		use ever nth pixel (1)
 	-t	--tile		generate tiles = -b4 -z8
-	-V  --ver       get version information
+	-V  --version   get version information
+	-v --verbose increase verbosity
 	-z	--size		element size (16)
 
+The input file will be one of:
+
+	1) file specified by --in
+	2) first unused command line option
+	3) standard input
+	
+The output file will be one of:
+
+	1) file specified by --out
+	2) first unused command line option if none have been used by input file
+	3) second unused command line option
+	4) standard output
+	
 Requires libnetpbm

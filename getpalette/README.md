@@ -1,4 +1,4 @@
-getpalette version 1.1.0 20190213
+getpalette version 1.01.01 20190215
 
 getpalette: extract a raw binary palette from a ppm file
 
@@ -8,7 +8,7 @@ Usage: getpalette [&lt;options&gt;]  [&lt;infile&gt;]  [&lt;outfile&gt;]
 	-h --help    show thie help message
 	-i --in      set input file (stdin)
 	-o --out     set output file (stdout)
-    -V --ver     get version information
+    -V --version get version information
 	-v --verbose increase verbosity
 	
 The input file will be one of:

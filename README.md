@@ -1,14 +1,15 @@
 Tools for ZX Spectrum Next:
 
 	- getpalette
-	- img2asm
+	- imagetoasm
     - layer2toppm
 	- lorestoppm
 	- nexcreator
     - paltoasm
     - ppmtolayer2
 	- ppmtolores
-
+    - zxntools library
+	
 In general command format will be:
 
 &lt;command&gl; [&lt;options&gt;]  [&lt;infile&gt;]  [&lt;outfile&gt;]
@@ -18,7 +19,7 @@ common options:
 	-h --help    show thie help message
 	-i --in      set input file (stdin)
 	-o --out     set output file (stdout)
-    -V --ver     get version information
+    -V --version get version information
 	-v --verbose increase verbosity
 	
 The input file will be one of:
@@ -45,3 +46,5 @@ formats directly. The choices I have made are pbm, pgm, and ppm (tying
 directly to the ideas of netpbm+ which uses these formats as
 intermediate formats). As a result most require the presence of
 libnetpbm to compile/run.
+
+Suggestions, complaints, and error reports to varmfskii at gmail dot com

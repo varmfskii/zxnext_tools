@@ -1,4 +1,4 @@
-paltoasm version 1.0.0 20190213
+paltoasm version 1.00.01 20190215
 
 paltoasm: produce assembly code from a raw palette file as producred
 by getpalette
@@ -10,7 +10,7 @@ Usage: paltoasm [&lt;options&gt;]  [&lt;infile&gt;]  [&lt;outfile&gt;]
 	-i --in      set input file (stdin)
 	-l --label   set label for assembly file (palette)
 	-o --out     set output file (stdout)
-    -V --ver     get version information
+    -V --version get version information
 	-v --verbose increase verbosity
 	
 The input file will be one of:
