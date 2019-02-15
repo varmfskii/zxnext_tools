@@ -1,5 +1,5 @@
-#ifndef SUPPORT_H
-#define SUPPORT_H
+#ifndef ZXNTOOLS_H
+#define ZXNTOOLS_H
 #include <stdio.h>
 #include <stdint.h>
 
@@ -24,6 +24,8 @@ typedef struct ixed_t {
   int x, y;
 } ixed_t;
 
+#define ZXNV 0x010000
+#define ZXND "20190215"
 #define R 0
 #define G 1
 #define B 2
@@ -45,6 +47,7 @@ void showpal(pal_t, FILE *out);
 void writeixed(ixed_t v, int gray, FILE *out);
 void writepal(pal_t pal, FILE *out);
 void writergb(rgb_t v, FILE *out);
+int zxntoolsver(int print);
 
 extern int verbose;
 #endif

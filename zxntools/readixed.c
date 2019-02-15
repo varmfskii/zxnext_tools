@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "support.h"
+#include "zxntools.h"
 
 ixed_t readixed(FILE *in, pal_t pal) {
   ixed_t out;

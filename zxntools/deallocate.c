@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include "support.h"
+#include "zxntools.h"
 
 void free_ixed(ixed_t i) {
   free(i.dat[0]);

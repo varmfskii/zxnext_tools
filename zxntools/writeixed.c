@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "support.h"
+#include "zxntools.h"
 
 void writeixed(ixed_t v, int gray, FILE *out) {
   int i, max;

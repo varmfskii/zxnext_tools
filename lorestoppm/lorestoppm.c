@@ -2,8 +2,8 @@
 #include <getopt.h>
 #include "lorestoppm.h"
 
-#define VERSION "1.0.0"
-#define DATE "20190214"
+#define VERSION "1.00.01"
+#define DATE "20190215"
 
 void help(char *);
 void version(void);
@@ -86,4 +86,5 @@ void help(char *name) {
 
 void version(void) {
   fprintf(stderr, "lorestoppm version %s %s\n", VERSION, DATE);
+  zxntoolsver(1);
 }

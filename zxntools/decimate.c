@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include "support.h"
+#include "zxntools.h"
 
 rgb_t decimate(rgb_t in, int xoff, int yoff, int xstep, int ystep) {
   rgb_t out;

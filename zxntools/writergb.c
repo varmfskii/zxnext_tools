@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "support.h"
+#include "zxntools.h"
 
 void writergb(rgb_t rgb, FILE *out) {
   int r, c, d;

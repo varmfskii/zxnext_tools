@@ -1,21 +1,21 @@
 CC=gcc
 CFLAGS=-O3 -Wall -g
-OBJS=ppmtolores.o writelores.o support.a
+OBJS=ppmtolores.o writelores.o zxntools.a
 
 ppmtolores : $(OBJS)
 	$(CC) -o $@ $^ -lnetpbm
 
 ppmtolores.o : ppmtolores.c ppmtolores.h
 writelores.o : writelores.c ppmtolores.h
-../support/support.a : support
+../zxntools/zxntools.a : zxntools
 
-support.a : ../support/support.a
-	cp ../support/support.a .
+zxntools.a : ../zxntools/zxntools.a
+	cp ../zxntools/zxntools.a .
 
-ppmtolores.h : ../support/support.h
+ppmtolores.h : ../zxntools/zxntools.h
 	touch $@
 
-.PHONY : clean distclean support
+.PHONY : clean distclean zxntools
 
 clean :
 	rm -f $(OBJS)  *~
@@ -23,5 +23,5 @@ clean :
 distclean : clean
 	rm -f ppmtolores
 
-support :
-	make -C ../support
+zxntools :
+	make -C ../zxntools

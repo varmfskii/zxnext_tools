@@ -4,8 +4,8 @@
 #include <string.h>
 #include "ppmtolayer2.h"
 
-#define VERSION "1.1.0"
-#define DATE "20190213"
+#define VERSION "1.01.01"
+#define DATE "20190215"
 
 void help(char *);
 void version(void);
@@ -110,4 +110,5 @@ void help(char *name) {
 
 void version(void) {
   fprintf(stderr, "ppmtolayer2 version %s %s\n", VERSION, DATE);
+  zxntoolsver(1);
 }

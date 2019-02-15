@@ -1,20 +1,20 @@
 CC=gcc
 CFLAGS=-O3 -Wall -g
-OBJS=paltoasm.o writeasm.o support.a
+OBJS=paltoasm.o writeasm.o zxntools.a
 paltoasm : $(OBJS)
 	$(CC) -o $@ $^ -lnetpbm
 
 paltoasm.o : paltoasm.c paltoasm.h
 writeasm.o : writeasm.c paltoasm.h
-../support/support.a : support
+../zxntools/zxntools.a : zxntools
 
-support.a : ../support/support.a
-	cp ../support/support.a .
+zxntools.a : ../zxntools/zxntools.a
+	cp ../zxntools/zxntools.a .
 
-paltoasm.h : ../support/support.h
+paltoasm.h : ../zxntools/zxntools.h
 	touch $@
 
-.PHONY : clean distclean support
+.PHONY : clean distclean zxntools
 
 clean :
 	rm -f $(OBJS)  *~
@@ -22,5 +22,5 @@ clean :
 distclean : clean
 	rm -f paltoasm
 
-support :
-	make -C ../support
+zxntools :
+	make -C ../zxntools

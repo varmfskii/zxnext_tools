@@ -1,4 +1,4 @@
-#include "support.h"
+#include "zxntools.h"
 #include <stdlib.h>
 #include <pam.h>
 

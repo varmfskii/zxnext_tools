@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "support.h"
+#include "zxntools.h"
 
 void writepal(pal_t pal, FILE *out) {
   if (verbose)

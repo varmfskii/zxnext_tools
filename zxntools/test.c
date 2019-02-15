@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "support.h"
+#include "zxntools.h"
 
 #define TESTIN "testin.ppm"
 #define RGB "rgb.ppm"

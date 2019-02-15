@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <string.h>
-#include "support.h"
+#include "zxntools.h"
 
 /*
  * palette(): generate a palette of a given size

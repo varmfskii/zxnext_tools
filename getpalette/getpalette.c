@@ -5,8 +5,8 @@
 #include <string.h>
 
 #define BITS 8
-#define VERSION "1.1.0"
-#define DATE "20190213"
+#define VERSION "1.01.01"
+#define DATE "20190215"
 
 void help(char *);
 void version(void);
@@ -37,7 +37,7 @@ int main(int argc, char *argv[]) {
     case 'b':
       bits=atoi(optarg);
       if (bits!=1 && bits!=2 && bits!=4 && bits!=8) {
-	fprintf(stderr, "Unsupported bit depth %d\n", bits);
+	fprintf(stderr, "Unzxntoolsed bit depth %d\n", bits);
 	return 1;
       }
       break;
@@ -104,4 +104,5 @@ void help(char *name) {
 
 void version(void) {
   fprintf(stderr, "getpalette version %s %s\n", VERSION, DATE);
+  zxntoolsver(1);
 }

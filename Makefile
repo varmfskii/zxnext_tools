@@ -3,15 +3,15 @@ TARGETS=getpalette imagetoasm layer2toppm lorestoppm nexcreator paltoasm \
 
 all : $(TARGETS)
 
-.PHONY : $(TARGETS) support clean distclean install
+.PHONY : $(TARGETS) zxntools clean distclean install
 
-support :
-	make -C support
+zxntools :
+	make -C zxntools
 
-imagetoasm : support
+imagetoasm : zxntools
 	make -C imagetoasm imagetoasm
 
-getpalette : support
+getpalette : zxntools
 	make -C getpalette getpalette
 
 nexcreator :
@@ -26,18 +26,18 @@ lorestoppm :
 paltoasm :
 	make -C paltoasm paltoasm
 
-ppmtolayer2 : support
+ppmtolayer2 : zxntools
 	make -C ppmtolayer2 ppmtolayer2
 
-ppmtolores : support
+ppmtolores : zxntools
 	make -C ppmtolores ppmtolores
 
 clean :
 	for file in $(TARGETS); do make -C $$file clean; done 
-	make -C support clean
+	make -C zxntools clean
 distclean : clean
 	for file in $(TARGETS); do make -C $$file distclean; done 
-	make -C support distclean
+	make -C zxntools distclean
 	rm -f bin/*
 
 install : all

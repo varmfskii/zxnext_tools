@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "support.h"
+#include "zxntools.h"
 
 int col_dist(uint8_t *a, uint8_t *b);
 int palix(uint8_t *color, pal_t pal);
