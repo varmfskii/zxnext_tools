@@ -1,6 +1,6 @@
 CC=gcc
 CFLAGS=-O3 -Wall -g
-OBJS=imagetoasm.o writeasm.o writepgm.o writeraw.o zxntools.a
+OBJS=imagetoasm.o writeasm.o writepgm.o writeraw.o libzxntools.a
 imagetoasm : $(OBJS)
 	$(CC) -o $@ $^ -lnetpbm
 
@@ -8,18 +8,18 @@ imagetoasm.o : imagetoasm.c imagetoasm.h
 writeasm.o : writeasm.c imagetoasm.h
 writepgm.o : writepgm.c imagetoasm.h
 writeraw.o : writeraw.c imagetoasm.h
-../zxntools/zxntools.a : zxntools
+../libzxntools/libzxntools.a : libzxntools
 
-imagetoasm.h : ../zxntools/zxntools.h
+imagetoasm.h : ../libzxntools/zxntools.h
 	touch $@
 
-zxntools.a : ../zxntools/zxntools.a
-	cp ../zxntools/zxntools.a .
+libzxntools.a : ../libzxntools/libzxntools.a
+	cp ../libzxntools/libzxntools.a .
 
-zxntools :
-	make -C ../zxntools
+libzxntools :
+	make -C ../libzxntools
 
-.PHONY : clean distclean zxntools
+.PHONY : clean distclean libzxntools
 
 clean :
 	rm -f $(OBJS) *~

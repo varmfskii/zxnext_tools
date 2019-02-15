@@ -1,13 +1,18 @@
 CC=gcc
-CFLAGS=-Wall -g -O3
+CFLAGS=-Wall -g -fpic -O3
 OBJS=deallocate.o decimate.o nextpal.o palette.o readixed.o readpal.o \
 	readrgb.o rgb2index.o showpal.o writeixed.o writepal.o writergb.o \
 	zxntoolsver.o
 
-zxntools.a : $(OBJS)
+all : libzxntools.a libzxntools.so
+
+libzxntools.a : $(OBJS)
 	ar cr $@ $^
 
-test : test.o zxntools.a
+libzxntools.so : $(OBJS)
+	$(CC) -shared -o $@ $^
+
+test : test.o libzxntools.a
 	$(CC) -o $@ $^ -lnetpbm
 
 deallocate.o : deallocate.c zxntools.h
@@ -31,5 +36,5 @@ clean :
 	rm -f $(OBJS) test.o dec.ppm ixed.pgm ixed.ppm pal.raw rgb.ppm *~
 
 distclean : clean
-	rm -f test zxntools.a
+	rm -f test libzxntools.a libzxntools.so
 

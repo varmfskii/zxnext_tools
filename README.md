@@ -8,7 +8,7 @@ Tools for ZX Spectrum Next:
     - paltoasm
     - ppmtolayer2
 	- ppmtolores
-    - zxntools library
+    - libzxntools library
 	
 In general command format will be:
 

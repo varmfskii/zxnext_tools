@@ -1,21 +1,21 @@
 CC=gcc
 CFLAGS=-O3 -Wall -g
-OBJS=lorestoppm.o readlores.o zxntools.a
+OBJS=lorestoppm.o readlores.o libzxntools.a
 
 lorestoppm : $(OBJS)
 	$(CC) -o $@ $^ -lnetpbm
 
 lorestoppm.o : lorestoppm.c lorestoppm.h
 readlores.o : readlores.c lorestoppm.h
-../zxntools/zxntools.a : zxntools
+../libzxntools/libzxntools.a : libzxntools
 
-zxntools.a : ../zxntools/zxntools.a
-	cp ../zxntools/zxntools.a .
+libzxntools.a : ../libzxntools/libzxntools.a
+	cp ../libzxntools/libzxntools.a .
 
-lorestoppm.h : ../zxntools/zxntools.h
+lorestoppm.h : ../libzxntools/zxntools.h
 	touch $@
 
-.PHONY : clean distclean zxntools
+.PHONY : clean distclean libzxntools
 
 clean :
 	rm -f $(OBJS)  *~
@@ -23,5 +23,5 @@ clean :
 distclean : clean
 	rm -f lorestoppm
 
-zxntools :
-	make -C ../zxntools
+libzxntools :
+	make -C ../libzxntools

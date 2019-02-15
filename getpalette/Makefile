@@ -1,6 +1,6 @@
 CC=gcc
 CFLAGS=-O3 -Wall
-OBJS=getpalette.o rgb2pal.o writeasm.o zxntools.a
+OBJS=getpalette.o rgb2pal.o writeasm.o libzxntools.a
 getpalette : $(OBJS)
 	$(CC) -o $@ $^ -lnetpbm
 
@@ -8,15 +8,15 @@ getpalette.o : getpalette.c getpalette.h
 rgb2pal.o : rgb2pal.c getpalette.h
 writeasm.o : writeasm.c getpalette.h
 
-zxntools.a : ../zxntools/zxntools.a
-	cp ../zxntools/zxntools.a .
+libzxntools.a : ../libzxntools/libzxntools.a
+	cp ../libzxntools/libzxntools.a .
 
-../zxntools/zxntools.a : zxntools
+../libzxntools/libzxntools.a : libzxntools
 
-getpalette.h : ../zxntools/zxntools.h
+getpalette.h : ../libzxntools/zxntools.h
 	touch $@
 
-.PHONY : clean distclean zxntools
+.PHONY : clean distclean libzxntools
 
 clean :
 	rm -f $(OBJS)  *~
@@ -24,5 +24,5 @@ clean :
 distclean : clean
 	rm -f getpalette
 
-zxntools :
-	make -C ../zxntools
+libzxntools :
+	make -C ../libzxntools

@@ -47,7 +47,7 @@ void showpal(pal_t, FILE *out);
 void writeixed(ixed_t v, int gray, FILE *out);
 void writepal(pal_t pal, FILE *out);
 void writergb(rgb_t v, FILE *out);
-int zxntoolsver(int print);
+int libzxntoolsver(int print);
 
 extern int verbose;
 #endif

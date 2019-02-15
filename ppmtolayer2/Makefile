@@ -1,21 +1,21 @@
 CC=gcc
 CFLAGS=-O3 -Wall -g
-OBJS=ppmtolayer2.o writelayer2.o zxntools.a
+OBJS=ppmtolayer2.o writelayer2.o libzxntools.a
 
 ppmtolayer2 : $(OBJS)
 	$(CC) -o $@ $^ -lnetpbm
 
 ppmtolayer2.o : ppmtolayer2.c ppmtolayer2.h
 writelayer2.o : writelayer2.c ppmtolayer2.h
-../zxntools/zxntools.a : zxntools
+../libzxntools/libzxntools.a : libzxntools
 
-zxntools.a : ../zxntools/zxntools.a
-	cp ../zxntools/zxntools.a .
+libzxntools.a : ../libzxntools/libzxntools.a
+	cp ../libzxntools/libzxntools.a .
 
-ppmtolayer2.h : ../zxntools/zxntools.h
+ppmtolayer2.h : ../libzxntools/zxntools.h
 	touch $@
 
-.PHONY : clean distclean zxntools
+.PHONY : clean distclean libzxntools
 
 clean :
 	rm -f $(OBJS)  *~
@@ -23,5 +23,5 @@ clean :
 distclean : clean
 	rm -f ppmtolayer2
 
-zxntools :
-	make -C ../zxntools
+libzxntools :
+	make -C ../libzxntools

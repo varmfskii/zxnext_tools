@@ -110,5 +110,5 @@ void help(char *name) {
 
 void version(void) {
   fprintf(stderr, "ppmtolores version %s %s\n", VERSION, DATE);
-  zxntoolsver(1);
+  libzxntoolsver(1);
 }
