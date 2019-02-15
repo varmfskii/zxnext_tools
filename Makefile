@@ -41,5 +41,7 @@ distclean : clean
 	rm -f bin/*
 
 install : all
-	mkdir -p bin
+	mkdir -p bin libs
 	for file in $(TARGETS); do cp $$file/$$file bin; done 
+	cp libzxntools/libzxntools.a libs
+	cp libzxntools/libzxntools.so libs
