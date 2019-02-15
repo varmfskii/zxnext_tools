@@ -24,7 +24,7 @@ int main(int argc, char *argv[]) {
     { "in", 1, NULL, 'i' },
     { "label", 1, NULL, 'l' },
     { "out", 1, NULL, 'o' },
-    { "ver", 0, NULL, 'V' },
+    { "version", 0, NULL, 'V' },
     { "verbose", 0, NULL, 'v' },
     { NULL, 0, NULL, '\0' }
   };
@@ -100,12 +100,12 @@ void help(char *name) {
   version();
   fprintf(stderr, "Usage: %s [<options>] [<infile>] [<outfile>]\n", name);
   fprintf(stderr, "\toptions are\n");
-  fprintf(stderr, "\t-b\t\t--bits\tbit depth of palette (%d)\n", BITS);
-  fprintf(stderr, "\t-h\t\t--help\tprint this help message\n");
-  fprintf(stderr, "\t-i\t\t--in\tinput file (stdin)\n");
-  fprintf(stderr, "\t-l\t\t--label\tset label for assembly file (%s)\n", LABEL);
-  fprintf(stderr, "\t-o\t\t--out\toutput file (stdout)\n");
-  fprintf(stderr, "\t-V\t\t--ver\tget version information\n");
+  fprintf(stderr, "\t-b\t--bits\t\tbit depth of palette (%d)\n", BITS);
+  fprintf(stderr, "\t-h\t--help\t\tprint this help message\n");
+  fprintf(stderr, "\t-i\t--in\t\tinput file (stdin)\n");
+  fprintf(stderr, "\t-l\t--label\t\tset label for assembly file (%s)\n", LABEL);
+  fprintf(stderr, "\t-o\t--out\t\toutput file (stdout)\n");
+  fprintf(stderr, "\t-V\t--version\tget version information\n");
   fprintf(stderr, "\t-v\t--verbose\tincrease verbosity\n");
 }
 

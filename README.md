@@ -2,10 +2,12 @@ Tools for ZX Spectrum Next:
 
 	- getpalette
 	- img2asm
+    - layer2toppm
+	- lorestoppm
 	- nexcreator
     - paltoasm
     - ppmtolayer2
-    - ppmtolores
+	- ppmtolores
 
 In general command format will be:
 

@@ -40,7 +40,7 @@ int main(int argc, char *argv[]) {
     { "sprite", 0, NULL, 's' },
     { "skip", 1, NULL, 'S' },
     { "tile", 0, NULL, 't' },
-    { "ver", 0, NULL, 'V' },
+    { "version", 0, NULL, 'V' },
     { "verbose", 0, NULL, 'v' },
     { "size", 1, NULL, 'z' },
     { NULL, 0, NULL, 0 }
@@ -189,7 +189,7 @@ void help(char *name) {
   fprintf(stderr, "\t-s\t--sprite\tgenerate sprites = -b8 -z16\n");
   fprintf(stderr, "\t-S\t--skip\t\tuse ever nth pixel (%d)\n", SKIP);
   fprintf(stderr, "\t-t\t--tile\t\tgenerate tiles = -b4 -z8\n");
-  fprintf(stderr, "\t-V\t--ver\t\tshow version information\n");
+  fprintf(stderr, "\t-V\t--version\tshow version information\n");
   fprintf(stderr, "\t-v\t--verbose\tincrease verbosity\n");
   fprintf(stderr, "\t-z\t--size\t\telement size (%d)\n", SIZE);
 }
