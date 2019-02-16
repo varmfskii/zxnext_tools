@@ -13,7 +13,7 @@ rgb_t readrgb(FILE *in) {
   int r, c, d, p, argc;
   tuple *tuplerow;
 
-  if (verbose) fprintf(stderr, "readrgb(%08llx)\n", (long long)in);
+  if (verbose) fprintf(stderr, "readrgb(%p)\n", (void *)in);
   argc=1;
   pnm_init(&argc, argv);
   pnm_readpaminit(in, &inpam, sizeof(inpam));
@@ -34,5 +34,6 @@ rgb_t readrgb(FILE *in) {
     }
   }
   pnm_freepamrow(tuplerow);
+  if (verbose) fprintf(stderr, "return rgb_t: %dx%d\n", rgb.x, rgb.y);
   return rgb;
 }

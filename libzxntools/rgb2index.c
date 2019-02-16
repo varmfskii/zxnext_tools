@@ -14,6 +14,8 @@ ixed_t rgb2index(rgb_t rgb, pal_t pal) {
   ixed_t ixed;
   int r, c;
   
+  if (verbose) fprintf(stderr, "rgb2index(rgb_t: %dx%d, pal_t: %d)\n",
+		       rgb.x, rgb.y, pal.l);
   ixed.x=rgb.x;
   ixed.y=rgb.y;
   ixed.pal=pal;
@@ -25,6 +27,7 @@ ixed_t rgb2index(rgb_t rgb, pal_t pal) {
       ixed.dat[r][c]=palix(rgb.dat[r][c].p, pal);
     }
   }
+  if (verbose) fprintf(stderr, "return ixed_t: %dx%d\n", ixed.x, ixed.y);
   return ixed;
 }
 

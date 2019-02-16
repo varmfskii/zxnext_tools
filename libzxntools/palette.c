@@ -70,5 +70,6 @@ pal_t palette(int n) {
   }
   rv.dat=NULL;
   rv.l=0;
+  if (verbose) fprintf(stderr, "return pal_t: %d\n", rv.l);
   return rv;
 }

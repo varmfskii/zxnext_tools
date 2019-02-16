@@ -1,3 +1,5 @@
+# Philosophy
+
 A note on programming philosophy and image formats.  These utilities
 are written in the tradition of having programs that do one thing and
 (try to) do it well. For this reason the idea is to have a lot of
