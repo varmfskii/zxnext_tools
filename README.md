@@ -50,6 +50,13 @@ should work on any Linux distro that has the appropriate version of
 libnetpbm and can handle the appropriate architecture armhf (armv6) or
 x86-64.
 
+## Building
+
+1. Install libnetpbm for your platorm
+2. check if pam.h is located in a directory in your include path (/usr/linclude/pam.h) , or in the netpbm direcotry in your include path (/usr/include/netpbm/pam.h)
+3. if in your path "make", if in subdirectory "make PREFIX=1"
+
 ## Suggestions etc.
 
 Suggestions, complaints, and error reports to varmfskii at gmail dot com
+

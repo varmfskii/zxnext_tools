@@ -1,5 +1,10 @@
 CC=gcc
-CFLAGS=-O3 -Wall -g
+CFLAGS=-Wall
+ifeq ($(DEBUG),1)
+CFLAGS += -DDEBUG -g
+else
+CFLAGS += -O3
+endif
 OBJS=paltoasm.o writeasm.o libzxntools.a
 paltoasm : $(OBJS)
 	$(CC) -o $@ $^ -lnetpbm

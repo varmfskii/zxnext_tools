@@ -1,5 +1,10 @@
 CC=gcc
-CFLAGS=-O3 -Wall -g
+CFLAGS=-Wall
+ifeq ($(DEBUG),1)
+CFLAGS += -g -DDEBUG
+else
+CFLAGS += -O3
+endif
 OBJS=ppmtolores.o writelores.o libzxntools.a
 
 ppmtolores : $(OBJS)

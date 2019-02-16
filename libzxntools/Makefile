@@ -1,5 +1,13 @@
 CC=gcc
-CFLAGS=-Wall -g -fpic -O3
+CFLAGS = -Wall -fpic
+ifeq ($(PREFIX),1)
+CFLAGS += -DPREFIX
+endif
+ifeq ($(DEBUG),1)
+CFLAGS += -DDEBUG -g
+else
+CFLAGS += -O3
+endif
 OBJS=deallocate.o decimate.o nextpal.o palette.o readixed.o readpal.o \
 	readrgb.o rgb2index.o showpal.o writeixed.o writepal.o writergb.o \
 	zxntoolsver.o

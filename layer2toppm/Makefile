@@ -1,5 +1,10 @@
 CC=gcc
-CFLAGS=-O3 -Wall -g
+CFLAGS=-Wall
+ifeq ($(DEBUG),1)
+CFLAGS += -DDEBUG -g
+else
+CFLAGS = -O3
+endif
 OBJS=layer2toppm.o readlayer2.o libzxntools.a
 
 layer2toppm : $(OBJS)

@@ -1,5 +1,10 @@
 CC=gcc
-CFLAGS=-O3 -Wall
+CFLAGS=-Wall
+ifeq ($(DEBUG),1)
+CFLAGS += -DDEBUG -g
+else
+CFLAGS += -O3
+endif
 OBJS=getpalette.o rgb2pal.o writeasm.o libzxntools.a
 getpalette : $(OBJS)
 	$(CC) -o $@ $^ -lnetpbm
