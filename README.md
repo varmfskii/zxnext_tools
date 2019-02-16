@@ -1,4 +1,10 @@
-ZX Spectrum Next tools: See LICENSE.md for license
+ZX Spectrum Next tools:
+
+See LICENSE.md for license
+
+See PHILOSOPHY.md for philosophy statement
+
+See TODO.md for things to do
 
 Tools for ZX Spectrum Next:
 
@@ -36,17 +42,10 @@ The output file will be one of:
 	2) first unused command line option if none have been used by input file
 	3) second unused command line option
 	4) standard output
-	
-A note on programming philosophy and image formats.  These utilities
-are written in the tradition of having programs that do one thing and
-(try to) do it well. For this reason the idea is to have a lot of
-small programs rather than a few big ones that can do everything. As
-to image formats, there are a lot of image formats they have their
-strengths and weaknesses. Since I have access to things like
-ImageMagick and netpbm+, I see little reason to support a lot of image
-formats directly. The choices I have made are pbm, pgm, and ppm (tying
-directly to the ideas of netpbm+ which uses these formats as
-intermediate formats). As a result most require the presence of
-libnetpbm to compile/run.
+
+Binaries are currently provided for Raspbian and Ubuntu x86-64 which
+should work on any Linux distro that has the appropriate version of
+libnetpbm and can handle the appropriate architecture armhf (armv6) or
+x86-64.
 
 Suggestions, complaints, and error reports to varmfskii at gmail dot com
