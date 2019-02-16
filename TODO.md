@@ -11,4 +11,4 @@
   - zxncreator
 - improve documentation
 - build zx spectrum next dot file to load zxn files
-- toold pair for transmission and reception of data between Pi 0 accelerator and ZX Spectrum Next	
+- tool pair for transmission and reception of data between Pi 0 accelerator and ZX Spectrum Next	
