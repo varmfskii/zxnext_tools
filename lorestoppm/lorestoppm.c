@@ -2,8 +2,8 @@
 #include <getopt.h>
 #include "lorestoppm.h"
 
-#define VERSION "1.00.01"
-#define DATE "20190215"
+#define VERSION "1.00.02"
+#define DATE "20190216"
 
 void help(char *);
 void version(void);
