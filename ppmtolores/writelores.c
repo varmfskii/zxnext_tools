@@ -5,6 +5,8 @@ void writelores(ixed_t ixed, FILE *out) {
   int r;
   char zeros[0x80];
   
+  if (verbose) fprintf(stderr, "writelores(ixed_t: %dx%d, %p)\n",
+		       ixed.x, ixed.y, (void *)out);
   for(r=0; r<96 && r<ixed.y; r++)
     if (ixed.x<0x80) {
       fwrite(ixed.dat[r], ixed.x, 1, out);

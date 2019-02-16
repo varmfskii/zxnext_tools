@@ -54,6 +54,7 @@ int main(int argc, char *argv[]) {
 	fprintf(stderr, "Unable to open %s\n", optarg);
 	return 1;
       }
+      break;
     case 'V':
       version();
       exit(0);

@@ -14,7 +14,7 @@ int main(int argc, char *argv[]) {
   FILE *in, *out;
   int opt, ix;
   ixed_t ixed;
-  char *opts="hi:o:V";
+  char *opts="hi:o:Vv";
   struct option options[]={
     { "help", 0, NULL, 'h' },
     { "in", 1, NULL, 'i' },
