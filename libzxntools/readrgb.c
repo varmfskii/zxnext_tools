@@ -1,6 +1,10 @@
 #include "zxntools.h"
 #include <stdlib.h>
+#ifdef PREFIX
+#include <netpbm/pam.h>
+#else
 #include <pam.h>
+#endif
 
 /*
  * readrgb(): read a ppm file returning an rgb image
