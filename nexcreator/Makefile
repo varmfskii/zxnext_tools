@@ -3,7 +3,7 @@ CFLAGS = -Wall
 ifeq ($(DEBUG),1)
 CFLAGS += -DDEBUG -g
 else
-CFLAGE += -O3
+CFLAGS += -O3
 endif
 OBJS=nexcreator.o addFile.o cmdBANK.o cmdBMP.o cmdCOR.o cmdMMU.o cmdPCSP.o \
 	cmdSCR.o cmdSHC.o cmdSHR.o cmdSLR.o cmddef.o getBankOrder.o getHex.o \
