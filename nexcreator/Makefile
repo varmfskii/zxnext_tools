@@ -6,9 +6,9 @@ else
 CFLAGS += -O3
 endif
 OBJS=nexcreator.o addFile.o cmdBANK.o cmdBMP.o cmdCOR.o cmdMMU.o cmdPCSP.o \
-	cmdSCR.o cmdSHC.o cmdSHR.o cmdSL2.o cmdSLR.o cmddef.o getBankOrder.o \
-	getHex.o getInt.o getNextBank.o getRealBank.o getString.o \
-	getcommand.o skipSpace.o use8BitPalette.o
+	cmdRLR.o cmdSCR.o cmdSHC.o cmdSHR.o cmdSL2.o cmdSLR.o cmddef.o \
+	getBankOrder.o getHex.o getInt.o getNextBank.o getRealBank.o \
+	getString.o getcommand.o skipSpace.o use8BitPalette.o
 
 nexcreator : $(OBJS)
 
@@ -19,6 +19,7 @@ cmdCOR.o : cmdCOR.c nexcreator.h
 cmddef.o : cmddef.c nexcreator.h
 cmdMMU.o : cmdMMU.c nexcreator.h
 cmdPCSP.o : cmdPCSP.c nexcreator.h
+cmdRLR.o : cmdRLR.c nexcreator.h
 cmdSCR.o : cmdSCR.c nexcreator.h
 cmdSHC.o : cmdSHC.c nexcreator.h
 cmdSHR.o : cmdSHR.c nexcreator.h

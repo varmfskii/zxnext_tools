@@ -8,18 +8,19 @@
 #define CORE_MINOR	1
 #define CORE_SUBMINOR	2
 #define NAMELEN 1024
-#define COMMANDS { "!BANK", "!BMP", "!COR", "!MMU", "!PCSP", "!SCR", \
-		   "!SHC", "!SHR", "!SL2", "!SLR", NULL }
+#define COMMANDS { "!BANK", "!BMP", "!COR", "!MMU", "!PCSP", "!RLR", \
+		   "!SCR", "!SHC", "!SHR", "!SL2", "!SLR", NULL }
 #define BANK 1
 #define BMP 2
 #define COR 3
 #define MMU 4
 #define PCSP 5
-#define SCR 6
-#define SHC 7
-#define SHR 8
-#define SL2 9
-#define SLR 10
+#define RLR 6
+#define SCR 7
+#define SHC 8
+#define SHR 9
+#define SL2 10
+#define SLR 11
 
 typedef struct {
   char Next[4];
@@ -102,6 +103,7 @@ void cmdBMP(void);
 void cmdCOR(void);
 void cmdMMU(void);
 void cmdPCSP(void);
+void cmdRLR(void);
 void cmdSCR(void);
 void cmdSHC(void);
 void cmdSHR(void);
