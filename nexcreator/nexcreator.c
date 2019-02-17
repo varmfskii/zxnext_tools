@@ -93,8 +93,8 @@ int main(int c, char **s) {
       case PCSP:
 	cmdPCSP();
 	break;
-      case RLR:
-	cmdRLR();
+      case XSLR:
+	cmdXSLR();
 	break;
       case SCR:
 	cmdSCR();
@@ -105,8 +105,8 @@ int main(int c, char **s) {
       case SHR:
 	cmdSHR();
 	break;
-      case SL2:
-	cmdSL2();
+      case XSL2:
+	cmdXSL2();
 	break;
       case SLR:
 	cmdSLR();

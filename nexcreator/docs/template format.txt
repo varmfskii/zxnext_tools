@@ -20,16 +20,10 @@ or data for the preceeding command. All commands being with '!'
      !BMP,<color>
      <color> = Hi Res Color
 
-!RLR : raw Lo-Res loading screen
-     !RLR
-
 !SCR : ULA loading screen
      !SCR<filename>
      <filename> = raw ULA screen filename (6192 bytes)
 
-!SL2 : raw layer2 loading screen
-     !SL2
-     
 !SLR : BMP Lo-Res loading screen
      !SLR
 
@@ -50,3 +44,12 @@ or data for the preceeding command. All commands being with '!'
 
 <none> : load 16k bank with data
        <filename>
+
+my extensions
+
+!XSL2 : raw layer2 loading screen
+     !XSL2
+     
+!XSLR : raw Lo-Res loading screen
+     !XSLR
+

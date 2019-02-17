@@ -40,36 +40,32 @@ pal_t palette(int n) {
     255, 255, 255, 255,
   };
 
-  if (verbose) fprintf(stderr, "palette(%d)\n", n);
+  if (verbose>1) fprintf(stderr, "palette(%d)\n", n);
   switch (n) {
     case 1:
-      rv.dat=(rgba_t *)calloc(2, sizeof(rgba_t));
-      memcpy(rv.dat, pal1, 6);
-      rv.l=2;
+      rv=new_pal(2);
+      memcpy(rv.dat, pal1, 2*sizeof(rgba_t));
       return rv;
     case 2:
-      rv.dat=(rgba_t *)calloc(4, sizeof(rgba_t));
-      memcpy(rv.dat, pal2, 12);
-      rv.l=4;
+      rv=new_pal(4);
+      memcpy(rv.dat, pal2, 4*sizeof(rgba_t));
       return rv;
     case 4:
-      rv.dat=(rgba_t *)calloc(16, sizeof(rgba_t));
-      memcpy(rv.dat, pal4, 48);
-      rv.l=16;
+      rv=new_pal(16);
+      memcpy(rv.dat, pal4, 16*sizeof(rgba_t));
       return rv;
     case 8:
-      rv.dat=(rgba_t *)calloc(256, sizeof(rgba_t));
+      rv=new_pal(256);
       for(i=0; i<256; i++) {
 	rv.dat[i].p[R]=v3to8[(i>>5)&7];
 	rv.dat[i].p[G]=v3to8[(i>>2)&7];
 	rv.dat[i].p[B]=v2to8[i&3];
 	rv.dat[i].p[A]=0xff;
       }
-      rv.l=256;
       return rv;
   }
   rv.dat=NULL;
   rv.l=0;
-  if (verbose) fprintf(stderr, "return pal_t: %d\n", rv.l);
+  if (verbose>1) fprintf(stderr, "return pal_t: %d\n", rv.l);
   return rv;
 }

@@ -10,12 +10,15 @@ See TODO.md for things to do
 
 - getpalette
 - imagetoasm
+- hicoltoppm
+- hirestopbm
 - layer2toppm
 - lorestoppm
 - nexcreator
 - paltoasm
 - ppmtolayer2
 - ppmtolores
+- ulatoppm
 - libzxntools library
 	
 ## General Usage

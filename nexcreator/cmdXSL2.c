@@ -3,7 +3,7 @@
 #include <string.h>
 #include "nexcreator.h"
 
-void cmdSL2(void) {
+void cmdXSL2(void) {
   int i, len;
   FILE *fin2;
   char filename[NAMELEN];

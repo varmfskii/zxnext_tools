@@ -17,17 +17,13 @@ rgb_t readrgb(FILE *in) {
   int r, c, d, p, argc;
   tuple *tuplerow;
 
-  if (verbose) fprintf(stderr, "readrgb(%p)\n", (void *)in);
+  if (verbose>1) fprintf(stderr, "readrgb(%p)\n", (void *)in);
   argc=1;
   pnm_init(&argc, argv);
   pnm_readpaminit(in, &inpam, sizeof(inpam));
   tuplerow=pnm_allocpamrow(&inpam);
-  rgb.x=inpam.width;
-  rgb.y=inpam.height;
-  rgb.dat=(rgba_t **)calloc(rgb.y, sizeof(rgba_t *));
-  rgb.dat[0]=(rgba_t *)calloc(rgb.x*rgb.y, sizeof(rgba_t));
+  rgb=new_rgb(inpam.width, inpam.height);
   for(r=0; r<rgb.y; r++) {
-    rgb.dat[r]=rgb.dat[0]+r*rgb.x;
     pnm_readpamrow(&inpam, tuplerow);
     for(c=0; c<rgb.x; c++) {
       for(d=0; d<3; d++) {
@@ -38,6 +34,6 @@ rgb_t readrgb(FILE *in) {
     }
   }
   pnm_freepamrow(tuplerow);
-  if (verbose) fprintf(stderr, "return rgb_t: %dx%d\n", rgb.x, rgb.y);
+  if (verbose>1) fprintf(stderr, "return rgb_t: %dx%d\n", rgb.x, rgb.y);
   return rgb;
 }

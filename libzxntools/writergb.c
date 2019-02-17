@@ -4,7 +4,7 @@
 void writergb(rgb_t rgb, FILE *out) {
   int r, c, d;
 
-  if (verbose) fprintf(stderr, "writergb(rgb_t: %dx%d, %p)\n",
+  if (verbose>1) fprintf(stderr, "writergb(rgb_t: %dx%d, %p)\n",
 		       rgb.x, rgb.y, (void *) out);
   fprintf(out, "P6\n%d %d\n255\n", rgb.x, rgb.y);
   for(r=0; r<rgb.y; r++)

@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "zxntools.h"
 
-int col_dist(uint8_t *a, uint8_t *b);
-int palix(uint8_t *color, pal_t pal);
+int palix(rgba_t color, pal_t pal);
 
 /*
  * rgb2index(): convert an rgb image into an indexed image using a
@@ -14,46 +14,30 @@ ixed_t rgb2index(rgb_t rgb, pal_t pal) {
   ixed_t ixed;
   int r, c;
   
-  if (verbose) fprintf(stderr, "rgb2index(rgb_t: %dx%d, pal_t: %d)\n",
+  if (verbose>1) fprintf(stderr, "rgb2index(rgb_t: %dx%d, pal_t: %d)\n",
 		       rgb.x, rgb.y, pal.l);
-  ixed.x=rgb.x;
-  ixed.y=rgb.y;
-  ixed.pal=pal;
-  ixed.dat=(uint8_t **)malloc(ixed.y*sizeof(uint8_t *));
-  ixed.dat[0]=(uint8_t *)malloc(ixed.x*ixed.y);
+  ixed=new_ixed(rgb.x, rgb.y, pal.l);
+  memcpy(ixed.pal.dat, pal.dat, pal.l*sizeof(rgba_t));
   for (r=0; r<ixed.y; r++) {
-    ixed.dat[r]=ixed.dat[0]+ixed.x*r;
     for (c=0; c<ixed.x; c++) {
-      ixed.dat[r][c]=palix(rgb.dat[r][c].p, pal);
+      ixed.dat[r][c]=palix(rgb.dat[r][c], pal);
     }
   }
-  if (verbose) fprintf(stderr, "return ixed_t: %dx%d\n", ixed.x, ixed.y);
+  if (verbose>1) fprintf(stderr, "return ixed_t: %dx%d\n", ixed.x, ixed.y);
   return ixed;
 }
 
-int palix(uint8_t *color, pal_t pal) {
+int palix(rgba_t color, pal_t pal) {
   int i, ix;
   unsigned int min, dist;
-  min=col_dist(color, pal.dat[0].p);
+  min=col_dist(color, pal.dat[0]);
   ix=0;
   for(i=1; i<pal.l; i++) {
-    dist=col_dist(color, pal.dat[i].p);
+    dist=col_dist(color, pal.dat[i]);
     if (dist<min) {
       min=dist;
       ix=i;
     }
   }
   return ix;
-}
-
-int col_dist(uint8_t *a, uint8_t *b) {
-  int f, d;
-
-  f=(int)a[0]-(int)b[0];
-  d=f*f;
-  f=(int)a[1]-(int)b[1];
-  d+=f*f;
-  f=(int)a[2]-(int)b[2];
-  d+=f*f;
-  return d;
 }

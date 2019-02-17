@@ -39,16 +39,14 @@ int main() {
   yoff=(rgb.y-yskip*192)/2;
   dec=decimate(rgb, xoff, yoff, xskip, yskip);
   fprintf(stderr, "decimate:\n");
-  free(rgb.dat[0]);
-  free(rgb.dat);
+  free_rgb(rgb);
   if (!(out=fopen(DEC, "w"))) {
     fprintf(stderr, "Unable to open %s\n", DEC);
     return 1;
   }
   writergb(dec, out);
   fprintf(stderr, "writergb-dec\n");
-  free(dec.dat[0]);
-  free(dec.dat);
+  free_rgb(dec);
   if (!(in=fopen(TESTIN, "r"))) {
     fprintf(stderr, "Unable to open %s\n", TESTIN);
     return 1;
@@ -70,8 +68,7 @@ int main() {
   writeixed(ixed, 0, out);
   fprintf(stderr, "writeixed-color:\n");
   fclose(out);
-  free(ixed.dat[0]);
-  free(ixed.dat);
+  free_ixed(ixed);
   if (!(out=fopen(PAL, "w"))) {
     fprintf(stderr, "Unable to open %s\n", PAL);
     return 1;
@@ -79,7 +76,7 @@ int main() {
   writepal(pal, out);
   fprintf(stderr, "writepal:\n");
   fclose(out);
-  free(pal.dat);
+  free_pal(pal);
   if (!(in=fopen(PAL, "r"))) {
     fprintf(stderr, "Unable to open %s\n", PAL);
     return 1;
@@ -88,6 +85,6 @@ int main() {
   fprintf(stderr, "readpal:\n");
   showpal(pal, stderr);
   fprintf(stderr, "showpal:\n");
-  free(pal.dat);
+  free_pal(pal);
   return 0;
 }

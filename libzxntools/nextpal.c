@@ -4,7 +4,7 @@
 void nextpal(pal_t pal, FILE *out) {
   int i, c, v;
 
-  if (verbose)
+  if (verbose>1)
     fprintf(stderr, "nextpal(pal_t: %d, %p)\n", pal.l, (void *)out);
   for(i=0; i<256 && i<pal.l; i++) {
     for(v=c=0; c<3; c++)

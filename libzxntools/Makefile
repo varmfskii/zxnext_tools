@@ -8,9 +8,9 @@ CFLAGS += -DDEBUG -g
 else
 CFLAGS += -O3
 endif
-OBJS=deallocate.o decimate.o nextpal.o palette.o readixed.o readpal.o \
-	readrgb.o rgb2index.o showpal.o writeixed.o writepal.o writergb.o \
-	zxntoolsver.o
+OBJS=allocate.o col_dist.o deallocate.o decimate.o nextpal.o palette.o \
+	readixed.o readpal.o readrgb.o rgb2index.o showpal.o writebm.o \
+	writeixed.o writepal.o writergb.o zxntoolsver.o
 
 all : libzxntools.a libzxntools.so
 
@@ -23,6 +23,7 @@ libzxntools.so : $(OBJS)
 test : test.o libzxntools.a
 	$(CC) -o $@ $^ -lnetpbm
 
+col_dist.o : col_dist.c zxntools.h
 deallocate.o : deallocate.c zxntools.h
 decimate.o : decimate.c zxntools.h
 nextpal.o : nextpal.c zxntools.h
@@ -33,6 +34,7 @@ readrgb.o : readrgb.c zxntools.h
 rgb2index.o : rgb2index.c zxntools.h
 showpal.o : showpal.c zxntools.h
 test.o : test.c zxntools.h 
+writebm.o : writebm.c zxntools.h
 writeixed.o : writeixed.c zxntools.h
 writepal.o : writepal.c zxntools.h
 writergb.o : writergb.c zxntools.h

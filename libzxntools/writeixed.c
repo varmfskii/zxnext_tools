@@ -4,7 +4,7 @@
 void writeixed(ixed_t v, int gray, FILE *out) {
   int i, max;
 
-  if (verbose)
+  if (verbose>1)
     fprintf(stderr, "writeixed(v, %d, %p)\n", gray, (void *) out);
   if (gray) {
     max=0;
