@@ -82,32 +82,35 @@ int main(int c, char **s) {
     line++;
     if (inputLine[0] == '!') {
       switch (getcommand(inputLine)) {
-      case COR:
-	cmdCOR();
-	break;
+      case BANK:
+	cmdBANK();
       case BMP:
 	cmdBMP();
 	break;
-      case SCR:
-	cmdSCR();
-	break;
-      case SLR:
-	cmdSLR();
-	break;
-      case SHR:
-	cmdSHR();
-	break;
-      case SHC:
-	cmdSHC();
+      case COR:
+	cmdCOR();
 	break;
       case PCSP:
 	cmdPCSP();
 	break;
+      case SCR:
+	cmdSCR();
+	break;
+      case SHC:
+	cmdSHC();
+	break;
+      case SHR:
+	cmdSHR();
+	break;
+      case SL2:
+	cmdSL2();
+	break;
+      case SLR:
+	cmdSLR();
+	break;
       case MMU:
 	cmdMMU();
 	break;
-      case BANK:
-	cmdBANK();
       }
     } else if (inputLine[0] != ';' && inputLine[0] != 0) {
       cmddef();
