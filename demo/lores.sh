@@ -12,6 +12,6 @@ do
     getpalette -v $ppmfile $palfile
     ppmtolores -v -p$palfile $ppmfile $lrfile
     lorestoppm -v $lrfile $outfile
-    echo "!SLR${lrfile}" >$txtfile
+    echo "!XSLR${lrfile}" >$txtfile
     nexcreator $txtfile $nexfile
 done

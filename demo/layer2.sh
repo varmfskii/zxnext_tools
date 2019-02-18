@@ -12,6 +12,6 @@ do
     getpalette -v $ppmfile $palfile
     ppmtolayer2 -v -p$palfile $ppmfile $l2file
     layer2toppm -v $l2file $outfile
-    echo "!SL2${l2file}" >$txtfile
+    echo "!XSL2${l2file}" >$txtfile
     nexcreator $txtfile $nexfile
 done

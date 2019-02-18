@@ -8,7 +8,7 @@ void cmdXSL2(void) {
   FILE *fin2;
   char filename[NAMELEN];
   uint8_t buffer[0xc200], *scr;
-  ptr = &inputLine[4];
+  ptr = &inputLine[5];
   skipSpace();
   getString(filename, NAMELEN);
   if (*ptr == ',') {
