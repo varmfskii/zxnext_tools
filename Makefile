@@ -1,5 +1,6 @@
 TARGETS=getpalette imagetoasm layer2toppm lorestoppm nexcreator paltoasm \
-	ppmtolayer2 ppmtolores hicoltoppm hirestopbm ulatoppm
+	ppmtohicol ppmtolayer2 ppmtolores ppmtoula hicoltoppm hirestopbm \
+	ulatoppm
 
 all : $(TARGETS) libzxntools
 	for file in $(TARGETS); do make -C $$file $$File; done 

@@ -16,8 +16,10 @@ See TODO.md for things to do
 - lorestoppm
 - nexcreator
 - paltoasm
+- ppmtohicol
 - ppmtolayer2
 - ppmtolores
+- ppmtoula
 - ulatoppm
 - libzxntools library
 	
