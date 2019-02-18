@@ -16,6 +16,7 @@ See TODO.md for things to do
 - lorestoppm
 - nexcreator
 - paltoasm
+- pbmtohires
 - ppmtohicol
 - ppmtolayer2
 - ppmtolores
@@ -25,7 +26,7 @@ See TODO.md for things to do
 	
 ## General Usage
 
-&lt;command&gl; [&lt;options&gt;]  [&lt;infile&gt;]  [&lt;outfile&gt;]
+&lt;command&gt; [&lt;options&gt;]  [&lt;infile&gt;]  [&lt;outfile&gt;]
 
 ## Common Options
 

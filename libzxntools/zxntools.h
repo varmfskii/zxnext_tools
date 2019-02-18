@@ -44,6 +44,7 @@ typedef struct bm_t {
     0xff00ff00, 0xffffff00, 0xff00ffff, 0xffffffff }    
 
 bm_t new_bm(int x, int y);
+bm_t readbm(FILE *in);
 int col_dist(rgba_t a, rgba_t b);
 int libzxntoolsver(int print);
 ixed_t new_ixed(int x, int y, int d);

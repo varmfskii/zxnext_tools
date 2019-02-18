@@ -9,8 +9,8 @@ else
 CFLAGS += -O3
 endif
 OBJS=allocate.o col_dist.o deallocate.o decimate.o nextpal.o palette.o \
-	readixed.o readpal.o readrgb.o rgb2index.o showpal.o writebm.o \
-	writeixed.o writepal.o writergb.o zxntoolsver.o
+	readbm.o readixed.o readpal.o readrgb.o rgb2index.o showpal.o \
+	writebm.o writeixed.o writepal.o writergb.o zxntoolsver.o
 
 all : libzxntools.a libzxntools.so
 
@@ -28,6 +28,7 @@ deallocate.o : deallocate.c zxntools.h
 decimate.o : decimate.c zxntools.h
 nextpal.o : nextpal.c zxntools.h
 palette.o : palette.c zxntools.h
+readbm.o : readbm.c zxntools.h
 readixed.o : readixed.c zxntools.h
 readpal.o : readpal.c zxntools.h
 readrgb.o : readrgb.c zxntools.h

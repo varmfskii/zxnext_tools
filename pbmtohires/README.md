@@ -1,8 +1,8 @@
-# hirestopbm version 1.00.00 20190217
+# pbmtohires version 1.00.00 20190219
 
-hirestopbm: converts a raw hires file to a pbm
+pbmtohires: converts a pbm file to a raw hires
 
-## Usage: hirestopbm [&lt;options&gt;]  [&lt;infile&gt;]  [&lt;outfile&gt;]
+## Usage: pbmtohires [&lt;options&gt;]  [&lt;infile&gt;]  [&lt;outfile&gt;]
 
 - -2 --double  double vertical resolution (false)
 - -h --help    show thie help message

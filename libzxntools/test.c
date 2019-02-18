@@ -3,11 +3,13 @@
 #include "zxntools.h"
 
 #define TESTIN "testin.ppm"
+#define TESTPBM "testin.pbm"
 #define RGB "rgb.ppm"
 #define DEC "dec.ppm"
 #define IXGY "ixed.pgm"
 #define IXCOL "ixed.ppm"
 #define PAL "pal.raw"
+#define BM "bm.pbm"
 
 int verbose=2;
 
@@ -16,13 +18,34 @@ int main() {
   rgb_t rgb, dec;
   ixed_t ixed;
   pal_t pal;
-  int xoff, yoff, xskip, yskip;
+  bm_t bm;
+  int xoff, yoff, xskip, yskip, r, c;
   
+  fprintf(stderr, "start:\n");
+  pal=new_pal(256);
+  for(r=0; r<256; r++) pal.dat[r].rgba=0;
+  free_pal(pal);
+  fprintf(stderr, "allocate and free pal:\n");
+  rgb=new_rgb(1024, 768);
+  for(r=0; r<768; r++)
+    for(c=0; c<1024; c++) rgb.dat[r][c].rgba=0;
+  free_rgb(rgb);
+  fprintf(stderr, "allocate and free rgb:\n");
+  ixed=new_ixed(1024,768, 256);
+  for(r=0; r<256; r++) ixed.pal.dat[r].rgba=0;
+  for(r=0; r<768; r++)
+    for(c=0; c<1024; c++) ixed.dat[r][c]=0;
+  free_ixed(ixed);
+  fprintf(stderr, "allocate and free ixed:\n");
+  bm=new_bm(1024, 768);
+  for(r=0; r<768; r++)
+    for(c=0; c<1024; c+=8) bm.dat[r][c/8]=0;
+  free_bm(bm);
+  fprintf(stderr, "allocate and free bm:\n");
   if (!(in=fopen(TESTIN, "r"))) {
     fprintf(stderr, "Unable to open %s\n", TESTIN);
     return 1;
   }
-  fprintf(stderr, "start:\n");
   rgb=readrgb(in);
   fprintf(stderr, "readrgb:\n");
   fclose(in);
@@ -86,5 +109,19 @@ int main() {
   showpal(pal, stderr);
   fprintf(stderr, "showpal:\n");
   free_pal(pal);
+  if (!(in=fopen(TESTPBM, "r"))) {
+    fprintf(stderr, "Unable to open %s\n", TESTPBM);
+    return 1;
+  }
+  bm=readbm(in);
+  fprintf(stderr, "readbm:\n");
+  fclose(in);
+  if (!(out=fopen(BM, "w"))) {
+    fprintf(stderr, "Unable to open %s\n", BM);
+    return 1;
+  }
+  writebm(bm, out);
+  fprintf(stderr, "writebm:\n");
+  fclose(out);
   return 0;
 }
