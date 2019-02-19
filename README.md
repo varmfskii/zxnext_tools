@@ -8,22 +8,26 @@ See TODO.md for things to do
 
 ## Tools for ZX Spectrum Next
 
-- getpalette
-- imagetoasm
-- hicoltoppm
-- hirestopbm
-- layer2toppm
-- lorestoppm
-- nexcreator
-- paltoasm
-- pbmtohires
-- ppmtohicol
-- ppmtolayer2
-- ppmtolores
-- ppmtoula
-- ulatoppm
-- libzxntools library
-	
+- getpalette - extract palette information from an image
+- imagetoasm - convert an image to assembly language source for ZX Next sprites or tiles
+- hicoltoppm - convert a Timex hi-colour screen dump to a ppm file 
+- hirestopbm - convert a Timex hi-resolution screen dump to a pbm file
+- layer2toppm - convert a ZX Next layer2 screen dump to a ppm file
+- lorestoppm - convert a ZX Next lo-resolution screen dump to a ppm file
+- nexcreator - assemble source files into a .NEX file
+- paltoasm - convert a palette file to assembly source code
+- pbmtohires - convert a pbm file to a Timex hi-resolution screen dump
+- ppmtohicol - convert a ppm file to a Times hi-colour screen dump
+- ppmtolayer2 - convert a ppm file to a ZX Next layer2 screen dump
+- ppmtolores - convert a ppm file to a ZX Next lo-resolution screen dump
+- ppmtoula - convert a ppm file to a ZX Spectrum screen dump
+- ulatoppm - convert a ZX Spectrum screen dump to a ppm file
+- libzxntools library - support functions for tools
+
+## Build support for external tools
+
+- pasmoNext - Z80 assembler with full ZX Spectrum Next opcode support
+
 ## General Usage
 
 &lt;command&gt; [&lt;options&gt;]  [&lt;infile&gt;]  [&lt;outfile&gt;]
