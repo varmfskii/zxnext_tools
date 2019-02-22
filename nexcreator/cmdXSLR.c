@@ -22,16 +22,19 @@ void cmdXSLR(void) {
     case 0x3000:
       /* no palette */
       use8BitPalette=1;
+      dontSavePalette=1;
       for(i=0; i<0x100; i++) paletteLoRes[i]=i;
       break;
     case 0x3100:
       /* 8-bit palette */
       use8BitPalette=1;
+      dontSavePalette=0;
       for(i=0; i<0x100; i++) paletteLoRes[i]=buffer[i+0x3000];
       break;
     case 0x3200:
       /* 9-bit palette */
       use8BitPalette=0;
+      dontSavePalette=0;
       for(i=0; i<0x100; i++) paletteLoRes[i]=(buffer[2*i+0x3001]<<8)|
 			       buffer[2*i+0x3000];
       break;

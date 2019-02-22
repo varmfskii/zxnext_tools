@@ -142,7 +142,7 @@ int main(int c, char **s) {
 	fwrite(loading, 256, 192, fout);
       }
       if (header512.LoadingScreen & 2) {
-	fwrite(loadingULA, 1, 6144 + 768 + 256, fout);
+	fwrite(loadingULA, 1, 6144 + 768, fout);
       }
       if (header512.LoadingScreen & 4) {
 	if (!(header512.LoadingScreen & 128))
