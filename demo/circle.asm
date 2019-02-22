@@ -23,13 +23,17 @@ _main:
 	out (c),a
 	inc b
 	in a,(c)
+	ld d,a
 	and $1c
 	srl a
 	srl a
 	ld hl,table
 	add a,l
 	ld l,a
-	ld a,(hl)
+	ld e,(hl)
+	ld a,d
+	and a,$80
+	or a,e
 	;; ld a,$03
 	out (c),a
 	;; set position to 0
