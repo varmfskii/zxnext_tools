@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <getopt.h>
-#include "hirestopbm.h"
+#include "shctoppm.h"
 
-#define VERSION "1.00.00"
+#define VERSION "1.00.01"
 #define DATE "20190217"
 
 void help(char *);
@@ -17,9 +17,8 @@ int verbose=0;
 int main(int argc, char *argv[]) {
   FILE *in, *out;
   int opt, ix;
-  char *opts="2hi:o:qVv";
+  char *opts="hi:o:qVv";
   struct option options[]={
-    { "double", 0, NULL, '2' },
     { "help", 0, NULL, 'h' },
     { "in", 1, NULL, 'i' },
     { "out", 1, NULL, 'o' },
@@ -28,16 +27,12 @@ int main(int argc, char *argv[]) {
     { "verbose", 0, NULL, 'v' },
     { NULL, 0, NULL, '\0' }
   };
-  bm_t bm;
-  int dbl=0;
-  
+  rgb_t rgb;
+
   in=stdin;
   out=stdout;
   while((opt=getopt_long(argc, argv, opts, options, &ix))!=-1) {
     switch(opt) {
-    case '2':
-      dbl=1;
-      break;
     case 'h':
       help(argv[0]);
       return 1;
@@ -80,17 +75,16 @@ int main(int argc, char *argv[]) {
     }
     optind++;
   }
-  bm=hirestobm(in, dbl);
-  if (!bm.dat) return 1;
-  writebm(bm, out);
-  free_bm(bm);
+  rgb=shctorgb(in);
+  if (!rgb.dat) return 1;
+  writergb(rgb, out);
+  free_rgb(rgb);
 }
 
 void help(char *name) {
   version();
   fprintf(stderr, "Usage: %s [<options>] [<infile>] [<outfile>]\n", name);
   fprintf(stderr, "\toptions are\n");
-  fprintf(stderr, "\t-2\t--double\t\tdouble vertical size (false)\n");
   fprintf(stderr, "\t-h\t--help\t\tprint this help message\n");
   fprintf(stderr, "\t-i\t--in\t\tinput file (stdin)\n");
   fprintf(stderr, "\t-o\t--out\t\toutput file (stdout)\n");
@@ -99,6 +93,6 @@ void help(char *name) {
 }
 
 void version(void) {
-  fprintf(stderr, "hirestopbm version %s %s\n", VERSION, DATE);
+  fprintf(stderr, "shctoppm version %s %s\n", VERSION, DATE);
   libzxntoolsver(1);
 }

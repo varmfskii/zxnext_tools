@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "hirestopbm.h"
+#include "shrtopbm.h"
 
-bm_t hirestobm(FILE *in, int dbl) {
+bm_t shrtobm(FILE *in, int dbl) {
   bm_t rv;
   uint8_t left[0x1800], right[0x1800];
   int ar, ac, r, ix, m;
