@@ -2,8 +2,8 @@
 #include <getopt.h>
 #include "shrtopbm.h"
 
-#define VERSION "1.00.00"
-#define DATE "20190217"
+#define VERSION "1.00.01"
+#define DATE "20190221"
 
 void help(char *);
 void version(void);

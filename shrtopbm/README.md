@@ -1,8 +1,8 @@
-# hirestopbm version 1.00.00 20190217
+# shrtopbm version 1.00.01 20190221
 
-hirestopbm: converts a raw hires file to a pbm
+shrtopbm: converts a raw hires file (.SHR) to a pbm
 
-## Usage: hirestopbm [&lt;options&gt;]  [&lt;infile&gt;]  [&lt;outfile&gt;]
+## Usage: shrtopbm [&lt;options&gt;]  [&lt;infile&gt;]  [&lt;outfile&gt;]
 
 - -2 --double  double vertical resolution (false)
 - -h --help    show thie help message

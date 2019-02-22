@@ -7,7 +7,7 @@ void cmdXSL2(void) {
   int i, len;
   FILE *fin2;
   char filename[NAMELEN];
-  uint8_t buffer[0xc200], *scr;
+  uint8_t buffer[0xc200];
   ptr = &inputLine[5];
   skipSpace();
   getString(filename, NAMELEN);
@@ -21,26 +21,24 @@ void cmdXSL2(void) {
     switch (len) {
     case 0xc000:
       /* no palette */
-      scr=buffer;
       dontSavePalette=1;
       break;
     case 0xc100:
       /* 8-bit palette */
-      scr=buffer+0x100;
       use8BitPalette=1;
-      for(i=0; i<0x100; i++) palette[i]=buffer[i];
+      for(i=0; i<0x100; i++) palette[i]=buffer[0xc000+i];
       break;
     case 0xc200:
       /* 9-bit palette */
-      scr=buffer+0x200;
       use8BitPalette=0;
-      for(i=0; i<0x100; i++) palette[i]=(buffer[2*i+1]<<8)|buffer[2*i];
+      for(i=0; i<0x100; i++) palette[i]=(buffer[2*i+0xc001]<<8)|
+			       buffer[2*i+0xc000];
       break;
     default:
       fprintf(stderr, "error\n");
       return;
     }
-    memcpy(loading, scr, 0xc000);
+    memcpy(loading, buffer, 0xc000);
     fclose(fin2);
     header512.LoadingScreen |= 1 + (dontSavePalette ? 128 : 0);
     printf("Loading Screen '%s'\n", filename);

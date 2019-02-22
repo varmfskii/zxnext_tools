@@ -8,6 +8,6 @@ void cmdBANK(void) {
   if (header512.EntryBank > 0 && versionDecimal < 12) {
     versionDecimal = 12;
     memcpy(header512.VersionNumber, "V1.2", 4);
-    printf("Entry Bank=%d\n", header512.EntryBank);
   }
+  printf("Entry Bank=%d\n", header512.EntryBank);
 }

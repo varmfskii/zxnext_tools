@@ -10,19 +10,19 @@ See TODO.md for things to do
 
 - getpalette - extract palette information from an image
 - imagetoasm - convert an image to assembly language source for ZX Next sprites or tiles
-- hicoltoppm - convert a Timex hi-colour screen dump to a ppm file 
-- hirestopbm - convert a Timex hi-resolution screen dump to a pbm file
-- layer2toppm - convert a ZX Next layer2 screen dump to a ppm file
-- lorestoppm - convert a ZX Next lo-resolution screen dump to a ppm file
+- libzxntools library - support functions for tools
 - nexcreator - assemble source files into a .NEX file
 - paltoasm - convert a palette file to assembly source code
-- pbmtohires - convert a pbm file to a Timex hi-resolution screen dump
-- ppmtohicol - convert a ppm file to a Times hi-colour screen dump
-- ppmtolayer2 - convert a ppm file to a ZX Next layer2 screen dump
-- ppmtolores - convert a ppm file to a ZX Next lo-resolution screen dump
-- ppmtoula - convert a ppm file to a ZX Spectrum screen dump
-- ulatoppm - convert a ZX Spectrum screen dump to a ppm file
-- libzxntools library - support functions for tools
+- pbmtoshr - convert a pbm file to a Timex hi-resolution screen dump
+- ppmtoscr - convert a ppm file to a ZX Spectrum screen dump
+- ppmtoshc - convert a ppm file to a Times hi-colour screen dump
+- ppmtosl2 - convert a ppm file to a ZX Next layer2 screen dump
+- ppmtoslr - convert a ppm file to a ZX Next lo-resolution screen dump
+- scrtoppm - convert a ZX Spectrum screen dump to a ppm file
+- shctoppm - convert a Timex hi-colour screen dump to a ppm file 
+- shrtopbm - convert a Timex hi-resolution screen dump to a pbm file
+- sl2toppm - convert a ZX Next layer2 screen dump to a ppm file
+- slrtoppm - convert a ZX Next lo-resolution screen dump to a ppm file
 
 ## Build support for external tools
 

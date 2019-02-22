@@ -1,8 +1,8 @@
-# hicoltoppm version 1.00.00 20190217
+# shctoppm version 1.00.01 20190221
 
-hicoltoppm: converts a raw hicolour file to a ppm
+shctoppm: converts a raw hicolour (.SHC) file to a ppm
 
-## Usage: hicoltoppm [&lt;options&gt;]  [&lt;infile&gt;]  [&lt;outfile&gt;]
+## Usage: shctoppm [&lt;options&gt;]  [&lt;infile&gt;]  [&lt;outfile&gt;]
 
 - -h --help    show thie help message
 - -i --in      set input file (stdin)

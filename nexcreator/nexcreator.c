@@ -114,6 +114,9 @@ int main(int c, char **s) {
       case MMU:
 	cmdMMU();
 	break;
+      default:
+	printf("Unknown command: %s\n", inputLine);
+	return 1;
       }
     } else if (inputLine[0] != ';' && inputLine[0] != 0) {
       cmddef();

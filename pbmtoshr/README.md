@@ -1,8 +1,8 @@
-# pbmtohires version 1.00.00 20190219
+# pbmtoshr version 1.00.01 20190221
 
-pbmtohires: converts a pbm file to a raw hires
+pbmtoshr: converts a pbm file to a raw hires
 
-## Usage: pbmtohires [&lt;options&gt;]  [&lt;infile&gt;]  [&lt;outfile&gt;]
+## Usage: pbmtoshr [&lt;options&gt;]  [&lt;infile&gt;]  [&lt;outfile&gt;]
 
 - -2 --double  double vertical resolution (false)
 - -h --help    show thie help message

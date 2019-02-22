@@ -1,11 +1,17 @@
 Basic template format is a series of CSV lines. Lines may be commands
 or data for the preceeding command. All commands being with '!'
 
-!COR : minimum core version
-     !COR<major>[,<minor>[,<subminor>]]
-     <major> = major version number
-     <minor> = minor version number
-     <subminor> = subminor version number
+<none> : load 16k bank with data
+       <filename>[,<bank>[,<address>[,<b0>,<b1>,<b2>,<b3>,<b4>,<b5,<b6>,<b7>]]]
+       <filename> = name of data file (raw binary or .sna)
+       <bank> = bank to store data in (default is next bank)
+       <address> = address within bank to start at mod $4000
+       rest of options are only for .sna files
+       <b?> = 1 - use data from bank ?, 0 - ignore data from bank ?
+
+!BANK : Set startup bank (V1.2)
+      !BANK<bank>
+      <bank> = starting bank number
 
 !BMP : BMP file for loading screen
      !BMP[!][8[,]]<filename>[,<border>[,<bar1>[,<bar2>[,<delay1>[,<delay2>]]]]]
@@ -20,36 +26,55 @@ or data for the preceeding command. All commands being with '!'
      !BMP,<color>
      <color> = Hi Res Color
 
+!COR : minimum core version
+     !COR<major>[,<minor>[,<subminor>]]
+     <major> = major version number
+     <minor> = minor version number
+     <subminor> = subminor version number
+
+!MMU : load 8k MMU bank with data
+     !MMU<filename>[,<bank>{,<address>]]
+     <filename> = name of binary file
+     <bank> = 8k bank number
+     <address> = address within bank mod $2000
+
+!PCSP : Starting program counter and stack pointer
+      !PCSP<PC>[,<SP>[,<bank>]]
+      <PC> = execution start address
+      <SP> = initial value of stack pointer
+      <bank> = Entry bank
+
 !SCR : ULA loading screen
      !SCR<filename>
      <filename> = raw ULA screen filename (6192 bytes)
 
-!SLR : BMP Lo-Res loading screen
-     !SLR
+!SHC : Hi-Colour loading screen
+     !SHC<filename>
+     <filename> = name of raw Timex hi-colour screen dump (12288 bytes)
 
 !SHR : Hi-Res loading screen
-     !SHR
+     !SHR<filename>[,<colours>]
+     <filename> = name of raw Timex hi-resolution screen dump (12288 bytes)
+     <colours> = colour scheme to use (0-7)
 
-!SHC : Hi-Color loading screen
-     !SHC
-
-!PCSP : Starting program counter and stack pointer
-      !PCSP
-
-!MMU : load 8k MMU bank with data
-     !MMU
-
-!BANK : Set startup bank (V1.2)
-      !BANK
-
-<none> : load 16k bank with data
-       <filename>
+!SLR : BMP Lo-Res loading screen
+     !SLR<filename>
+     <filename> = name of BMP file to use for lo-resolution loading screen
 
 my extensions
 
 !XSL2 : raw layer2 loading screen
-     !XSL2
+     !XSL2<filename>
+     <filename> = name of raw layer2 file to use for loading screen
      
 !XSLR : raw Lo-Res loading screen
      !XSLR
+     <filename> = name of raw lo-resolution file to use for loading screen
 
+Notes:
+
+Any .SNA file used should be given first as it will overwrite memory
+blocks whether or not they are to be ignored. Only the last of each
+loading screen option be included in .NEX. Any memory content
+specified twice will result in only the last version as it will
+overwrite old data.

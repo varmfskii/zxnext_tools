@@ -32,4 +32,8 @@ loading screen(s):
   Hi-Colour - 6k + 6k
 
 body:
-  16k for each bank with data in bank number order
+  16k for each bank with data in .SNA file bank order
+
+Notes:
+  The .NEX file only supports setting the bank to be loaded at $C000
+all others are as is the default for the ZX Spectrum Next.

@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "shcppm.h"
+#include "shctoppm.h"
 
 uint32_t ulacolor[]=ULACOLOURS;
 
-rgb_t shcrgb(FILE *in) {
+rgb_t shctorgb(FILE *in) {
   rgb_t rv;
   uint8_t pixel[0x1800], attr[0x1800];
   int ar, ac, r, c;

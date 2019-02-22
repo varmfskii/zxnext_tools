@@ -5,19 +5,19 @@ CFLAGS += -g -DDEBUG
 else
 CFLAGS += -O3
 endif
-OBJS=hirestopbm.o hirestobm.o libzxntools.a
+OBJS=shrtopbm.o shrtobm.o libzxntools.a
 
-hirestopbm : $(OBJS)
+shrtopbm : $(OBJS)
 	$(CC) -o $@ $^ -lnetpbm
 
-hirestopbm.o : hirestopbm.c hirestopbm.h
-hirestobm.o : hirestobm.c hirestopbm.h
+shrtopbm.o : shrtopbm.c shrtopbm.h
+shrtobm.o : shrtobm.c shrtopbm.h
 ../libzxntools/libzxntools.a : libzxntools
 
 libzxntools.a : ../libzxntools/libzxntools.a
 	cp ../libzxntools/libzxntools.a .
 
-hirestopbm.h : ../libzxntools/zxntools.h
+shrtopbm.h : ../libzxntools/zxntools.h
 	touch $@
 
 .PHONY : clean distclean libzxntools
@@ -26,7 +26,7 @@ clean :
 	rm -f $(OBJS)  *~
 
 distclean : clean
-	rm -f hirestopbm
+	rm -f shrtopbm
 
 libzxntools :
 	make -C ../libzxntools
