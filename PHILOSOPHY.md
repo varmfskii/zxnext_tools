@@ -13,7 +13,7 @@ intermediate formats). As a result most require the presence of
 libnetpbm to compile/run.
 
 My view on open source software is that if you are unsatisfied with a
-price of software, you can let the creator know about it. Don't expect
+piece of software, you can let the creator know about it. Don't expect
 them to do anything about your concerns. They probably care, but they
 have their own priorities and reasons for doing things. If your
 concerns are not sufficiently addressed and you have the ability, then
