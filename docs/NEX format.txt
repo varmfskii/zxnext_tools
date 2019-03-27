@@ -21,7 +21,8 @@ header: 512 bytes
   135-137 Core Required: Major, Minor, Subminor
   138	  Hi-Res Colours: bits 5-3 (value 0-7)
   139	  Entry Bank: Bank to be placed at $C000 before jumping to PC (V1.2)
-  140-511 Rest of 512 bytes
+  140-141 File handle address 0 = off, 1-$3fff = BC = $00nn file handle
+  142-511 Rest of 512 bytes
 
 loading screen(s):
   data for each loading screen indicated in header in this order
