@@ -19,7 +19,7 @@ header: 512 bytes
   133	  Loaded Delay: Frames
   134	  Don't Reset Registers: 0 = Reset, 1 = Don't Reset
   135-137 Core Required: Major, Minor, Subminor
-  138	  Hi-Res Colours: 0-3
+  138	  Hi-Res Colours: bits 5-3 (value 0-7)
   139	  Entry Bank: Bank to be placed at $C000 before jumping to PC (V1.2)
   140-511 Rest of 512 bytes
 
