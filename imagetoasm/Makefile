@@ -7,7 +7,7 @@ CFLAGS += -O3
 endif
 OBJS=imagetoasm.o writeasm.o writepgm.o writeraw.o libzxntools.a
 imagetoasm : $(OBJS)
-	$(CC) -o $@ $^ -lnetpbm
+	$(CC) -o $@ $^ $(LOPTS) -lnetpbm
 
 imagetoasm.o : imagetoasm.c imagetoasm.h
 writeasm.o : writeasm.c imagetoasm.h

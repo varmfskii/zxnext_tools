@@ -8,7 +8,7 @@ endif
 OBJS=sl2toppm.o readsl2.o libzxntools.a
 
 sl2toppm : $(OBJS)
-	$(CC) -o $@ $^ -lnetpbm
+	$(CC) -o $@ $^ $(LOPTS) -lnetpbm
 
 sl2toppm.o : sl2toppm.c sl2toppm.h
 readsl2.o : readsl2.c sl2toppm.h

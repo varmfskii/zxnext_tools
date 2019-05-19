@@ -8,7 +8,7 @@ endif
 OBJS=pbmtoshr.o bmtoshr.o libzxntools.a
 
 pbmtoshr : $(OBJS)
-	$(CC) -o $@ $^ -lnetpbm
+	$(CC) -o $@ $^ $(LOPTS) -lnetpbm
 
 pbmtoshr.o : pbmtoshr.c pbmtoshr.h
 bmtoshr.o : bmtoshr.c pbmtoshr.h

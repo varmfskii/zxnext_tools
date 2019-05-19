@@ -8,7 +8,7 @@ endif
 OBJS=scrtoppm.o scrtorgb.o libzxntools.a
 
 scrtoppm : $(OBJS)
-	$(CC) -o $@ $^ -lnetpbm
+	$(CC) -o $@ $^ $(LOPTS) -lnetpbm
 
 scrtoppm.o : scrtoppm.c scrtoppm.h
 scrtorgb.o : scrtorgb.c scrtoppm.h

@@ -8,7 +8,7 @@ endif
 OBJS=shctoppm.o shctorgb.o libzxntools.a
 
 shctoppm : $(OBJS)
-	$(CC) -o $@ $^ -lnetpbm
+	$(CC) -o $@ $^ $(LOPTS) -lnetpbm
 
 shctoppm.o : shctoppm.c shctoppm.h
 shctorgb.o : shctorgb.c shctoppm.h

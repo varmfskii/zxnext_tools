@@ -8,7 +8,7 @@ endif
 OBJS=ppmtoscr.o writescr.o libzxntools.a
 
 ppmtoscr : $(OBJS)
-	$(CC) -o $@ $^ -lnetpbm
+	$(CC) -o $@ $^ $(LOPTS) -lnetpbm
 
 ppmtoscr.o : ppmtoscr.c ppmtoscr.h
 writescr.o : writescr.c ppmtoscr.h

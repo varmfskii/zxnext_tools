@@ -7,7 +7,7 @@ CFLAGS += -O3
 endif
 OBJS=paltoasm.o writeasm.o libzxntools.a
 paltoasm : $(OBJS)
-	$(CC) -o $@ $^ -lnetpbm
+	$(CC) -o $@ $^ $(LOPTS) -lnetpbm
 
 paltoasm.o : paltoasm.c paltoasm.h
 writeasm.o : writeasm.c paltoasm.h

@@ -8,7 +8,7 @@ endif
 OBJS=shrtopbm.o shrtobm.o libzxntools.a
 
 shrtopbm : $(OBJS)
-	$(CC) -o $@ $^ -lnetpbm
+	$(CC) -o $@ $^ $(LOPTS) -lnetpbm
 
 shrtopbm.o : shrtopbm.c shrtopbm.h
 shrtobm.o : shrtobm.c shrtopbm.h

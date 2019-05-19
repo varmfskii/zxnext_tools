@@ -8,7 +8,7 @@ endif
 OBJS=slrtoppm.o readslr.o libzxntools.a
 
 slrtoppm : $(OBJS)
-	$(CC) -o $@ $^ -lnetpbm
+	$(CC) -o $@ $^ $(LOPTS) -lnetpbm
 
 slrtoppm.o : slrtoppm.c slrtoppm.h
 readslr.o : readslr.c slrtoppm.h

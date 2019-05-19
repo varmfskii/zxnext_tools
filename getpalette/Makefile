@@ -7,7 +7,7 @@ CFLAGS += -O3
 endif
 OBJS=getpalette.o rgb2pal.o writeasm.o libzxntools.a
 getpalette : $(OBJS)
-	$(CC) -o $@ $^ -lnetpbm
+	$(CC) -o $@ $^ $(LOPTS) -lnetpbm
 
 getpalette.o : getpalette.c getpalette.h
 rgb2pal.o : rgb2pal.c getpalette.h

@@ -18,10 +18,10 @@ libzxntools.a : $(OBJS)
 	ar cr $@ $^
 
 libzxntools.so : $(OBJS)
-	$(CC) -shared -o $@ $^
+	-$(CC) -shared -o $@ $^
 
 test : test.o libzxntools.a
-	$(CC) -o $@ $^ -lnetpbm
+	$(CC) -o $@ $^ $(LOPTS) -lnetpbm
 
 col_dist.o : col_dist.c zxntools.h
 deallocate.o : deallocate.c zxntools.h
