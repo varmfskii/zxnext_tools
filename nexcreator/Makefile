@@ -38,7 +38,10 @@ readline.o : readline.c nexcreator.h
 skipSpace.o : skipSpace.c nexcreator.h
 use8BitPalette.o : use8BitPalette.c nexcreator.h
 
-.PHONY : clean distclean
+.PHONY : install clean distclean
+
+install : nexcreator
+	cp nexcreator ../bin
 
 clean :
 	rm -f $(OBJS) *~
