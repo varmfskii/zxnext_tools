@@ -1,16 +1,21 @@
-OBJS=client.o
+sources=client.c backspace.c error.c execute.c finish.c init.c parse.c puthex.c
 
-all: client
+objects=$(sources:.c=.o)
 
-client: $(OBJS)
-	gcc -o $@ $^
+all: dependencies client
 
-client.o: client.c
+dependencies: $(sources)
+	./mkdeps.sh $@ $^
+
+client: $(objects)
+	$(CC) -o $@ $^ -lcurses
+
+include dependencies
 
 .PHONY: clean distclean
 
 clean:
-	rm -f $(OBJS) *~
+	rm -f $(objects) *~
 
 distclean: clean
-	rm -f client
+	rm -f client dependencies

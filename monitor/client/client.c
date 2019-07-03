@@ -1,63 +1,61 @@
-#include <arpa/inet.h>
-#include <netdb.h> 
-#include <netinet/in.h>
-#include <stdio.h> 
-#include <stdlib.h> 
-#include <string.h> 
-#include <sys/socket.h>
-#include <sys/socket.h> 
+#include "client.h"
+#include <curses.h>
 #include <unistd.h>
 
-#define MAX 80 
-#define PORT 8080 
+#define LEN 256
 
-void error(char *, int);
-void master(int);
+int server, w, h;
+WINDOW *status, *win;
 
-int main() 
-{ 
-  int sockfd, connfd; 
-  struct sockaddr_in servaddr, cli; 
+int main() {
+  int c, done, pos;
+  char buffer[LEN];
   
-  sockfd = socket(AF_INET, SOCK_STREAM, 0); 
-  if (sockfd == -1) error("socket creation failed", 1); 
-  bzero(&servaddr, sizeof(servaddr)); 
-  servaddr.sin_family = AF_INET; 
-  servaddr.sin_addr.s_addr = inet_addr("127.0.0.1"); 
-  servaddr.sin_port = htons(PORT); 
-  if (connect(sockfd, (struct sockaddr*)&servaddr, sizeof(servaddr)) != 0)
-    error("connection with the server failed", 2);
-  master(sockfd); 
-  close(sockfd); 
-} 
-
-void master(int sockfd) 
-{ 
-  char buff[MAX]; 
-  int n, c;
-  ssize_t len;
-  
-  for (;;) { 
-    printf("Enter the string : "); 
-    for(n=0; n<MAX-1 && (c=getchar())!=EOF && c!='\n'; n++) buff[n]=c;
-    buff[n]='\0';
-    if (n) write(sockfd, buff, strlen(buff)); 
-    bzero(buff, sizeof(buff)); 
-    if (c==EOF) {
-      write(sockfd, "exit", 4);
-      len=read(sockfd, buff, sizeof(buff)); 
+  init();
+  for(pos=done=0; !done;) {
+    c=getch();
+    switch (c) {
+    case '\003': // break
+    case '\004': // eof
+      done=1;
       break;
+    case KEY_BACKSPACE:
+    case '\177':
+    case '\b':
+      if (pos) {
+	pos--;
+	backspace(win);
+      }
+      break;
+    case '\n':
+    case '\r':
+      buffer[pos]='\0';
+      execute(buffer);
+      pos=0;
+      waddch(win, '\n');
+      break;
+    case '8': // examine previous
+    case '2': // examine next
+    case '6': // examine indirect
+    case ';': // force numeric
+    case '=': // force byte
+    case '/': // examine
+    case ',': // single step
+    default:
+      buffer[pos]=c;
+      if (pos<LEN-1) {
+	pos++;
+      } else {
+	backspace(win);
+      }
+      puthex(status, c);
+      waddch(win, c);
     }
-    len=read(sockfd, buff, sizeof(buff)); 
-    printf("From Server: %s\n", buff); 
-    if ((strncmp(buff, "exit", 4)) == 0) { 
-      printf("Client Exit...\n"); 
-      break; 
-    }
-  } 
-} 
-
-void error(char *msg, int err) {
-  fprintf(stderr, "%s\n", msg);
-  exit(err);
+    wrefresh(status);
+    wrefresh(win);
+  }
+#ifndef NONET
+  write(server, "exit", 4);
+#endif
+  finish();
 }
