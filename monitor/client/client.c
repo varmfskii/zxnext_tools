@@ -5,6 +5,7 @@
 #define LEN 256
 
 int server, w, h;
+int disp_mode=NUMERIC;
 WINDOW *status, *win;
 
 int main() {

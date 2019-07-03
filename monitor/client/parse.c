@@ -7,7 +7,7 @@ char **parse(char *line) {
   
   for(i=0; isspace(line[i]); i++);
   for(fields=i=0; line[i]; fields++) {
-    for(; line[i] && !isspace(line[i]); i++);
+    for(; line[i] && !isspace(line[i]); i++) line[i]=toupper(line[i]);
     for(; isspace(line[i]); i++);
   }
   rv=(char **)malloc(sizeof(char *)*(fields+1));

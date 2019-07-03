@@ -8,13 +8,20 @@ void execute(char *command) {
   char **fields;
   
   fields=parse(command);
-  wmove(status, 0, 0);
-  wdeleteln(status);
-  waddstr(status, "execute(");
-  for(i=0; fields[i]; i++) {
-    waddch(status, '(');
-    waddstr(status, fields[i]);
+  for(i=0; commands[i].name; i++) {
+    if (!strcmp(fields[0], commands[i].name)) break;
+  }
+  if (commands[i].name) {
+    commands[i].routine(fields);
+  } else {
+    wmove(status, 0, 0);
+    wdeleteln(status);
+    waddstr(status, "execute(");
+    for(i=0; fields[i]; i++) {
+      waddch(status, '(');
+      waddstr(status, fields[i]);
+      waddch(status, ')');
+    }
     waddch(status, ')');
   }
-  waddch(status, ')');
 }
