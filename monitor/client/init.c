@@ -24,10 +24,19 @@ void init(void) {
   initscr();
   getmaxyx(stdscr, h, w);
   
+#ifdef DEBUG
+  win=newwin(h-1, w/2, 1, 0);
+  debug=newwin(h-1, w-w/2, 1, w/2);
+#else
   win=newwin(h-1, w, 1, 0);
+#endif
   status=newwin(1, w, 0, 0);
   noecho();
   raw();
   nl();
-  refresh();
+  wrefresh(status);
+#ifdef DEBUG
+  wrefresh(debug);
+#endif
+  wrefresh(win);
 } 

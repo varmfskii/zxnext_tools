@@ -2,6 +2,10 @@
 #define CLIENT_H
 #include <curses.h>
 
+#ifdef NONET
+#define DEBUG
+#endif
+
 #define PORT 8080
 #define NUMERIC 0
 
@@ -10,17 +14,35 @@ typedef struct command {
   void (*routine)(char **);
 } command;
 
+typedef struct string {
+  char *data;
+  int len;
+} string;
+
 extern WINDOW *win, *status;
+#ifdef DEBUG
+extern WINDOW *debug;
+#endif
 extern int server, w, h, disp_mode;
 extern command commands[];
+#ifdef NONET
+extern unsigned char mem[];
+#endif
 
 char **parse(char *);
+string srvr_recv();
 void backspace(WINDOW *);
 void error(char *, int);
 void execute(char *);
 void finish(void);
 void init(void);
 void puthex(WINDOW *, int);
+
+int call_read(int, int, int, char *);
+string call_query(void);
+void call_exec(int);
+void call_exit(void);
+void call_write(int, int, int, char*);
 
 void cmd_ascii(char **);
 void cmd_bkpt(char **);

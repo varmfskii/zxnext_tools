@@ -7,6 +7,12 @@
 int server, w, h;
 int disp_mode=NUMERIC;
 WINDOW *status, *win;
+#ifdef DEBUG
+WINDOW *debug;
+#endif
+#ifdef NONET
+unsigned char mem[0x200000];
+#endif
 
 int main() {
   int c, done, pos;
