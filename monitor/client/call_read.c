@@ -2,8 +2,10 @@
 #include "server.h"
 #include <curses.h>
 #include <unistd.h>
+#include <string.h>
+#include <stdlib.h>
 
-int call_pread(int port, int addr, int len, char *buffer) {
+int call_read(int port, int addr, int len, char *buffer) {
   int len2;
   char temp[256];
   string rx;
@@ -24,7 +26,7 @@ int call_pread(int port, int addr, int len, char *buffer) {
   temp[3]=len;
 #ifndef NONET
   write(server, temp, 4);
-  rx=srvr_recv();
+  rx=srvr_resp();
   if (rx.len<len2) {
     if (port)
       waddstr(win, "pread: Short read\n");

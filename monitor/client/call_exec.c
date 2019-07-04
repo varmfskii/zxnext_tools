@@ -16,7 +16,7 @@ void call_exec(int addr) {
   outbuf[1]=addr&0xff;
   outbuf[2]=addr>>8;
 #ifndef NONET
-  output(server, outbuf, 3);
+  write(server, outbuf, 3);
 #endif
 }
   

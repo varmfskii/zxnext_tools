@@ -4,7 +4,7 @@ sources=backspace.c call_exec.c call_exit.c call_query.c call_read.c	\
 	cmd_half.c cmd_help.c cmd_inbase.c cmd_load.c cmd_mnem.c	\
 	cmd_move.c cmd_outbase.c cmd_quit.c cmd_reg.c cmd_save.c	\
 	cmd_sym.c cmd_word.c cmd_yank.c commands.c error.c execute.c	\
-	finish.c init.c parse.c puthex.c
+	finish.c init.c parse.c puthex.c srvr_resp.c
 
 objects=$(sources:.c=.o)
 

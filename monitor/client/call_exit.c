@@ -9,6 +9,6 @@ void call_exit(void) {
 #endif
   outbuf[0]=EXIT;
 #ifndef NONET
-  write(server, EXIT, 1);
+  write(server, outbuf, 1);
 #endif
 }

@@ -37,6 +37,7 @@ void execute(char *);
 void finish(void);
 void init(void);
 void puthex(WINDOW *, int);
+string srvr_resp(void);
 
 int call_read(int, int, int, char *);
 string call_query(void);
