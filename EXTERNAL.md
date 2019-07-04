@@ -9,11 +9,8 @@ Makefile which can be found in the pasmoNext directory.
 
 * sjasmplus: git located at https://github.com/z00m128/sjasmplus.git
 
-This git is set up for compilation under Linux, but currently (as of 2
-July 2019) there is an assumption that size_t and unsigned long are
-equivalent which causes and error on line 89 of sjasm/io_tdr.cpp when
-compiling under Raspbian. If you change 8UL on this line to (size_t)
-8UL it will then compile.
+This git is set up for compilation under Linux, will compile under
+Raspbian
 
 * z88dk: git located at https://github.com/z88dk/z88dk.git
 
