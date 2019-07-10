@@ -14,9 +14,9 @@ Raspbian
 
 * z88dk: git located at https://github.com/z88dk/z88dk.git
 
-This will compile under Raspbian provided you have enough memory
-(without swap the 512k on the lower end models is not
-sufficient).
+This will compile under Raspbian provided you have enough memory to
+enclude a memory split with very little assigned to video (memory
+usage peaks at around 1000Mb).
 
 * zesaurx: git located at https://github.com/chernandezba/zesarux.git
 
