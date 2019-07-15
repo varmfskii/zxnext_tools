@@ -29,3 +29,6 @@ distclean : clean
 
 libzxntools :
 	make -C ../libzxntools
+
+install: all
+	cp paltoasm $(PREFIX)/bin/

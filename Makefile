@@ -1,5 +1,7 @@
 TARGETS=image nexcreator
 
+PREFIX=$(CURDIR)
+
 all : $(TARGETS)
 	for file in $(TARGETS); do make -C $$file $$File; done 
 
@@ -13,5 +15,5 @@ distclean : clean
 	rm -f bin/*
 
 install : all
-	mkdir -p bin libs
+	mkdir -p $(PREFIX)/bin $(PREFIX)/libs
 	for file in $(TARGETS); do make -C $$file install; done

@@ -30,3 +30,6 @@ distclean : clean
 
 libzxntools :
 	make -C ../libzxntools
+
+install:
+	cp ppmtosl2 $(PREFIX)/bin/

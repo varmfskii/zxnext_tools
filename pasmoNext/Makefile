@@ -26,3 +26,6 @@ clean :
 
 distclean : clean
 	rm -f pasmo
+
+install: all
+	cp pasmo $(PREFIX)/bin/

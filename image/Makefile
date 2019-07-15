@@ -17,10 +17,8 @@ clean :
 distclean : clean
 	for file in $(TARGETS); do make -C $$file distclean; done 
 	make -C libzxntools distclean
-	rm -f ../bin/*
 
 install : all
-	mkdir -p ../bin ../libs
-	for file in $(TARGETS); do cp $$file/$$file ../bin; done 
-	cp libzxntools/libzxntools.a ../libs
-	cp libzxntools/libzxntools.so ../libs
+	for file in $(TARGETS); do cp $$file/$$file $(PREFIX)/bin; done 
+	cp libzxntools/libzxntools.a $(PREFIX)/libs
+	cp libzxntools/libzxntools.so $(PREFIX)/libs

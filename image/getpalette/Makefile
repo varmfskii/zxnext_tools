@@ -27,7 +27,10 @@ clean :
 	rm -f $(OBJS)  *~
 
 distclean : clean
-	rm -f getpalette
+	rm -f getpalette $(PREFIX)/bin/getpalette
 
 libzxntools :
 	make -C ../libzxntools
+
+install: all
+	cp getpalette $(PREFIX)/bin/

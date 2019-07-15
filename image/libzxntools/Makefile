@@ -49,3 +49,5 @@ clean :
 distclean : clean
 	rm -f test libzxntools.a libzxntools.so
 
+install: all
+	cp libzxntools.a libzxntools.so $(PREFIX)/libs/

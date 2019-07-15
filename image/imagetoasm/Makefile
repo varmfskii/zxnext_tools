@@ -30,5 +30,7 @@ clean :
 	rm -f $(OBJS) *~
 
 distclean : clean
-	rm -f imagetoasm
+	rm -f imagetoasm $(PREFIX)/bin/imagetoasm
 
+install: all
+	cp imagetoasm $(PREFIX)/bin/

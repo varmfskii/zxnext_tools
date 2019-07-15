@@ -10,8 +10,8 @@ OBJS=nexcreator.o addFile.o cmdBANK.o cmdBMP.o cmdCOR.o cmdMMU.o cmdPCSP.o \
 	getBankOrder.o getHex.o getInt.o getNextBank.o getRealBank.o \
 	getString.o getcommand.o skipSpace.o use8BitPalette.o
 
+all: nexcreator
 nexcreator : $(OBJS)
-
 addFile.o : addFile.c nexcreator.h
 cmdBANK.o : cmdBANK.c nexcreator.h
 cmdBMP.o : cmdBMP.c nexcreator.h
@@ -48,3 +48,6 @@ clean :
 
 distclean : clean
 	rm -f nexcreator
+
+install: all
+	cp nexcreator $(PREFIX)/bin/
