@@ -12,7 +12,6 @@ clean :
 
 distclean : clean
 	for file in $(TARGETS); do make -C $$file distclean; done 
-	rm -f bin/*
 
 install : all
 	mkdir -p $(PREFIX)/bin $(PREFIX)/libs
