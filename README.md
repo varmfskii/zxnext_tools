@@ -23,7 +23,7 @@ See TODO.md for things to do
 - shrtopbm - convert a Timex hi-resolution screen dump to a pbm file
 - sl2toppm - convert a ZX Next layer2 screen dump to a ppm file
 - slrtoppm - convert a ZX Next lo-resolution screen dump to a ppm file
-
+- zxnftp - a client server pair for a simplified FTP protocol between a computer and a zxnext
 ## Build support for external tools
 
 - pasmoNext - Z80 assembler with full ZX Spectrum Next opcode support

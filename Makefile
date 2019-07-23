@@ -1,18 +1,25 @@
-TARGETS=image nexcreator
+TARGETS=image nexcreator zxnftp
 
 PREFIX=$(CURDIR)
 
 all : $(TARGETS)
-	for file in $(TARGETS); do make -C $$file $$File; done 
+	for file in $(TARGETS) ;\
+	  do make PREFIX=$(PREFIX) -C $$file $$File ;\
+	done 
 
 .PHONY : $(TARGETS) clean distclean install
 
 clean :
-	for file in $(TARGETS); do make -C $$file clean; done 
+	for file in $(TARGETS) ;\
+	  do make PREFIX=$(PREFIX) -C $$file clean ;\
+	done 
 
 distclean : clean
-	for file in $(TARGETS); do make -C $$file distclean; done 
+	for file in $(TARGETS) ;\
+	  do make PREFIX=$(PREFIX) -C $$file distclean ;\
+	done 
 
 install : all
-	mkdir -p $(PREFIX)/bin $(PREFIX)/libs
-	for file in $(TARGETS); do make -C $$file install; done
+	for file in $(TARGETS) ;\
+	  do make PREFIX=$(PREFIX) -C $$file install ;\
+	done
