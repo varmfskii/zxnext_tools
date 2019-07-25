@@ -5,10 +5,10 @@
 
 void cmd_ls(char **params) {
   int16_t len;
-  int i, y, x, ix, nlines;
+  int i, y, ix, nlines;
   char buf[BLKSZ];
 
-  getmaxyx(win, y, x);
+  getmaxyx(win, y, i);
   if (params[1]) {
     nettxln("LS");
     if (neterr(NULL)) return;

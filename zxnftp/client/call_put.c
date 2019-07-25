@@ -34,9 +34,10 @@ void call_put(char *param, size_t len) {
     nettx(data+txlen, blen);
     sprintf(buf, "%d", txlen+blen);
     waddstr(win, buf);
-    getyx(win, y, x);
     wrefresh(win);
-    wmove(win, y, 0);
+    getyx(win, y, x);
+    x=0;
+    wmove(win, y, x);
   }
   if (!neterr(NULL)) waddstr(win, "Ok\n");
   clock_gettime(CLOCK_REALTIME, &e);

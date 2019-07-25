@@ -35,8 +35,9 @@ char *call_get(char *param, int *fsize) {
     sprintf(buf, "%d", rsize);
     waddstr(win, buf);
     wrefresh(win);
-    getyx(win, y,x);
-    wmove(win, y, 0);
+    getyx(win, y, x);
+    x=0;
+    wmove(win, y, x);
     nettxln("RR");
     netrx(data+rsize, &len, BLKSZ);
   }

@@ -2,7 +2,7 @@
 #include "zxnftp.h"
 
 void cmd_get(char **params) {
-  int i, len, numpar;
+  int i, len;
   char *data, *src, *dest;
   FILE *out;
   

@@ -5,10 +5,10 @@
 
 void cmd_dir(char **params) {
   int16_t len;
-  int i, ix, mo, dy, yr, h, m, s, attr, y, x, nlines;
-  char buf[BLKSZ], attrstr[9], temp[100];
+  int i, ix, mo, dy, yr, h, m, s, attr, y, nlines;
+  char buf[BLKSZ], attrstr[9];
   
-  getmaxyx(win, y, x);
+  getmaxyx(win, y, i);
   if (params[1]) {
     nettxln("LS");
     if (neterr(NULL)) return;

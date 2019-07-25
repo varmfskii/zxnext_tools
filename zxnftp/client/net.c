@@ -35,8 +35,8 @@ void nettx(const char *buff, int16_t len) {
   } else
     out=buff;
   if (len==STRING || len==LINE)
-    len1=strlen(buff);
+    len1=strlen(out);
   else
     len1=len;
-  write(server, buff, len1);
+  write(server, out, len1);
 }

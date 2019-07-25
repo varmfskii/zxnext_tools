@@ -19,8 +19,7 @@ int neterr(char *err) {
   if (!err) {
     netrxln(buf);
     if (!strcmp("OK", buf)) return 0;
-  } else
-    strcmp(buf, err);
+  }
   waddstr(win, "Error: ");
   for (i=0; errs[i].s; i++)
     if (!strcmp(errs[i].s, buf)) {

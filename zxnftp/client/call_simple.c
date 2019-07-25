@@ -4,9 +4,6 @@
 #include <unistd.h>
 
 void call_simple(char *cmd, char *param) {
-  char buf[BLKSZ];
-  int i, len;
-
   nettxln(cmd);
   if (neterr(NULL)) return;
   if (param) {
