@@ -166,7 +166,8 @@ void cmd_put(void) {
   }
   sscanf(buf, "%ld", &flen);
   printf("%ld bytes\n", flen);
-  esx_f_seek(f, flen, ESX_SEEK_SET);
+  esx_f_seek(f, flen-1, ESX_SEEK_SET);
+  esx_f_write(f, bbuf, 1);
   esx_f_seek(f, 0, ESX_SEEK_SET);
   for(bblen=rlen=0; rlen<flen; rlen+=len) {
     nettx("RR\r\n", 4);
@@ -186,6 +187,7 @@ void cmd_put(void) {
     }
   }
   esx_f_write(f, bbuf, bblen);
+  esx_f_trunc(f, flen);
   esx_f_close(f);
   nettx("OK\r\n", 4);
 }

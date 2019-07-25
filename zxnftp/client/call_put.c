@@ -11,6 +11,7 @@ void call_put(char *param, size_t len) {
   int16_t blen;
   char buf[BLKSZ];
   struct timespec s, e;
+  int y, x;
   double time;
 
   clock_gettime(CLOCK_REALTIME, &s);
@@ -31,6 +32,11 @@ void call_put(char *param, size_t len) {
     else
       blen=len-txlen;
     nettx(data+txlen, blen);
+    sprintf(buf, "%d", txlen+blen);
+    waddstr(win, buf);
+    getyx(win, y, x);
+    wrefresh(win);
+    wmove(win, y, 0);
   }
   if (!neterr(NULL)) waddstr(win, "Ok\n");
   clock_gettime(CLOCK_REALTIME, &e);
