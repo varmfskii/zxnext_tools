@@ -27,8 +27,9 @@ char *call_get(char *param, int *fsize) {
   sprintf(buf, "%d bytes\n", *fsize);
   waddstr(win, buf);
   if (*fsize>data_sz) {
-    data_sz*=2;
-    data=(char *)realloc(data, data_sz);
+    data_sz=*fsize;
+    free(data);
+    data=(char *)malloc(data_sz);
   }
   for(rsize=0; rsize<*fsize; rsize+=len) {
     sprintf(buf, "%d", rsize);

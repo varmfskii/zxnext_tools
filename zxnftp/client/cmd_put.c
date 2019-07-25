@@ -6,6 +6,7 @@ void cmd_put(char **params) {
   char *src, *dest, buf[BLKSZ];
   FILE *in;
   size_t len;
+  struct stat st;
   
   wmove(status, 0, 0);
   wdeleteln(status);
@@ -22,19 +23,19 @@ void cmd_put(char **params) {
   }
   src=(i==2)?params[1]:params[2];
   dest=params[1];
+  fstat(src, &st);
+  if (st.size>data_sz) {
+    data_sz=st.size;
+    free(data);
+    data=(char *)malloc(data_sz);
+  }
   if (!(in=fopen(src, "r"))) {
     waddstr(win, "Error: unable to open local file: ");
     waddstr(win, src);
     waddch(win, '\n');
     return;
   }
-  for(rlen=len=0; ;) {
-    rlen=fread(data+len, 1, data_sz-len, in);
-    len+=rlen;
-    if (len!=data_sz) break;
-    data_sz*=2;
-    data=(char *)realloc(data, data_sz);
-  }
+  fread(data, 1, sz.size, in);
   fclose(in);
   call_put(dest, len);
 }
