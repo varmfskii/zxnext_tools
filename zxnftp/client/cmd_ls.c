@@ -4,7 +4,7 @@
 #include "zxnftp.h"
 
 void cmd_ls(char **params) {
-  uint8_t len;
+  int16_t len;
   int i, y, x, ix, nlines;
   char buf[BLKSZ];
 

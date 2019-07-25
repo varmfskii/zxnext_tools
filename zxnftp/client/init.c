@@ -31,7 +31,6 @@ void init(void) {
   line[colon]='\0';
   addr=strdup(line);
   port=atoi(line+colon+1);
-#ifndef NONET
   // init socket
   server=socket(AF_INET, SOCK_STREAM, 0); 
   if (server == -1) error("socket creation failed", 1); 
@@ -41,21 +40,12 @@ void init(void) {
   if (connect(server, (struct sockaddr *)&address, sizeof(address)) != 0)
     error("connection with the server failed", 2);
   call_id();
-#else
-  id=strdup("No Network Test");
-#endif
   //init windows
   setlocale(LC_ALL, "");
   initscr();
   getmaxyx(stdscr, h, w);
   
-#ifdef DEBUG
-  win=newwin(h-1, w/2, 1, 0);
-  debug=newwin(h-1, w-w/2, 1, w/2);
-  scrollok(debug, TRUE);
-#else
   win=newwin(h-1, w, 1, 0);
-#endif
   scrollok(win, TRUE);
   status=newwin(1, w, 0, 0);
   noecho();
@@ -63,10 +53,6 @@ void init(void) {
   nl();
   wclear(status);
   //wrefresh(status);
-#ifdef DEBUG
-  wclear(debug);
-  //wrefresh(debug);
-#endif
   wclear(win);
   waddstr(win, "ZXFTP client\n");
   waddstr(win, "connected to server: ");

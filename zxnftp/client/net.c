@@ -2,10 +2,10 @@
 #include <unistd.h>
 #include <string.h>
 
-void netrx(char *rx, uint8_t *rlen, uint8_t mode) {
-  uint8_t len;
+void netrx(char *rx, int16_t *rlen, int16_t mode) {
+  int16_t len;
   
-  len=read(server, rx, 255);
+  len=read(server, rx, BLKSZ);
   switch (mode) {
   case STRING:
     rx[len]='\0';
@@ -21,16 +21,10 @@ void netrx(char *rx, uint8_t *rlen, uint8_t mode) {
   default:
     *rlen=len;
   }
-#ifdef DEBUG
-  waddstr(debug, "read: ");
-  for(int i=0; i<len; i++) waddch(debug, rx[i]);
-  waddch(debug, '\n');
-  wrefresh(debug);
-#endif
 }
 
-void nettx(const char *buff, uint8_t len) {
-  uint8_t len1;
+void nettx(const char *buff, int16_t len) {
+  int16_t len1;
   char t[BLKSZ+3];
   const char *out;
   
@@ -45,9 +39,4 @@ void nettx(const char *buff, uint8_t len) {
   else
     len1=len;
   write(server, buff, len1);
-#ifdef DEBUG
-  sprintf(t, "write: %d\n", len1);
-  waddstr(debug, t);
-  wrefresh(debug);
-#endif
 }

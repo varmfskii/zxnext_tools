@@ -3,9 +3,9 @@
 #include <string.h>
 #include "zxnftp.h"
 
-void netrx(char *rx, uint8_t *rlen, uint8_t mode) {
+void netrx(char *rx, int16_t *rlen, int16_t mode) {
   char cbuf[16], lbuf[17];
-  uint8_t i, j, start, len;
+  int16_t i, j, start, len;
 
   i=0;
   for(;;) {
@@ -45,9 +45,9 @@ void netrx(char *rx, uint8_t *rlen, uint8_t mode) {
   }
 }
 
-void nettx(const char *buff, uint8_t len) {
+void nettx(const char *buff, int16_t len) {
   char command[19];
-  uint8_t len1, len2;
+  int16_t len1, len2;
 
   switch(len) {
   case STRING:

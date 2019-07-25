@@ -12,19 +12,21 @@ struct esx_dirent_lfn dirent;
 struct esx_dirent_slice *slice;
 struct tm dt;
 struct esx_stat stat;
-uint8_t f, len;
+uint8_t f;
+int16_t len;
 uint32_t rlen, flen;
+char bbuf[8192+BLKSZ];
 
 /* handle simple commands that translate as a single call */
 void cmd_simple(const char *name, uint8_t (*fn)(char *)) {
-  nettxln("OK");
+  nettx("OK\r\n", 4);
   netrxln(buf);
   f=0xff;
   f=fn(buf);
   if (f==0xff)
     senderr();
   else {
-    nettxln("OK");
+    nettx("OK\r\n", 4);
     printf("%s %s\n", name, buf);
   }
 }
@@ -36,21 +38,21 @@ void cmd_cd(void) {
 
 /* change drive */
 void cmd_drive(void) {
-  nettxln("OK");
+  nettx("OK\r\n", 4);
   netrxln(buf);
   f=0xff;
   f=esx_dos_set_drive(buf[0]);
   if (f==0xff)
     senderr();
   else {
-    nettxln("OK");
+    nettx("OK\r\n", 4);
     printf("drive %c\n", buf[0]);
   }
 }
 
 /* get a file from server */
 void cmd_get(void) {
-  nettxln("OK");
+  nettx("OK\r\n", 4);
   netrxln(buf);
   f=0xff;
   f=esx_f_open(buf, ESX_MODE_OPEN_EXIST|ESX_MODE_R);
@@ -71,7 +73,7 @@ void cmd_get(void) {
     }
     len=esx_f_read(f, buf, BLKSZ);
     if (!len) {
-      nettxln("OK");
+      nettx("OK\r\n", 4);
       break;
     }
     nettx(buf, len);
@@ -94,7 +96,7 @@ void do_ls(void) {
     return;
   }
   printf("ls %s\n", buf);
-  nettxln("OK");
+  nettx("OK\r\n", 4);
   for(;;) {
     netrxln(buf);
     if (strcmp("RR", buf)) {
@@ -102,7 +104,7 @@ void do_ls(void) {
       break;
     }
     if (!esx_f_readdir(f, &dirent) || errno) {
-      nettxln("OK");
+      nettx("OK\r\n", 4);
       break;
     }
     slice=esx_slice_dirent(&dirent);
@@ -124,7 +126,7 @@ void cmd_l_(void) {
 
 /* list a directory */
 void cmd_ls(void) {
-  nettxln("OK");
+  nettx("OK\r\n", 4);
   netrxln(buf);
   do_ls();
 }
@@ -144,8 +146,9 @@ void cmd_pwd(void) {
 /* put a file to the server */
 void cmd_put(void) {
   size_t tlen;
+  int16_t bblen;
   
-  nettxln("OK");
+  nettx("OK\r\n", 4);
   netrxln(buf);
   f=0xff;
   f=esx_f_open(buf, ESX_MODE_OPEN_CREAT_NOEXIST|ESX_MODE_W);
@@ -153,34 +156,46 @@ void cmd_put(void) {
     senderr();
     return;
   }
-  nettxln("OK");
+  nettx("OK\r\n", 4);
   printf("put %s: ", buf);
   netrxln(buf);
+  // not a number
+  if (buf[0]<'0' || buf[0]>'9') {
+    nettx("XX\r\n", 4);
+    return;
+  }
   sscanf(buf, "%ld", &flen);
   printf("%ld bytes\n", flen);
-  for(rlen=0; rlen<flen; rlen+=len) {
-    nettxln("RR");
+  for(bblen=rlen=0; rlen<flen; rlen+=len) {
+    nettx("RR\r\n", 4);
     netrx(buf, &tlen, RAW);
     len=tlen;
     errno=0;
-    esx_f_write(f, buf, len);
+    memcpy(bbuf+bblen, buf, len);
+    bblen+=len;
+    if (bblen>=8192) {
+      esx_f_write(f, bbuf, 8192);
+      memcpy(bbuf, bbuf+8192, bblen-8192);
+      bblen-=8192;
+    }
     if (errno) {
       senderr();
       esx_f_close(f);
       return;
     }
   }
+  esx_f_write(f, bbuf, bblen);
   esx_f_close(f);
-  nettxln("OK");
+  nettx("OK\r\n", 4);
 }
 
 /* shutdown server */
 void cmd_quit(void) {
   puts("quit");
-  nettxln("OK");
+  nettx("OK\r\n", 4);
   cmdresponse("AT+CIPCLOSE=0\r\n");
   cmdresponse("AT+CIPSERVER=0\r\n");
-  cmdresponse("ATE1\r\n");
+  cmdresponse("AT+RST\r\n");
   puts("server done");
   exit(0);
 }
@@ -198,6 +213,17 @@ void cmd_rm(void) {
 /* quit a session on the server, leave server running */
 void cmd_exit(void) {
   puts("exit");
-  nettxln("OK");
+  nettx("OK\r\n", 4);
   cmdresponse("AT+CIPCLOSE=0\r\n");
+}
+
+void cmd_baud(void) {
+  uint32_t bps;
+  
+  nettx("OK\r\n", 4);
+  netrxln(buf);
+  nettx("OK\r\n", 4);
+  bps=atol(buf);
+  printf("%ld baud\n", bps);
+  setbaud(bps);
 }

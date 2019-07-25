@@ -6,7 +6,7 @@
 #define BSIZE 255
 #define CONFIG "zxnftp.cfg"
 #define ERROR 1
-#define ID "ZXNFTP 0.1 alpha"
+#define ID "ZXNFTP 0.2 alpha"
 #define LINE 0xff
 #define OK 0
 #define SEND_FAIL 3
@@ -23,9 +23,10 @@
 #define nettxs(X) nettx((X), (STRING))
 #define netclose() cmdresponse("AT+CIPCLOSE=0\r\n")
 
-uint8_t cmdresponse(char *);
-uint8_t uartchar(void);
-uint8_t uartresponse(void);
+int16_t cmdresponse(char *);
+int16_t uartchar(void);
+int16_t uartresponse(void);
+void cmd_baud(void);
 void cmd_cd(void);
 void cmd_drive(void);
 void cmd_exit(void);
@@ -40,10 +41,11 @@ void cmd_quit(void);
 void cmd_rm(void);
 void cmd_rmdir(void);
 void cmd_simple(const char *, uint8_t (*fn)(char *));
-void netrx(char *, uint8_t *, uint8_t);
-void nettx(const char *, uint8_t);
+void netrx(char *, int16_t *, int16_t);
+void nettx(const char *, int16_t);
 void senderr(void);
-void uartwrite(const char *, uint8_t);
+uint8_t setbaud(int32_t);
+void uartwrite(const char *, int16_t);
 
 __sfr __banked __at 0x133b TX;
 __sfr __banked __at 0x143b RX;

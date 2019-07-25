@@ -1,4 +1,4 @@
-SRCS=zxnftp.c cmds.c net.c senderr.c uart.c
+SRCS=zxnftp.c cmds.c net.c senderr.c setbaud.c uart.c
 
 OBJS=$(SRCS:.c=.o)
 

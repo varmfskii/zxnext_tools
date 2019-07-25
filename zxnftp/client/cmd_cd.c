@@ -31,9 +31,6 @@ void cmd_cd(char **params) {
   if (neterr(NULL)) return;
   len=strlen(params[1]);
   if (len && params[1][len-1]!='/') {
-#ifdef DEBUG
-    waddstr(debug, "added /\n");
-#endif
     sprintf(buf, "%s/", params[1]);
     nettxln(buf);
   } else

@@ -1,18 +1,14 @@
-#ifndef ZXNFTP_H
-#define ZXNFTP_H
+#ifndef ZXNFTPC_H
+#define ZXNFTPC_H
 #include <curses.h>
+#include "../zxnftp.h"
 
-#ifdef NONET
-#define DEBUG
-#endif
-
-#define BLKSZ 200
 #define DATASZ 8192
-#define LINE 0xfe
+#define LINE -1
 #define LINESSZ 256
 #define NUMERIC 0
-#define RAW 0xfd
-#define STRING 0xff
+#define RAW -2
+#define STRING -3
 
 #define netrxln(X) netrx((X), NULL, (LINE))
 #define netrxs(X) netrx((X), NULL, (STRING))
@@ -40,9 +36,6 @@ extern WINDOW *debug;
 #endif
 extern int server, w, h, disp_mode;
 extern command commands[];
-#ifdef NONET
-extern unsigned char mem[];
-#endif
 
 char **parse(char *);
 int cmpls(const void *, const void *);
@@ -53,8 +46,8 @@ void error(char *, int);
 void execute(char *);
 void finish(void);
 void init(void);
-void netrx(char *, uint8_t *, uint8_t);
-void nettx(const char *, uint8_t);
+void netrx(char *, int16_t *, int16_t);
+void nettx(const char *, int16_t);
 void wpause(void);
 
 char *call_get(char *, int *);
@@ -62,6 +55,7 @@ void call_id();
 void call_put(char *, size_t);
 void call_simple(char *, char *);
 
+void cmd_baud(char **);
 void cmd_cat(char **);
 void cmd_cd(char **);
 void cmd_dir(char **);

@@ -29,27 +29,12 @@ void cmd_put(char **params) {
     return;
   }
   for(rlen=len=0; ;) {
-#ifdef DEBUG
-    sprintf(buf, "%d %d %d\n", data_sz-len, len, data_sz);
-    waddstr(debug, buf);
-    wrefresh(debug);
-#endif
     rlen=fread(data+len, 1, data_sz-len, in);
     len+=rlen;
     if (len!=data_sz) break;
     data_sz*=2;
     data=(char *)realloc(data, data_sz);
   }
-#ifdef DEBUG
-    sprintf(buf, "%d %d %d\n", rlen, len, data_sz);
-    waddstr(debug, buf);
-    wrefresh(debug);
-#endif
   fclose(in);
-#ifdef DEBUG
-  sprintf(buf, "%d bytes\n", len);
-  waddstr(debug, buf);
-  wrefresh(debug);
-#endif
   call_put(dest, len);
 }

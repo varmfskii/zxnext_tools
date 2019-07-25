@@ -12,12 +12,6 @@ char *data, **lines;
 size_t data_sz, lines_sz;
 
 WINDOW *status, *win;
-#ifdef DEBUG
-WINDOW *debug;
-#endif
-#ifdef NONET
-unsigned char mem[0x200000];
-#endif
 
 int main() {
   int c, done, pos;
@@ -61,9 +55,6 @@ int main() {
       waddch(win, c);
     }
     wrefresh(status);
-#ifdef DEBUG
-    wrefresh(debug);
-#endif
     wrefresh(win);
   }
 }

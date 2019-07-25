@@ -21,11 +21,6 @@ int neterr(char *err) {
     if (!strcmp("OK", buf)) return 0;
   } else
     strcmp(buf, err);
-#ifdef DEBUG
-  waddstr(debug, buf);
-  waddch(debug, '\n');
-  wrefresh(debug);
-#endif
   waddstr(win, "Error: ");
   for (i=0; errs[i].s; i++)
     if (!strcmp(errs[i].s, buf)) {

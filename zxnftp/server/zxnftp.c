@@ -14,6 +14,7 @@ struct cmd {
 char buf[BLKSZ];
 char line[BLKSZ];
 struct cmd cmds[]={
+		   { "BD", cmd_baud },
 		   { "CD", cmd_cd },
 		   { "DR", cmd_drive },
 		   { "GT", cmd_get },
@@ -30,7 +31,7 @@ struct cmd cmds[]={
 		   { NULL, NULL }};
 
 int main() {
-  uint8_t f, i, j, len;
+  int16_t f, i, j, len;
 
   puts("ZXNFTP server id: " ID);
   ioctl(1, IOCTL_OTERM_PAUSE, 0);

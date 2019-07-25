@@ -4,7 +4,7 @@
 #include "zxnftp.h"
 
 void cmd_dir(char **params) {
-  uint8_t len;
+  int16_t len;
   int i, ix, mo, dy, yr, h, m, s, attr, y, x, nlines;
   char buf[BLKSZ], attrstr[9], temp[100];
   
@@ -44,11 +44,6 @@ void cmd_dir(char **params) {
     }
     sprintf(data+ix, "%s %02u/%02u/%04u %02u:%02u:%02u %s",
 	    attrstr, dy, mo, yr, h, m, s, buf);
-#ifdef DEBUG
-    waddstr(debug, data+ix);
-    waddch(debug, '\n');
-    wrefresh(debug);
-#endif
     ix+=30+len;
   }
   nlines=i;

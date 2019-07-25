@@ -4,6 +4,8 @@ command commands[]=
   {
    { "?", cmd_help, "? [<cmd>]",
      "a synonym for help (see help help)\n" },
+   { "baud", cmd_baud, "baud <bps>",
+     "Set the baud rate on the server's UART and ESP8266\n" },
    { "cat", cmd_cat, "cat <file>",
      "display the file on the server named <file> on the client\n" },
    { "cd", cmd_cd, "cd <dir>",

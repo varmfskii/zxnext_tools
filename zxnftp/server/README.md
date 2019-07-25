@@ -6,6 +6,8 @@ interaction is human readable.
 
 - Commands
 
+    - BD \<dir> - set baudrate on the ZX Next
+
     - CD \<dir> - change directory on ZX Next
 
     - DR \<drive> - change drive on ZX Next
