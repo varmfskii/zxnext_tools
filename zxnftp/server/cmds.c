@@ -62,7 +62,7 @@ void cmd_get(void) {
   }
   esx_f_fstat(f, &stat);
   printf("get %s: ", buf);
-  sprintf(buf, "%d", stat.size);
+  sprintf(buf, "%ld", stat.size);
   printf("%s bytes\n", buf);
   nettxln(buf);
   for(;;) {
@@ -166,12 +166,13 @@ void cmd_put(void) {
   }
   sscanf(buf, "%ld", &flen);
   printf("%ld bytes\n", flen);
+  esx_f_seek(f, flen, ESX_SEEK_SET);
+  esx_f_seek(f, 0, ESX_SEEK_SET);
   for(bblen=rlen=0; rlen<flen; rlen+=len) {
     nettx("RR\r\n", 4);
-    netrx(buf, &tlen, RAW);
+    netrx(bbuf+bblen, &tlen, RAW);
     len=tlen;
     errno=0;
-    memcpy(bbuf+bblen, buf, len);
     bblen+=len;
     if (bblen>=8192) {
       esx_f_write(f, bbuf, 8192);

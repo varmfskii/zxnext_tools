@@ -37,7 +37,7 @@ char *call_get(char *param, int *fsize) {
   }
   clock_gettime(CLOCK_REALTIME, &e);
   time=e.tv_sec-s.tv_sec+(e.tv_nsec-s.tv_nsec)*1e-9;
-  sprintf(buf, "%d b, 0.2f s, %0.2f bps\n", *fsize, time, 8**fsize/time);
+  sprintf(buf, "%d b, %0.2f s, %0.2f bps\n", *fsize, time, 8**fsize/time);
   waddstr(win, buf);
   return data;
 }
