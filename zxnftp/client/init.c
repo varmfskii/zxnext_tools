@@ -13,7 +13,8 @@ void init(void) {
   char line[BLKSZ];
   int i, c, colon;
   FILE *in;
-
+  struct timeval tv;
+  
   data=(char *)malloc(DATASZ);
   data_sz=DATASZ;
   lines=(char **)malloc(LINESSZ*(sizeof (char *)));
@@ -39,6 +40,9 @@ void init(void) {
   address.sin_port = htons(port); 
   if (connect(server, (struct sockaddr *)&address, sizeof(address)) != 0)
     error("connection with the server failed", 2);
+  tv.tv_sec=1;
+  tv.tv_usec=0;
+  setsockopt(server, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv));
   call_id();
   //init windows
   setlocale(LC_ALL, "");
