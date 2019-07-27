@@ -1,6 +1,6 @@
 #include "zxntools.h"
 #include <stdlib.h>
-#ifdef PREFIX
+#ifdef PAMPREFIX
 #include <netpbm/pam.h>
 #else
 #include <pam.h>
