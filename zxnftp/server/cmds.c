@@ -15,7 +15,7 @@ struct esx_stat stat;
 uint8_t f;
 int16_t len;
 uint32_t rlen, flen;
-char bbuf[8192+BLKSZ];
+//char bbuf[8192+BLKSZ];
 
 /* handle simple commands that translate as a single call */
 void cmd_simple(const char *name, uint8_t (*fn)(char *)) {

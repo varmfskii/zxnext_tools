@@ -4,25 +4,32 @@
 #include "zxnftp.h"
 
 void netrx(char *rx, int16_t *rlen, int16_t mode) {
-  char cbuf[16], lbuf[17];
-  int16_t i, j, start, len;
+  char c;
+  int16_t i, len;
 
   i=0;
-  for(;;) {
-    while((cbuf[i]=uartchar())!=':') {
-      i=(i+1)&0x0f;
+  for(c='\0';;) {
+    while(c!='+') c=uartchar();
+    c=uartchar();
+    if (c!='I') continue;
+    c=uartchar();
+    if (c!='P') continue;
+    c=uartchar();
+    if (c!='D') continue;
+    c=uartchar();
+    if (c!=',') continue;
+    c=uartchar();
+    if (c!='0') continue;
+    c=uartchar();
+    if (c!=',') continue;
+    c=uartchar();
+    for(len=0; c>='0' && c<='9';) {
+      len=len*10+c-'0';
+      c=uartchar();
     }
-    for(start=(i-1)&0x0f;
-	cbuf[start]!='+' && cbuf[start]!=':';
-	start=(start-1)&0x0f);
-    for(i=0, j=(start+1)&0x0f; cbuf[j]!=':'; i++, j=(j+1)&0x0f)
-      lbuf[i]=cbuf[j];
-    lbuf[i]='\0';
-    if (strncmp(lbuf, "IPD,0,", 6)) continue;
-    for(i=6, len=0; lbuf[i]>='0' && lbuf[i]<='9'; i++)
-      len=len*10+lbuf[i]-'0';
-    if (!lbuf[i]) break;
+    if (c==':') break;
   }
+  //printf("\nblock %d bytes\n", len);
   if (len>BLKSZ) {
     netclose();
     exit(1);

@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <sys/ioctl.h>
 #include <arch/zxn.h>
 #include <arch/zxn/esxdos.h>
@@ -11,9 +12,9 @@ struct cmd {
   void (*fn)(void);
 };
 
-char buf[BLKSZ];
-char line[BLKSZ];
-struct cmd cmds[]={
+char bbuf[8192+BLKSZ], buf[BLKSZ], line[BLKSZ];
+
+const struct cmd cmds[]={
 		   { "BD", cmd_baud },
 		   { "CD", cmd_cd },
 		   { "DR", cmd_drive },

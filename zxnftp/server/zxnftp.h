@@ -50,5 +50,5 @@ void uartwrite(const char *, int16_t);
 __sfr __banked __at 0x133b TX;
 __sfr __banked __at 0x143b RX;
 
-extern char buf[BLKSZ];
+extern char buf[], bbuf[], line[];
 #endif

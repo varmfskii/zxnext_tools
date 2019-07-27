@@ -22,7 +22,6 @@ uint8_t setbaud(int32_t baud) {
     printf("%d\n", r);
     return r;
   }
-  printf("AT+UART_CUR=%ld,8,1,0,0\n", baud);
   RX=sub&0x7f;
   RX=0x80|(sub>>7);
   for(i=1; i; i++);
