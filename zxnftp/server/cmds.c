@@ -187,7 +187,7 @@ void cmd_put(void) {
     }
   }
   esx_f_write(f, bbuf, bblen);
-  esx_f_trunc(f, flen);
+  esx_f_ftrunc(f, flen);
   esx_f_close(f);
   nettx("OK\r\n", 4);
 }

@@ -1,10 +1,11 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <sys/ioctl.h>
 #include <arch/zxn.h>
 #include <arch/zxn/esxdos.h>
 #include <errno.h>
+#include <malloc.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/ioctl.h>
 #include "zxnftp.h"
 
 struct cmd {
@@ -12,7 +13,8 @@ struct cmd {
   void (*fn)(void);
 };
 
-char bbuf[8192+BLKSZ], buf[BLKSZ], line[BLKSZ];
+//char bbuf[8192+BLKSZ], buf[BLKSZ], line[BLKSZ];
+char *bbuf, *buf, *line;
 
 const struct cmd cmds[]={
 		   { "BD", cmd_baud },
@@ -34,6 +36,12 @@ const struct cmd cmds[]={
 int main() {
   int16_t f, i, j, len;
 
+  if (!(bbuf=(char *)malloc(8192+3*BLKSZ))) {
+    puts("Memory allocation failed");
+    return 1;
+  }
+  buf=bbuf+8192+BLKSZ;
+  line=buf+BLKSZ;
   puts("ZXNFTP server id: " ID);
   ioctl(1, IOCTL_OTERM_PAUSE, 0);
   puts("starting server");

@@ -23,9 +23,10 @@
 #define nettxs(X) nettx((X), (STRING))
 #define netclose() cmdresponse("AT+CIPCLOSE=0\r\n")
 
-int16_t cmdresponse(char *);
-int16_t uartchar(void);
-int16_t uartresponse(void);
+char cmdresponse(char *);
+char setbaud(int32_t);
+char uartchar(void);
+char uartresponse(void);
 void cmd_baud(void);
 void cmd_cd(void);
 void cmd_drive(void);
@@ -44,11 +45,11 @@ void cmd_simple(const char *, uint8_t (*fn)(char *));
 void netrx(char *, int16_t *, int16_t);
 void nettx(const char *, int16_t);
 void senderr(void);
-uint8_t setbaud(int32_t);
 void uartwrite(const char *, int16_t);
 
 __sfr __banked __at 0x133b TX;
 __sfr __banked __at 0x143b RX;
 
-extern char buf[], bbuf[], line[];
+//extern char buf[], bbuf[], line[];
+extern char *buf, *bbuf, *line;
 #endif

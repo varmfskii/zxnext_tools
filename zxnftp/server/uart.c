@@ -5,29 +5,17 @@
 
 #define LINESZ 255
 
-int16_t cmdresponse(char *cmd) {
+char cmdresponse(char *cmd) {
   uartwrite(cmd, strlen(cmd));
   return uartresponse();
 }
 
-int16_t uartchar(void) {
+char uartchar(void) {
   while(!TX&UART_DATA);
   return RX;
 }
-#include <stdio.h>
-#include <stdint.h>
-#include "zxnftp.h"
 
-int16_t uartread(char *buf, int16_t n) {
-  int16_t i;
-
-  for(i=0; i<n && (TX&UART_DATA); i++) {
-    buf[i]=RX;
-  }
-  return i;
-}
-
-int16_t uartresponse(void) {
+char uartresponse(void) {
   char line[LINESZ];
   int16_t i, j;
   const char *responses[]={ "OK\r", "ERROR\r", "SEND OK\r", "SEND FAIL\r", NULL };
