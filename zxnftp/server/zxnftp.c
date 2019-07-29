@@ -13,6 +13,9 @@ struct cmd {
   void (*fn)(void);
 };
 
+#ifdef DOTN
+char pool[8192+3*BLKSZ];
+#endif
 //char bbuf[8192+BLKSZ], buf[BLKSZ], line[BLKSZ];
 char *bbuf, *buf, *line;
 
@@ -36,10 +39,14 @@ const struct cmd cmds[]={
 int main() {
   int16_t f, i, j, len;
 
+#ifdef DOTN
+  bbuf=pool;
+#else
   if (!(bbuf=(char *)malloc(8192+3*BLKSZ))) {
     puts("Memory allocation failed");
     return 1;
   }
+#endif
   buf=bbuf+8192+BLKSZ;
   line=buf+BLKSZ;
   puts("ZXNFTP server id: " ID);

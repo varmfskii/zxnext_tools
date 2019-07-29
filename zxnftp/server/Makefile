@@ -1,4 +1,4 @@
-SRCS=zxnftp.c cmds.c net.c senderr.c setbaud.c uart.c
+SRCS=cmds.c net.c senderr.c setbaud.c uart.c
 
 OBJS=$(SRCS:.c=.o)
 
@@ -21,14 +21,17 @@ all: zxnftp.cfg zxnftp.tap zxnftp.sna ZXNFTP
 zxnftp.cfg:
 	cd .. ; ./mkzxnftpcfg.py
 
-zxnftp.tap: $(OBJS)
+zxnftp.tap: zxnftp.o $(OBJS)
 	zcc +zxn -o zxnftp $(OPT) $(TAP) $^
 
-zxnftp.sna: $(OBJS)
+zxnftp.sna: zxnftp.o $(OBJS)
 	zcc +zxn -o zxnftp $(OPT) $(SNA) $^
 
-ZXNFTP: $(OBJS)
+ZXNFTP: zxnftp_dotn.o $(OBJS)
 	zcc +zxn -o zxnftp $(OPT) $(DOTN) $^
+
+zxnftp_dotn.o: zxnftp.c zxnftp.h
+	zcc +zxn -DDOTN -o zxnftp_dotn.o -c $(OPT) $<
 
 zxnftp.o: zxnftp.c zxnftp.h
 cmds.o: cmds.c zxnftp.h
