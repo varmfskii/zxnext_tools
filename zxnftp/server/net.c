@@ -9,23 +9,23 @@ void netrx(char *rx, int16_t *rlen, int16_t mode) {
 
   i=0;
   for(c='\0';;) {
-    while(c!='+') c=uartchar();
-    c=uartchar();
+    while(c!='+') c=uartreadc();
+    c=uartreadc();
     if (c!='I') continue;
-    c=uartchar();
+    c=uartreadc();
     if (c!='P') continue;
-    c=uartchar();
+    c=uartreadc();
     if (c!='D') continue;
-    c=uartchar();
+    c=uartreadc();
     if (c!=',') continue;
-    c=uartchar();
+    c=uartreadc();
     if (c!='0') continue;
-    c=uartchar();
+    c=uartreadc();
     if (c!=',') continue;
-    c=uartchar();
+    c=uartreadc();
     for(len=0; c>='0' && c<='9';) {
       len=len*10+c-'0';
-      c=uartchar();
+      c=uartreadc();
     }
     if (c==':') break;
   }
@@ -34,7 +34,7 @@ void netrx(char *rx, int16_t *rlen, int16_t mode) {
     netclose();
     exit(1);
   }
-  for(i=0; i<len; i++) rx[i]=uartchar();
+  uartread(rx, len);
   switch (mode) {
   case STRING:
     rx[len]='\0';

@@ -3,26 +3,18 @@
 #include <string.h>
 #include "zxnftp.h"
 
-#define LINESZ 255
-
 char cmdresponse(char *cmd) {
   uartwrite(cmd, strlen(cmd));
   return uartresponse();
 }
 
-char uartchar(void) {
-  while(!TX&UART_DATA);
-  return RX;
-}
-
 char uartresponse(void) {
-  char line[LINESZ];
   int16_t i, j;
   const char *responses[]={ "OK\r", "ERROR\r", "SEND OK\r", "SEND FAIL\r", NULL };
 
   i=0;
-  for(; i<LINESZ;)
-    if ((line[i++]=uartchar())=='\n') {
+  for(; i<BLKSZ;)
+    if ((line[i++]=uartreadc())=='\n') {
       line[i-1]='\0';
       for(j=0; responses[j]; j++)
 	if (!strcmp(line, responses[j])) return j;
@@ -33,12 +25,14 @@ char uartresponse(void) {
   return 0xff;
 }
 
+void uartread(char *buf, int16_t n) {
+  int16_t i;
+  
+  for(i=0; i<n; i++) buf[i]=uartreadc();
+}
+
 void uartwrite(const char *buf, int16_t n) {
   int16_t i;
 
-  for(i=0; i<n; i++) {
-    while(TX&UART_BUSY);
-    TX=buf[i];
-  }
-  while(TX&UART_BUSY);
+  for(i=0; i<n; i++) uartwritec(buf[i]);
 }

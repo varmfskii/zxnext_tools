@@ -25,7 +25,6 @@
 
 char cmdresponse(char *);
 char setbaud(int32_t);
-char uartchar(void);
 char uartresponse(void);
 void cmd_baud(void);
 void cmd_cd(void);
@@ -45,6 +44,7 @@ void cmd_simple(const char *, uint8_t (*fn)(char *));
 void netrx(char *, int16_t *, int16_t);
 void nettx(const char *, int16_t);
 void senderr(void);
+void uartread(char *, int16_t);
 void uartwrite(const char *, int16_t);
 
 __sfr __banked __at 0x133b TX;
@@ -52,4 +52,14 @@ __sfr __banked __at 0x143b RX;
 
 //extern char buf[], bbuf[], line[];
 extern char *buf, *bbuf, *line;
+
+inline char uartreadc(void) {
+  while(!TX&UART_DATA);
+  return RX;
+}
+
+inline void uartwritec(char c) {
+  while(TX&UART_BUSY);
+  TX=c;
+}
 #endif
