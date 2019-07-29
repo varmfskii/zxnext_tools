@@ -7,7 +7,7 @@ another computer.
 
     - ? [\<cmd>] - print help message
 
-    - baud \<file> - set the baudrate on on teh ZX Next
+    - baud \<file> - set the baudrate on on the ZX Next
     
     - cat \<file> - show the contents of a file
     

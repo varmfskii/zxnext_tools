@@ -118,12 +118,6 @@ void do_ls(void) {
   esx_f_close(f);
 }
 
-/* list current directory */
-void cmd_l_(void) {
-  esx_f_getcwd(buf);
-  do_ls();
-}
-
 /* list a directory */
 void cmd_ls(void) {
   nettx("OK\r\n", 4);

@@ -6,15 +6,19 @@
 void cmd_ls(char **params) {
   int16_t len;
   int i, y, ix, nlines;
-  char buf[BLKSZ];
+  char buf[BLKSZ], dir[BLKSZ], *p;
 
   getmaxyx(win, y, i);
   if (params[1]) {
-    nettxln("LS");
-    if (neterr(NULL)) return;
-    nettxln(params[1]);
-  } else
-    nettxln("L.");
+    p=params[1];
+  } else {
+    nettxln("PD");
+    netrxln(dir);
+    p=dir;
+  }
+  nettxln("LS");
+  if (neterr(NULL)) return;
+  nettxln(p);
   if (neterr(NULL)) return;
   for(i=0; ; i++) {
     nettxln("RR");

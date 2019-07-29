@@ -25,7 +25,6 @@ const struct cmd cmds[]={
 		   { "DR", cmd_drive },
 		   { "GT", cmd_get },
 		   { "ID", cmd_id },
-		   { "L.", cmd_l_ },
 		   { "LS", cmd_ls },
 		   { "MD", cmd_mkdir },
 		   { "PD", cmd_pwd },

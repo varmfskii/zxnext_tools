@@ -6,7 +6,7 @@
 #define BSIZE 255
 #define CONFIG "zxnftp.cfg"
 #define ERROR 1
-#define ID "ZXNFTP 0.2 alpha"
+#define ID "ZXNFTP 0.3 beta"
 #define LINE 0xff
 #define OK 0
 #define SEND_FAIL 3

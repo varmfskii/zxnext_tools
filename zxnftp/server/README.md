@@ -16,8 +16,6 @@ interaction is human readable.
 
     - ID => <id> - get server id
     
-    - L. => \<data> - get contents of current directory on ZX Next
-
     - LS \<dir> => \<data> - get contents of directory on ZX Next
 
     - MD \<dir> - create directory on ZX Next
