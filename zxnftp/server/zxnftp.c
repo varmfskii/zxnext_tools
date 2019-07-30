@@ -38,6 +38,9 @@ const struct cmd cmds[]={
 int main() {
   int16_t f, i, j, len;
 
+  // select 14 MHz clock
+  NEXT_SEL=0x07;
+  NEXT_RW=0x02;
 #ifdef DOTN
   bbuf=pool;
 #else

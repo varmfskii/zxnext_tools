@@ -7,25 +7,27 @@ PREFIX=$(CURDIR)/..
 OPT=-clib=sdcc_iy -SO3 --max-allocs-per-node200000 --opt-code-size
 #OPT=-clib=sdcc_iy
 
-TAP=-create-app -subtype=tap
-
-SNA=-create-app -subtype=sna
-
 DOTN=-create-app -subtype=dotn
+NEX=-create-app --subtype=nex
+SNA=-create-app -subtype=sna
+TAP=-create-app -subtype=tap
 
 %.o: %.c
 	zcc +zxn -c $(OPT) $<
 
-all: zxnftp.cfg zxnftp.tap zxnftp.sna ZXNFTP
+all: zxnftp.cfg zxnftp.nex zxnftp.sna zxnftp.tap ZXNFTP
 
 zxnftp.cfg:
 	cd .. ; ./mkzxnftpcfg.py
 
-zxnftp.tap: zxnftp.o $(OBJS)
-	zcc +zxn -o zxnftp $(OPT) $(TAP) $^
-
 zxnftp.sna: zxnftp.o $(OBJS)
 	zcc +zxn -o zxnftp $(OPT) $(SNA) $^
+
+zxnftp.nex: zxnftp.o $(OBJS)
+	zcc +zxn -o zxnftp $(OPT) $(NEX) $^
+
+zxnftp.tap: zxnftp.o $(OBJS)
+	zcc +zxn -o zxnftp $(OPT) $(TAP) $^
 
 ZXNFTP: zxnftp_dotn.o $(OBJS)
 	zcc +zxn -o zxnftp $(OPT) $(DOTN) $^
