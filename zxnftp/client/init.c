@@ -40,7 +40,7 @@ void init(void) {
   address.sin_port = htons(port); 
   if (connect(server, (struct sockaddr *)&address, sizeof(address)) != 0)
     error("connection with the server failed", 2);
-  tv.tv_sec=1;
+  tv.tv_sec=10;
   tv.tv_usec=0;
   setsockopt(server, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv));
   call_id();
@@ -58,7 +58,7 @@ void init(void) {
   wclear(status);
   //wrefresh(status);
   wclear(win);
-  waddstr(win, "ZXFTP client\n");
+  waddstr(win, "ZXNFTP client v0.3 beta\n");
   waddstr(win, "connected to server: ");
   waddstr(win, line);
   waddch(win, ':');
