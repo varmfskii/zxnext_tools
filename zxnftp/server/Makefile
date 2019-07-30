@@ -8,7 +8,7 @@ OPT=-clib=sdcc_iy -SO3 --max-allocs-per-node200000 --opt-code-size
 #OPT=-clib=sdcc_iy
 
 DOTN=-create-app -subtype=dotn
-NEX=-create-app --subtype=nex
+NEX=-create-app -subtype=nex
 SNA=-create-app -subtype=sna
 TAP=-create-app -subtype=tap
 
@@ -48,9 +48,9 @@ clean:
 	rm -f zxnftp_CODE.bin zxnftp_UNASSIGNED.bin zxnftp_MAIN.bin
 
 distclean: clean
-	rm -f zxnftp.tap zxnftp.sna ZXNFTP
+	rm -f zxnftp.nex zxnftp.sna zxnftp.tap ZXNFTP
 
 install: all
 	mkdir -p $(PREFIX)/zxnext/dot
-	cp zxnftp.tap zxnftp.sna zxnftp.cfg $(PREFIX)/zxnext
+	cp zxnftp.nex zxnftp.sna zxnftp.tap zxnftp.cfg $(PREFIX)/zxnext
 	cp ZXNFTP $(PREFIX)/zxnext/dot
