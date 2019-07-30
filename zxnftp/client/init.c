@@ -10,17 +10,24 @@
 
 void init(void) {
   struct sockaddr_in address;
-  char line[BLKSZ];
+  char line[BLKSZ], *home;
   int i, c, colon;
   FILE *in;
   struct timeval tv;
-  
+
+  home=getenv("HOME");
+  if (home)
+    sprintf(line, "%s/.zxnftprc", home);
+  else
+    strcpy(line, ".zxnftprc");
   data=(char *)malloc(DATASZ);
   data_sz=DATASZ;
   lines=(char **)malloc(LINESSZ*(sizeof (char *)));
   lines_sz=LINESSZ;
-  if (!(in=fopen("zxnftp.cfg", "r"))) {
-    fprintf(stderr, "Unable to open zxnftp.cfg\n");
+  if (!(in=fopen("zxnftp.conf", "r")) &&
+      !(in=fopen(line, "r")) &&
+      !(in=fopen("/etc/zxnftp.conf", "r"))) { 
+    fprintf(stderr, "Unable to open configuration file\n");
     exit(1);
   }
   for(i=colon=0; i<BLKSZ && (c=getc(in))!=EOF && c!='\n'; i++) {
@@ -40,7 +47,7 @@ void init(void) {
   address.sin_port = htons(port); 
   if (connect(server, (struct sockaddr *)&address, sizeof(address)) != 0)
     error("connection with the server failed", 2);
-  tv.tv_sec=10;
+  tv.tv_sec=3;
   tv.tv_usec=0;
   setsockopt(server, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv));
   call_id();

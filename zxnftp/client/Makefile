@@ -10,7 +10,7 @@ objects=$(sources:.c=.o)
 
 PREFIX=$(CURDIR)/..
 
-all: dependencies zxnftp zxnftp.cfg
+all: dependencies zxnftp zxnftp.conf
 
 dependencies: $(sources)
 	./mkdeps.sh $@ $^
@@ -18,7 +18,7 @@ dependencies: $(sources)
 zxnftp: $(objects)
 	$(CC) -o $@ $^ -lcurses
 
-zxnftp.cfg:
+zxnftp.conf:
 	cd .. ; ./mkzxnftpcfg.py
 
 include dependencies
@@ -33,4 +33,4 @@ distclean: clean
 
 install: all
 	mkdir -p $(PREFIX)/bin
-	cp zxnftp zxnftp.cfg $(PREFIX)/bin
+	cp zxnftp zxnftp.conf $(PREFIX)/bin

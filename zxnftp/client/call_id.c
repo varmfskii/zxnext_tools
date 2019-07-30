@@ -8,6 +8,4 @@ void call_id(void) {
   nettxln("ID");
   netrxln(buf);
   id=strdup(buf);
-  waddstr(win, id);
-  waddch(win, '\n');
 }

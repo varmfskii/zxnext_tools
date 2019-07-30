@@ -13,6 +13,6 @@ cfg.write("AT+CWJAP=\""+ss+"\",\""+pw+"\"\n")
 cfg.write("AT+CIPMUX=1\n")
 cfg.write("AT+CIPSERVER=1,"+pt+"\n")
 cfg.close()
-cfg=open("client/zxnftp.cfg", "w")
+cfg=open("client/zxnftp.conf", "w")
 cfg.write(ip+":"+pt+"\n");
 cfg.close()
