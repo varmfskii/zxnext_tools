@@ -51,6 +51,7 @@ __sfr __banked __at 0x133b TX;
 __sfr __banked __at 0x143b RX;
 __sfr __banked __at 0x243b NEXT_SEL;
 __sfr __banked __at 0x253b NEXT_RW;
+__sfr __at 0xff TIMEX;
 
 //extern char buf[], bbuf[], line[];
 extern char *buf, *bbuf, *line;
