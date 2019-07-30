@@ -4,7 +4,8 @@ OBJS=$(SRCS:.c=.o)
 
 PREFIX=$(CURDIR)/..
 
-OPT=-clib=sdcc_iy -SO3 --max-allocs-per-node200000 --opt-code-size
+OPT=-clib=sdcc_iy -SO3 --max-allocs-per-node200000 --opt-code-size	\
+	-startup=5
 #OPT=-clib=sdcc_iy
 
 DOTN=-create-app -subtype=dotn
