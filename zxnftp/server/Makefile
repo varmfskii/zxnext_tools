@@ -45,7 +45,7 @@ uart.o: uart.c zxnftp.h
 .PHONY: clean distclean install
 
 clean:
-	rm -f $(OBJS) *~ zcc_opt.def
+	rm -f $(OBJS) zxnftp.o zxnftp_dotn.o *~ zcc_opt.def
 	rm -f zxnftp_CODE.bin zxnftp_UNASSIGNED.bin zxnftp_MAIN.bin
 
 distclean: clean
