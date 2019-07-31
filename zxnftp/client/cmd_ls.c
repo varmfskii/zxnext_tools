@@ -20,7 +20,7 @@ void cmd_ls(char **params) {
   if (neterr(NULL)) return;
   nettxln(p);
   if (neterr(NULL)) return;
-  for(ix=i=0; ; i++) {
+  for(i=0; ; i++) {
     nettxln("RR");
     netrxln(buf);
     if (!strncmp("OK", buf, 2)) break;

@@ -10,6 +10,7 @@ int port;
 char *id, *addr;
 char *data, **lines;
 size_t data_sz, lines_sz;
+
 WINDOW *status, *win;
 
 int main() {
