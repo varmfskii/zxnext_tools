@@ -19,6 +19,7 @@ distclean : clean
 	make -C libzxntools distclean
 
 install : all
+	mkdir -p $(PREFIX)/bin $(PREFIX)/libs
 	for file in $(TARGETS); do cp $$file/$$file $(PREFIX)/bin; done 
 	cp libzxntools/libzxntools.a $(PREFIX)/libs
 	cp libzxntools/libzxntools.so $(PREFIX)/libs

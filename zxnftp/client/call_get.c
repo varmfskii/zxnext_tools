@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <time.h>
 
+/* get a file from the server */
 char *call_get(char *param, int *fsize) {
   char buf[BLKSZ];
   int rsize;
@@ -41,7 +42,7 @@ char *call_get(char *param, int *fsize) {
     nettxln("RR");
     netrx(data+rsize, &len, BLKSZ);
     if (len<0) {
-      wadstr(win, "Network read error\n");
+      waddstr(win, "Network read error\n");
       nettxln("xx");
       return NULL;
     }
