@@ -40,6 +40,11 @@ char *call_get(char *param, int *fsize) {
     wmove(win, y, x);
     nettxln("RR");
     netrx(data+rsize, &len, BLKSZ);
+    if (len<0) {
+      wadstr(win, "Network read error\n");
+      nettxln("xx");
+      return NULL;
+    }
   }
   nettxln("RR");
   if (neterr(NULL)) {
