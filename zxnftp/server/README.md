@@ -53,4 +53,9 @@ interaction is human readable.
 
     - XX - Unidentified error
     
-configuration is in a file produced by mkzxnftpcfg.py
+Configuration is in a file produced by mkzxnftpcfg.py called
+zxnftp.cfg. The server looks for the configuration file 1) in the
+current directory, 2) in c:/sys/, and finally in /sys/ on the current
+drive. The configuration file contains a set of commands for the
+ESP8266 WiFi module which are simply executed on startup to configure
+and start the server.

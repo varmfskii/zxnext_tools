@@ -1,12 +1,14 @@
-#ifndef ZXNFTPS_H
+ #ifndef ZXNFTPS_H
 #define ZXNFTPS_H
 #include <stdint.h>
 #include "../zxnftp.h"
 
 #define BSIZE 255
-#define CONFIG "zxnftp.cfg"
+#define CONFIG1 "zxnftp.cfg"
+#define CONFIG2 "c:/sys/zxnftp.cfg"
+#define CONFIG3 "/sys/zxnftp.cfg"
 #define ERROR 1
-#define ID "ZXNFTP 0.3 beta"
+#define ID "ZXNFTP 1.0"
 #define LINE 0xff
 #define OK 0
 #define SEND_FAIL 3

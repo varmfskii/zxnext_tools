@@ -5,6 +5,9 @@ another computer.
 
 - Commands
 
+    - !\<linux command> send \<linux command> to the local shell and
+       show the results
+
     - ? [\<cmd>] - print help message
 
     - baud \<file> - set the baudrate on on the ZX Next

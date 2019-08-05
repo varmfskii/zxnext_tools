@@ -65,7 +65,7 @@ void init(void) {
   wclear(status);
   //wrefresh(status);
   wclear(win);
-  waddstr(win, "ZXNFTP client v0.3 beta\n");
+  waddstr(win, "ZXNFTP client v1.0\n");
   waddstr(win, "connected to server: ");
   waddstr(win, line);
   waddch(win, ':');

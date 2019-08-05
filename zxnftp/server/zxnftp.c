@@ -55,8 +55,10 @@ int main() {
   ioctl(1, IOCTL_OTERM_PAUSE, 0);
   puts("starting server");
   f=0xff;
-  if ((f=esx_f_open(CONFIG, ESX_MODE_OPEN_EXIST|ESX_MODE_R))==0xff) {
-    fprintf(stderr, "Unable to open %s\n", CONFIG);
+  if ((f=esx_f_open(CONFIG1, ESX_MODE_OPEN_EXIST|ESX_MODE_R))==0xff &&
+      (f=esx_f_open(CONFIG2, ESX_MODE_OPEN_EXIST|ESX_MODE_R))==0xff &&
+      (f=esx_f_open(CONFIG3, ESX_MODE_OPEN_EXIST|ESX_MODE_R))==0xff) {
+    puts("Unable to open configuration file");
     return 1;
   }
   i=0;
@@ -92,5 +94,5 @@ int main() {
       nettxln("UK");
     }
   }
-  return 0;
+  //return 0;
 }

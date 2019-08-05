@@ -4,14 +4,12 @@ OBJS=$(SRCS:.c=.o)
 
 PREFIX=$(CURDIR)/..
 
-OPT=-clib=sdcc_iy -SO3 --max-allocs-per-node200000 --opt-code-size	\
-	-startup=5
-#OPT=-clib=sdcc_iy
+OPT=-clib=sdcc_iy -SO3 --max-allocs-per-node200000 --opt-code-size
 
-DOTN=-create-app -subtype=dotn
-NEX=-create-app -subtype=nex
-SNA=-create-app -subtype=sna
-TAP=-create-app -subtype=tap
+DOTN=-create-app -subtype=dotn -startup=30
+NEX=-create-app -subtype=nex -startup=5
+SNA=-create-app -subtype=sna -startup=5
+TAP=-create-app -subtype=tap -startup=5
 
 %.o: %.c
 	zcc +zxn -c $(OPT) $<
@@ -21,22 +19,18 @@ all: zxnftp.cfg zxnftp.nex zxnftp.sna zxnftp.tap ZXNFTP
 zxnftp.cfg:
 	cd .. ; ./mkzxnftpcfg.py
 
-zxnftp.sna: zxnftp.o $(OBJS)
-	zcc +zxn -o zxnftp $(OPT) $(SNA) $^
+zxnftp.sna: zxnftp.c $(OBJS)
+	zcc +zxn -o zxnftp -DSNAP $(OPT) $(SNA) $^
 
-zxnftp.nex: zxnftp.o $(OBJS)
-	zcc +zxn -o zxnftp $(OPT) $(NEX) $^
+zxnftp.nex: zxnftp.c $(OBJS)
+	zcc +zxn -o zxnftp -DNEXT $(OPT) $(NEX) $^
 
-zxnftp.tap: zxnftp.o $(OBJS)
-	zcc +zxn -o zxnftp $(OPT) $(TAP) $^
+zxnftp.tap: zxnftp.c $(OBJS)
+	zcc +zxn -o zxnftp -DTAPE $(OPT) $(TAP) $^
 
-ZXNFTP: zxnftp_dotn.o $(OBJS)
-	zcc +zxn -o zxnftp $(OPT) $(DOTN) $^
+ZXNFTP: zxnftp.c $(OBJS)
+	zcc +zxn -o zxnftp -DDOTN $(OPT) $(DOTN) $^
 
-zxnftp_dotn.o: zxnftp.c zxnftp.h
-	zcc +zxn -DDOTN -o zxnftp_dotn.o -c $(OPT) $<
-
-zxnftp.o: zxnftp.c zxnftp.h
 cmds.o: cmds.c zxnftp.h
 net.o: net.c zxnftp.h
 senderr.o: senderr.c zxnftp.h

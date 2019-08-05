@@ -1,7 +1,7 @@
 CC=gcc
-CFLAGS = -Wall -fpic
-ifeq ($(PREFIX),1)
-CFLAGS += -DPREFIX
+CFLAGS = -Wall
+ifeq ($(PAMPREFIX),1)
+CFLAGS += -DPAMPREFIX
 endif
 ifeq ($(DEBUG),1)
 CFLAGS += -DDEBUG -g
@@ -12,7 +12,7 @@ OBJS=allocate.o col_dist.o deallocate.o decimate.o nextpal.o palette.o \
 	readbm.o readixed.o readpal.o readrgb.o rgb2index.o showpal.o \
 	writebm.o writeixed.o writepal.o writergb.o zxntoolsver.o
 
-all : libzxntools.a libzxntools.so
+all : libzxntools.a
 
 libzxntools.a : $(OBJS)
 	ar cr $@ $^
