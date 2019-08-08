@@ -62,6 +62,7 @@ void cmd_dir(char **);
 void cmd_exit(char **);
 void cmd_get(char **);
 void cmd_help(char **);
+void cmd_lcd(char **);
 void cmd_ls(char **);
 void cmd_mget(char **);
 void cmd_mkdir(char **);
@@ -75,6 +76,6 @@ void cmd_rmdir(char **);
 extern char *id;
 extern char *addr;
 extern int port;
-extern char *data, **lines;
-extern size_t data_sz, lines_sz;
+extern char *fdata, *ddata, **lines;
+extern size_t fdata_sz, ddata_sz, lines_sz;
 #endif

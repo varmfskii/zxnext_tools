@@ -23,19 +23,26 @@ void cmd_ls(char **params) {
   for(ix=i=0; ; i++) {
     nettxln("RR");
     netrxln(buf);
+    //waddstr(win, buf);
+    //waddch(win, '\n');
     if (!strncmp("OK", buf, 2)) break;
     netrxln(buf);
+    //waddstr(win, buf);
+    //waddch(win, '\n');
+    //netrxln(buf);
+    //waddstr(win, buf);
+    //waddch(win, '\n');
     len=strlen(buf);
-    if (ix+len+1>data_sz) {
-      data_sz*=2;
-      data=(char *)realloc(data, data_sz);
+    if (ix+len+1>ddata_sz) {
+      ddata_sz*=2;
+      ddata=(char *)realloc(ddata, ddata_sz);
     }
     if (i+1>lines_sz) {
       lines_sz*=2;
       lines=(char **)realloc(lines, lines_sz*(sizeof (char *)));
     }
-    lines[i]=data+ix;
-    strcpy(data+ix, buf);
+    lines[i]=ddata+ix;
+    strcpy(ddata+ix, buf);
     ix+=len+1;
   }
   nlines=i;

@@ -21,9 +21,9 @@ uint32_t rlen, flen;
 void cmd_simple(const char *name, uint8_t (*fn)(char *)) {
   nettx("OK\r\n", 4);
   netrxln(buf);
-  f=0xff;
+  errno=0;
   f=fn(buf);
-  if (f==0xff)
+  if (f==0xff || errno)
     senderr();
   else {
     nettx("OK\r\n", 4);
@@ -40,9 +40,9 @@ void cmd_cd(void) {
 void cmd_drive(void) {
   nettx("OK\r\n", 4);
   netrxln(buf);
-  f=0xff;
+  errno=0;
   f=esx_dos_set_drive(buf[0]);
-  if (f==0xff)
+  if (f==0xff || errno)
     senderr();
   else {
     nettx("OK\r\n", 4);
@@ -54,9 +54,9 @@ void cmd_drive(void) {
 void cmd_get(void) {
   nettx("OK\r\n", 4);
   netrxln(buf);
-  f=0xff;
+  errno=0;
   f=esx_f_open(buf, ESX_MODE_OPEN_EXIST|ESX_MODE_R);
-  if (f==0xff) {
+  if (f==0xff || errno) {
     senderr();
     return;
   }
@@ -89,9 +89,9 @@ void cmd_id(void) {
 
 /* handle directory listing */
 void do_ls(void) {
-  f=0xff;
+  errno=0;
   f=esx_f_opendir_ex(buf, ESX_DIR_USE_LFN);
-  if (f==0xff) {
+  if (f==0xff || errno) {
     senderr();
     return;
   }
@@ -103,8 +103,13 @@ void do_ls(void) {
       nettxln("XX");
       break;
     }
-    if (!esx_f_readdir(f, &dirent) || errno) {
+    errno=0;
+    if (!esx_f_readdir(f, &dirent)) {
       nettx("OK\r\n", 4);
+      break;
+    }
+    if (errno) {
+      senderr();
       break;
     }
     slice=esx_slice_dirent(&dirent);
@@ -144,9 +149,9 @@ void cmd_put(void) {
   
   nettx("OK\r\n", 4);
   netrxln(buf);
-  f=0xff;
+  errno=0;
   f=esx_f_open(buf, ESX_MODE_OPEN_CREAT_NOEXIST|ESX_MODE_W);
-  if (f==0xff) {
+  if (f==0xff || errno) {
     senderr();
     return;
   }
@@ -192,6 +197,7 @@ void cmd_quit(void) {
   nettx("OK\r\n", 4);
   cmdresponse("AT+CIPCLOSE=0\r\n");
   cmdresponse("AT+CIPSERVER=0\r\n");
+  setbaud(115200);
   cmdresponse("AT+RST\r\n");
   puts("server done");
   exit(0);

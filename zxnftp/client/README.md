@@ -24,9 +24,11 @@ another computer.
 
     - help [\<cmd>] - print help message
 
+    - lcd <dir> - change directory (local)
+    
     - ls [\<dir>] - get directory listing from the ZX Next (short)
 
-    - mget \<patt> - multiple file get (unimplimented)
+    - mget \<patt> - multiple file get
 
     - mkdir \<dir> - create a directory on the ZX Next
 

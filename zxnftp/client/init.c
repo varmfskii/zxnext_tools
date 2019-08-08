@@ -20,8 +20,10 @@ void init(void) {
     sprintf(line, "%s/.zxnftprc", home);
   else
     strcpy(line, ".zxnftprc");
-  data=(char *)malloc(DATASZ);
-  data_sz=DATASZ;
+  fdata=(char *)malloc(DATASZ);
+  fdata_sz=DATASZ;
+  ddata=(char *)malloc(DATASZ);
+  ddata_sz=DATASZ;
   lines=(char **)malloc(LINESSZ*(sizeof (char *)));
   lines_sz=LINESSZ;
   if (!(in=fopen("zxnftp.conf", "r")) &&

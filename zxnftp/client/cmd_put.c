@@ -24,10 +24,10 @@ void cmd_put(char **params) {
   src=(i==2)?params[1]:params[2];
   dest=params[1];
   stat(src, &st);
-  if (st.st_size>data_sz) {
-    data_sz=st.st_size;
-    free(data);
-    data=(char *)malloc(data_sz);
+  if (st.st_size>fdata_sz) {
+    fdata_sz=st.st_size;
+    free(fdata);
+    fdata=(char *)malloc(fdata_sz);
   }
   if (!(in=fopen(src, "r"))) {
     waddstr(win, "Error: unable to open local file: ");
@@ -35,7 +35,7 @@ void cmd_put(char **params) {
     waddch(win, '\n');
     return;
   }
-  fread(data, 1, st.st_size, in);
+  fread(fdata, 1, st.st_size, in);
   fclose(in);
   call_put(dest, st.st_size);
 }

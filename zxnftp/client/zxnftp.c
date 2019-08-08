@@ -8,8 +8,8 @@ int server, w, h;
 int disp_mode=NUMERIC;
 int port;
 char *id, *addr;
-char *data, **lines;
-size_t data_sz, lines_sz;
+char *fdata, *ddata, **lines;
+size_t fdata_sz, ddata_sz, lines_sz;
 
 WINDOW *status, *win;
 

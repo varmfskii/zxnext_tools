@@ -31,7 +31,7 @@ void call_put(char *param, size_t len) {
       blen=BLKSZ;
     else
       blen=len-txlen;
-    nettx(data+txlen, blen);
+    nettx(fdata+txlen, blen);
     sprintf(buf, "%d", txlen+blen);
     waddstr(win, buf);
     wrefresh(win);

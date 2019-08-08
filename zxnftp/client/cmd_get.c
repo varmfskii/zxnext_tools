@@ -33,6 +33,7 @@ void cmd_get(char **params) {
     return;
   }
   fwrite(data, len, 1, out);
+  fclose(out);
   waddstr(win, "Ok\n");
   return;
 }

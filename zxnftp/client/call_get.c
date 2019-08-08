@@ -27,10 +27,10 @@ char *call_get(char *param, int *fsize) {
   *fsize=atoi(buf);
   sprintf(buf, "%d bytes\n", *fsize);
   waddstr(win, buf);
-  if (*fsize>data_sz) {
-    data_sz=*fsize;
-    free(data);
-    data=(char *)malloc(data_sz);
+  if (*fsize>fdata_sz) {
+    fdata_sz=*fsize;
+    free(fdata);
+    fdata=(char *)malloc(fdata_sz);
   }
   for(rsize=0; rsize<*fsize; rsize+=len) {
     sprintf(buf, "%d", rsize);
@@ -40,7 +40,7 @@ char *call_get(char *param, int *fsize) {
     x=0;
     wmove(win, y, x);
     nettxln("RR");
-    netrx(data+rsize, &len, BLKSZ);
+    netrx(fdata+rsize, &len, BLKSZ);
     if (len<0) {
       waddstr(win, "Network read error\n");
       nettxln("xx");
@@ -55,6 +55,6 @@ char *call_get(char *param, int *fsize) {
   time=e.tv_sec-s.tv_sec+(e.tv_nsec-s.tv_nsec)*1e-9;
   sprintf(buf, "%d b, %0.2f s, %0.2f bps\n", *fsize, time, 8**fsize/time);
   waddstr(win, buf);
-  return data;
+  return fdata;
 }
   

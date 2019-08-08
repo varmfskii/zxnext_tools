@@ -6,15 +6,22 @@
 void cmd_dir(char **params) {
   int16_t len;
   int i, ix, mo, dy, yr, h, m, s, attr, y, nlines;
-  char buf[BLKSZ], attrstr[9];
+  char buf[BLKSZ], dir[BLKSZ], *p, attrstr[9];
   
   getmaxyx(win, y, i);
+  if (params[1] && params[2]) {
+    return;
+  }    
   if (params[1]) {
-    nettxln("LS");
-    if (neterr(NULL)) return;
-    nettxln(params[1]);
-  } else
-    nettxln("L.");
+    p=params[1];
+  } else {
+    nettxln("PD");
+    netrxln(dir);
+    p=dir;
+  }
+  nettxln("LS");
+  if (neterr(NULL)) return;
+  nettxln(p);
   if (neterr(NULL)) return;
   for(i=0; ; i++) {
     nettxln("RR");
@@ -37,12 +44,12 @@ void cmd_dir(char **params) {
       lines_sz*=2;
       lines=(char **)realloc(lines, lines_sz*(sizeof (char *)));
     }
-    lines[i]=data+ix;
-    if (ix+30+len>data_sz) {
-      data_sz*=2;
-      data=(char *)realloc(data, data_sz);
+    lines[i]=ddata+ix;
+    if (ix+30+len>ddata_sz) {
+      ddata_sz*=2;
+      ddata=(char *)realloc(ddata, ddata_sz);
     }
-    sprintf(data+ix, "%s %02u/%02u/%04u %02u:%02u:%02u %s",
+    sprintf(ddata+ix, "%s %02u/%02u/%04u %02u:%02u:%02u %s",
 	    attrstr, dy, mo, yr, h, m, s, buf);
     ix+=30+len;
   }

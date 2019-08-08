@@ -29,6 +29,8 @@ command commands[]=
      "If no parameters are given, show a simple summary of the commands and"
      "their syntax\n\nIf a <cmd> is given, show extended help for that"
      "command\n" },
+   { "lcd", cmd_lcd, "lcd <dir>",
+     "change the current working on the client to <dir>\n" },
    { "ls", cmd_ls, "ls [<dir>]",
      "show a simple file listing (file names only) on the client\n\n"
      "If there are no parameters, it will show the fles in the server's"
