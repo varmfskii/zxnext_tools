@@ -31,13 +31,13 @@ void cmd_dir(char **params) {
 	   &attr, &dy, &mo, &yr, &h, &m, &s);
     strcpy(attrstr, "--------");
     if (attr&0x80) attrstr[0]='1';
-    if (attr&0x40) attrstr[0]='1';
-    if (attr&0x20) attrstr[0]='a';
-    if (attr&0x10) attrstr[0]='d';
-    if (attr&0x08) attrstr[0]='v';
-    if (attr&0x04) attrstr[0]='s';
-    if (attr&0x02) attrstr[0]='h';
-    if (!attr&0x01) attrstr[0]='w';
+    if (attr&0x40) attrstr[1]='1';
+    if (attr&0x20) attrstr[2]='a';
+    if (attr&0x10) attrstr[3]='d';
+    if (attr&0x08) attrstr[4]='v';
+    if (attr&0x04) attrstr[5]='s';
+    if (attr&0x02) attrstr[6]='h';
+    if (!attr&0x01) attrstr[7]='w';
     netrxln(buf); // name
     len=strlen(buf);
     if (i+1>lines_sz) {
