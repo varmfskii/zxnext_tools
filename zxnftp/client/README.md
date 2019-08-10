@@ -28,11 +28,11 @@ another computer.
     
     - ls [\<dir>] - get directory listing from the ZX Next (short)
 
-    - mget \<patt> - multiple file get
+    - mget \<patt> [\<patt> ...] - multiple file get
 
     - mkdir \<dir> - create a directory on the ZX Next
 
-    - mput \<patt> - multiple file put (unimplemented)
+    - mput \<patt> [\<patt> ...] - multiple file put
 
     - put \<file> [\<file>] - put a file to the ZX Next
 
