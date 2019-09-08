@@ -1,7 +1,7 @@
-#include <stdlib.h>
-#include <curses.h>
-#include <string.h>
 #include <fnmatch.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "zxnftp.h"
 
 void cmd_mget(char **params) {
@@ -12,7 +12,7 @@ void cmd_mget(char **params) {
   
   // error check
   if (!params[1]) {
-    waddstr(win, "No patterns usage mget <patt> [<patt> ...]\n");
+    printerr("No patterns usage mget <patt> [<patt> ...]\n");
     return;
   }
   // get remote directory
@@ -49,16 +49,15 @@ void cmd_mget(char **params) {
     for(j=1; params[j]; j++) {
       if (!fnmatch(params[j], lines[i], 0)) {
 	fdata=call_get(lines[i], &len);
-	waddstr(win, lines[i]);
-	waddch(win, '\n');
+	printout(lines[i]);
+	printch('\n');
 	if (!fdata) {
-	  waddstr(win, "Error: no data\n");
+	  printerr("no data\n");
 	  break;
 	}
 	if (!(out=fopen(lines[i], "w"))) {
-	  waddstr(win, "Error: unable to open ");
-	  waddstr(win, lines[i]);
-	  waddch(win, '\n');
+	  sprintf(buf, "Unable to open %s\n", lines[i]);
+	  printerr(buf);
 	  break;
 	}
 	fwrite(fdata, len, 1, out);

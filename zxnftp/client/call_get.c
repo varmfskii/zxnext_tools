@@ -1,10 +1,14 @@
-#include "zxnftp.h"
-#include <curses.h>
-#include <string.h>
-#include <unistd.h>
 #include <ctype.h>
 #include <stdlib.h>
+#include <string.h>
 #include <time.h>
+#include <unistd.h>
+#ifdef CURSES
+#include <curses.h>
+#else
+#include <stdio.h>
+#endif
+#include "zxnftp.h"
 
 /* get a file from the server */
 char *call_get(char *param, int *fsize) {
@@ -13,7 +17,9 @@ char *call_get(char *param, int *fsize) {
   int16_t len;
   struct timespec s, e;
   double time;
+#ifdef CURSES
   int y, x;
+#endif
   
   clock_gettime(CLOCK_REALTIME, &s);
   nettxln("GT");
@@ -26,7 +32,7 @@ char *call_get(char *param, int *fsize) {
   }
   *fsize=atoi(buf);
   sprintf(buf, "%d bytes\n", *fsize);
-  waddstr(win, buf);
+  printout(buf);
   if (*fsize>fdata_sz) {
     fdata_sz=*fsize;
     free(fdata);
@@ -34,15 +40,21 @@ char *call_get(char *param, int *fsize) {
   }
   for(rsize=0; rsize<*fsize; rsize+=len) {
     sprintf(buf, "%d", rsize);
+#ifdef CURSES
     waddstr(win, buf);
     wrefresh(win);
     getyx(win, y, x);
     x=0;
     wmove(win, y, x);
+#else
+    fputs(buf, stdout);
+    putchar('\r');
+    fflush(stdout);
+#endif
     nettxln("RR");
     netrx(fdata+rsize, &len, BLKSZ);
     if (len<0) {
-      waddstr(win, "Network read error\n");
+      printerr("Network read error\n");
       nettxln("xx");
       return NULL;
     }
@@ -54,7 +66,7 @@ char *call_get(char *param, int *fsize) {
   clock_gettime(CLOCK_REALTIME, &e);
   time=e.tv_sec-s.tv_sec+(e.tv_nsec-s.tv_nsec)*1e-9;
   sprintf(buf, "%d b, %0.2f s, %0.2f bps\n", *fsize, time, 8**fsize/time);
-  waddstr(win, buf);
+  printout(buf);
   return fdata;
 }
   

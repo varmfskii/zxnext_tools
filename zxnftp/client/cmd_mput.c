@@ -11,9 +11,10 @@ void cmd_mput(char **params) {
   int i;
   struct dirent *entry;
   struct stat st;
+  char buf[BLKSZ];
   
   if (!params[1]) {
-    waddstr(win, "No patterns usage mget <patt> [<patt> ...]\n");
+    printerr("No patterns usage mget <patt> [<patt> ...]\n");
     return;
   }
   local=opendir(".");
@@ -29,9 +30,7 @@ void cmd_mput(char **params) {
 	  fdata=(char *)malloc(fdata_sz);
 	}
 	if (!(in=fopen(entry->d_name, "r"))) {
-	  waddstr(win, "Error: unable to open local file: ");
-	  waddstr(win, entry->d_name);
-	  waddch(win, '\n');
+	  sprintf(buf, "unable to open local file: %s\n", entry->d_name);
 	  break;
 	}
 	fread(fdata, st.st_size, 1, in);

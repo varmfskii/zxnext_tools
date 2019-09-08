@@ -1,12 +1,15 @@
-#include "zxnftp.h"
 #include <arpa/inet.h>
-#include <netinet/in.h>
-#include <sys/socket.h>
-#include <curses.h>
 #include <locale.h>
-#include <unistd.h>
-#include <string.h>
+#include <netinet/in.h>
+#include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <sys/socket.h>
+#include <unistd.h>
+#ifdef CURSES
+#include <curses.h>
+#endif
+#include "zxnftp.h"
 
 void init(void) {
   struct sockaddr_in address;
@@ -54,6 +57,7 @@ void init(void) {
   setsockopt(server, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv));
   call_id();
   //init windows
+#ifdef CURSES
   setlocale(LC_ALL, "");
   initscr();
   getmaxyx(stdscr, h, w);
@@ -65,7 +69,6 @@ void init(void) {
   raw();
   nl();
   wclear(status);
-  //wrefresh(status);
   wclear(win);
   waddstr(win, "ZXNFTP client v1.0\n");
   waddstr(win, "connected to server: ");
@@ -76,5 +79,5 @@ void init(void) {
   waddstr(win, "server id: ");
   waddstr(win, id);
   waddch(win, '\n');
-  //wrefresh(win);
+#endif
 } 

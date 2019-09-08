@@ -5,25 +5,25 @@ void cmd_help(char **params) {
   int i;
   
   if (!params[1]) {
-    waddstr(win, "Available commands are:\n");
+    printout("Available commands are:\n");
     for(i=0; commands[i].name; i++) {
-      waddch(win, '\t');
-      waddstr(win, commands[i].use);
-      waddch(win, '\n');
+      printch('\t');
+      printout(commands[i].use);
+      printch('\n');
     }
-    waddstr(win, "Ok\n");
+    printout("Ok\n");
     return;
   }
   if (params[2]) {
-    waddstr(win, "Error: incorrect number of parameters. help [<command>]\n");
+    printerr("incorrect number of parameters. help [<command>]\n");
     return;
   }
   for(i=0; commands[i].name; i++)
     if (!strcmp(params[1], commands[i].name)) {
-      waddstr(win, commands[i].help);
-      waddstr(win, "Ok\n");
+      printout(commands[i].help);
+      printout("Ok\n");
       return;
     }
-  waddstr(win, "Error: unknown command\n");
+  printerr("unknown command\n");
   return;
 }

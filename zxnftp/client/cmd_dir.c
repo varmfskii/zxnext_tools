@@ -1,17 +1,23 @@
-#include <curses.h>
-#include <string.h>
+#include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#ifdef CURSES
+#include <curses.h>
+#endif
 #include "zxnftp.h"
 
 void cmd_dir(char **params) {
   int16_t len;
   int i, ix, mo, dy, yr, h, m, s, attr, y, nlines;
   char buf[BLKSZ], dir[BLKSZ], *p, attrstr[9];
-  
-  getmaxyx(win, y, i);
+
   if (params[1] && params[2]) {
+    printerr("Incorrect number of arguments, usage dir [<dir>]\n");
     return;
   }    
+#ifdef CURSES
+  getmaxyx(win, y, i);
+#endif
   if (params[1]) {
     p=params[1];
   } else {
@@ -56,10 +62,12 @@ void cmd_dir(char **params) {
   nlines=i;
   qsort(lines, nlines, sizeof(char *), cmpdir);
   for(i=0; i<nlines; i++) {
-    waddstr(win, lines[i]);
-    waddch(win, '\n');
+    printout(lines[i]);
+    printch('\n');
+#ifdef CURSES
     if (i%(y-1)==y-2) wpause();
+#endif
   }
-  waddstr(win, "Ok\n");
+  printout("Ok\n");
   return;
 }

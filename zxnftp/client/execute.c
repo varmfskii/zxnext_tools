@@ -1,18 +1,20 @@
-#include "zxnftp.h"
-#include <curses.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "zxnftp.h"
 
 void execute(char *command) {
   int i, c;
   char **fields;
   FILE *cmd;
   
-  waddch(win, '\n');
+#ifdef CURSES
+  printch('\n');
+#endif
   if (!*command) return;
   if (*command=='!') {
     cmd=popen(command+1, "r");
-    while((c=getc(cmd))!=EOF) waddch(win, c);
+    while((c=getc(cmd))!=EOF) printch(c);
     return;
   }
   fields=parse(command);
@@ -22,5 +24,5 @@ void execute(char *command) {
   if (commands[i].name) 
     commands[i].routine(fields);
   else 
-    waddstr(win, "Error: unknown command\n");
+    printerr("unknown command\n");
 }

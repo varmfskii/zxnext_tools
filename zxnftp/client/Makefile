@@ -3,12 +3,14 @@ sources=zxnftp.c call_get.c call_id.c call_put.c call_simple.c		\
 	cmd_help.c cmd_help.c cmd_lcd.c cmd_ls.c cmd_mget.c		\
 	cmd_mkdir.c cmd_mput.c cmd_put.c cmd_pwd.c cmd_quit.c		\
 	cmd_rm.c cmd_rmdir.c commands.c execute.c init.c net.c		\
-	neterr.c parse.c util.c
+	neterr.c parse.c printing.c util.c
 
 
 objects=$(sources:.c=.o)
 
 PREFIX=$(CURDIR)/..
+
+CFLAGS=-DCURSES
 
 all: dependencies zxnftp zxnftp.conf
 

@@ -1,5 +1,4 @@
 #include "zxnftp.h"
-#include <curses.h>
 #include <string.h>
 
 void call_id(void) {

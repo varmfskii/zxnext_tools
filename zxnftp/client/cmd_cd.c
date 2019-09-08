@@ -1,4 +1,4 @@
-#include <curses.h>
+#include <stdio.h>
 #include <string.h>
 #include "zxnftp.h"
 
@@ -6,17 +6,8 @@ void cmd_cd(char **params) {
   int i, len;
   char buf[BLKSZ];
   
-  wmove(status, 0, 0);
-  wdeleteln(status);
-  waddstr(status, "cd(");
-  for(i=1; params[i]; i++) {
-    waddch(status, '(');
-    waddstr(status, params[i]);
-    waddch(status, ')');
-  }
-  waddch(status, ')');
   if (!params[1] || params[2]) {
-    waddstr(win, "Error: Incorrect number of arguments. cd <dir>\n");
+    printerr("Incorrect number of arguments. cd <dir>\n");
     return;
   }
   if (params[1][0] && params[1][1]==':') {
@@ -36,6 +27,6 @@ void cmd_cd(char **params) {
   } else
     nettxln(params[1]);
   if (neterr(NULL)) return;
-  waddstr(win, "Ok\n");
+  printout("Ok\n");
   return;
 }

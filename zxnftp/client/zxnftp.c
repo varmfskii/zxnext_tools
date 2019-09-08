@@ -1,5 +1,9 @@
 #include "zxnftp.h"
+#ifdef CURSES
 #include <curses.h>
+#else
+#include <stdio.h>
+#endif
 #include <unistd.h>
 
 #define LEN 256
@@ -11,15 +15,23 @@ char *id, *addr;
 char *fdata, *ddata, **lines;
 size_t fdata_sz, ddata_sz, lines_sz;
 
+#ifdef CURSES
 WINDOW *status, *win;
+#ifdef DEBUG
+WINDOW *debug;
+#endif
+#endif
 
 int main() {
+#ifndef CURSES
+  int i;
+#endif
   int c, done, pos;
   char buffer[LEN];
   
   init();
+#ifdef CURSES
   refresh();
-  //wrefresh(win);
   waddstr(win, "> ");
   wrefresh(win);
   for(pos=done=0; !done;) {
@@ -57,4 +69,15 @@ int main() {
     wrefresh(status);
     wrefresh(win);
   }
+#else
+  for(;;) {
+    fputs("> ", stdout);
+    fflush(stdout);
+    for(i=0; (c=getchar())!=EOF && c!='\n'; )
+      if (i<LEN-1) buffer[i++]=c;
+    buffer[i]='\0';
+    execute(buffer);
+    if (c==EOF) cmd_exit(NULL);
+  }
+#endif
 }

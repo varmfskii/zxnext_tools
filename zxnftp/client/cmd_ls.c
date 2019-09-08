@@ -1,6 +1,8 @@
-#include <curses.h>
 #include <string.h>
 #include <stdlib.h>
+#ifdef CURSES
+#include <curses.h>
+#endif
 #include "zxnftp.h"
 
 void cmd_ls(char **params) {
@@ -8,7 +10,13 @@ void cmd_ls(char **params) {
   int i, y, ix, nlines;
   char buf[BLKSZ], dir[BLKSZ], *p;
 
+  if (params[1] && params[2]) {
+    printerr("Incorrect number of arguments. Usage ls [<dir>]\n");
+    return;
+  }
+#ifdef CURSES
   getmaxyx(win, y, i);
+#endif
   if (params[1]) {
     p=params[1];
   } else {
@@ -23,15 +31,8 @@ void cmd_ls(char **params) {
   for(ix=i=0; ; i++) {
     nettxln("RR");
     netrxln(buf);
-    //waddstr(win, buf);
-    //waddch(win, '\n');
     if (!strncmp("OK", buf, 2)) break;
     netrxln(buf);
-    //waddstr(win, buf);
-    //waddch(win, '\n');
-    //netrxln(buf);
-    //waddstr(win, buf);
-    //waddch(win, '\n');
     len=strlen(buf);
     if (ix+len+1>ddata_sz) {
       ddata_sz*=2;
@@ -48,10 +49,12 @@ void cmd_ls(char **params) {
   nlines=i;
   qsort(lines, nlines, sizeof(char *), cmpls);
   for(i=0; i<nlines; i++) {
-    waddstr(win, lines[i]);
-    waddch(win, '\n');
+    printout(lines[i]);
+    printch('\n');
+#ifdef CURSES
     if (i%(y-1)==y-2) wpause();
+#endif
   }
-  waddstr(win, "Ok\n");
+  printout("Ok\n");
   return;
 }

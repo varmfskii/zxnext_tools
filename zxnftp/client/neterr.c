@@ -1,4 +1,3 @@
-#include <curses.h>
 #include <string.h>
 #include "zxnftp.h"
 
@@ -20,12 +19,11 @@ int neterr(char *err) {
     netrxln(buf);
     if (!strcmp("OK", buf)) return 0;
   }
-  waddstr(win, "Error: ");
   for (i=0; errs[i].s; i++)
     if (!strcmp(errs[i].s, buf)) {
-      waddstr(win, errs[i].l);
+      printerr(errs[i].l);
       return i;
     }
-  waddstr(win, "unknown error\n");
+  printerr("unknown error\n");
   return i;
 }

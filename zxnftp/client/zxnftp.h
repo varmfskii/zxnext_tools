@@ -1,6 +1,10 @@
 #ifndef ZXNFTPC_H
 #define ZXNFTPC_H
+#include <stddef.h>
+#include <stdint.h>
+#ifdef CURSES
 #include <curses.h>
+#endif
 #include "../zxnftp.h"
 
 #define DATASZ 8192
@@ -30,25 +34,32 @@ struct neterr {
   char *s, *l;
 };
 
+#ifdef CURSES
 extern WINDOW *win, *status;
 #ifdef DEBUG
 extern WINDOW *debug;
+#endif
 #endif
 extern int server, w, h, disp_mode;
 extern command commands[];
 
 char **parse(char *);
-int cmpls(const void *, const void *);
 int cmpdir(const void *, const void *);
+int cmpls(const void *, const void *);
 int neterr(char *);
-void backspace(WINDOW *);
 void error(char *, int);
 void execute(char *);
 void finish(void);
 void init(void);
 void netrx(char *, int16_t *, int16_t);
 void nettx(const char *, int16_t);
+void printch(char);
+void printerr(char *);
+void printout(char *);
+#ifdef CURSES
+void backspace(WINDOW *);
 void wpause(void);
+#endif
 
 char *call_get(char *, int *);
 void call_id();
