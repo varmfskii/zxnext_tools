@@ -199,6 +199,8 @@ void cmd_quit(void) {
   cmdresponse("AT+CIPSERVER=0\r\n");
   setbaud(115200);
   cmdresponse("AT+RST\r\n");
+  NEXT_SEL=0x07;
+  NEXT_RW=old_clock;
   puts("server done");
   exit(0);
 }

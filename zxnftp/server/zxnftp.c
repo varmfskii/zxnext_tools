@@ -18,6 +18,7 @@ char pool[8192+3*BLKSZ];
 #endif
 //char bbuf[8192+BLKSZ], buf[BLKSZ], line[BLKSZ];
 char *bbuf, *buf, *line;
+char old_clock;
 
 const struct cmd cmds[]={
 		   { "BD", cmd_baud },
@@ -40,7 +41,10 @@ int main() {
 
   // select 14 MHz clock
   NEXT_SEL=0x07;
+  old_clk=NEXT_RW;
   NEXT_RW=0x02;
+  // ensure uart is connected to ESP and not Pi
+  UART_CTL=0x00;
 #ifdef DOTN
   bbuf=pool;
 #else

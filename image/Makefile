@@ -1,6 +1,6 @@
-TARGETS=getpalette imagetoasm paltoasm pbmtoshr ppmtoscr ppmtoshc	\
-	ppmtosl2 ppmtoslr scrtoppm shctoppm shrtopbm sl2toppm		\
-	slrtoppm
+TARGETS=fonttotiles getpalette imagetoasm paltoasm pbmtoshr ppmtoscr	\
+	ppmtoshc ppmtosl2 ppmtoslr scrtoppm shctoppm shrtopbm		\
+	sl2toppm slrtoppm
 
 all : $(TARGETS) libzxntools
 	for file in $(TARGETS); do make -C $$file $$File; done 

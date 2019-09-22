@@ -1,12 +1,10 @@
-#include "getpalette.h"
 #include <getopt.h>
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
-#define BITS 8
-#define VERSION "1.01.01"
-#define DATE "20190215"
+#define VERSION "1.00.01"
+#define DATE "20190917"
+#define INK 15
+#define PAPER 0
 
 void help(char *);
 void version(void);
@@ -14,30 +12,41 @@ void version(void);
 int verbose=0;
 
 int main(int argc, char *argv[]) {
-  int opt, ix, bits;
-  char *opts="b:hi:o:Vv";
+  int i, c, v;
+  int opt, ix, ink, paper;
+  char *opts="b:f:hI:i:o:P:Vv";
+  char *label;
   struct option options[]={
-    { "bits", 1, NULL, 'b' },
+    { "bg", 1, NULL, 'b' },
+    { "fg", 1, NULL, 'f' },
     { "help", 0, NULL, 'h' },
+    { "ink", 1, NULL, 'I' },
     { "in", 1, NULL, 'i' },
     { "out", 1, NULL, 'o' },
+    { "paper", 1, NULL, 'P' },
     { "version", 0, NULL, 'V' },
     { "verbose", 0, NULL, 'v' },
     { NULL, 0, NULL, '\0' }
   };
   FILE *infile, *outfile;
-  rgb_t rgb;
-  pal_t pal;
-
-  bits=BITS;
+    
   infile=stdin;
   outfile=stdout;
+  ink=INK;
+  paper=PAPER;
   while((opt=getopt_long(argc, argv, opts, options, &ix))!=-1) {
     switch(opt) {
     case 'b':
-      bits=atoi(optarg);
-      if (bits!=1 && bits!=2 && bits!=4 && bits!=8) {
-	fprintf(stderr, "Unlibzxntoolsed bit depth %d\n", bits);
+    case 'P':
+      if (!sscanf(optarg, "%d", &paper) || paper<0 || paper>15) {
+	fprintf(stderr, "Illegal paper value: %s\n", optarg);
+	return 1;
+      }
+      break;
+    case 'f':
+    case 'I':
+      if (!sscanf(optarg, "%d", &ink) || ink<0 || ink>15) {
+	fprintf(stderr, "Illegal ink value: %s\n", optarg);
 	return 1;
       }
       break;
@@ -82,11 +91,16 @@ int main(int argc, char *argv[]) {
     }
     optind++;
   }
-  rgb=readrgb(infile);
-  pal=rgb2pal(rgb, 1<<bits);
-  free_rgb(rgb);
-  writepal(pal, outfile);
-  free_pal(pal);
+  for(i=0; i<32*8*4; i++) putc('\0', outfile);
+  while((c=getc(infile))!=EOF) {
+    for(i=0; i<4; i++) {
+      v=((c&0x80)?(ink<<4):(paper<<4))|((c&0x40)?ink:paper);
+      c<<=2;
+      putc(v, outfile);
+    }
+  }
+  fclose(infile);
+  fclose(outfile);
   return 0;
 }
 
@@ -94,15 +108,18 @@ void help(char *name) {
   version();
   fprintf(stderr, "Usage: %s [<options>] [<infile>] [<outfile>]\n", name);
   fprintf(stderr, "\toptions are\n");
-  fprintf(stderr, "\t-b\t--bits\t\tbit depth of palette (%d)\n", BITS);
+  fprintf(stderr, "\t-b\t--bg\t\tset paper color (%d)\n", paper);
+  fprintf(stderr, "\t-f\t--fg\t\tset ink color (%d)\n", ink);
   fprintf(stderr, "\t-h\t--help\t\tprint this help message\n");
+  fprintf(stderr, "\t-I\t--ink\t\tset ink color (%d)\n", ink);
   fprintf(stderr, "\t-i\t--in\t\tinput file (stdin)\n");
   fprintf(stderr, "\t-o\t--out\t\toutput file (stdout)\n");
-  fprintf(stderr, "\t-V\t--version0\tget version information\n");
+  fprintf(stderr, "\t-P\t--paper\t\tset paper color (%d)\n", paper);
+  fprintf(stderr, "\t-V\t--version\tget version information\n");
   fprintf(stderr, "\t-v\t--verbose\tincrease verbosity\n");
 }
 
 void version(void) {
-  fprintf(stderr, "getpalette version %s %s\n", VERSION, DATE);
-  libzxntoolsver(1);
+  fprintf(stderr, "fonttotiles version %s %s\n", VERSION, DATE);
+  //libzxntoolsver(1);
 }

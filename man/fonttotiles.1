@@ -1,15 +1,24 @@
-.TH SLRTOPPM 1 "21 February 2019" "libzxntools 1.01.01"
+.TH FONTTOTILES 1 "17 September 2019" "libzxntools 1.01.01"
 .SH NAME
-slrtoppm \- convert a lores image (.SLR) for the ZX Spectrum to a ppm file
+fonttotiles \- convert a font file to tiles
 .SH SYNOPSYS
-.B slrtoppm
+.B fonttotiles
 [\fIoptions\fR]
 [\fIinfile\fR]
 [\fIoutfile\fR]
 .SH DESCRIPTION
-.B slrtoppm
-convert a lores image (.SLR) for the ZX Spectrum to a ppm file
+.B fonttotiles
+converts a 768-byte 1-bit per pixel font file into a set of 4-bit per
+pixel tiles for the ZX Spectrum Next
 .SH OPTIONS
+.TP
+.BR \-b ", " \-P ", " \-\-bg ", " \-\-paper "=" \fIINDEX\fR
+Set the paper/background color index
+defaults to 0
+.TP
+.BR \-f ", " \-I ", " \-\-fg ", " \-\-ink "=" \fIINDEX\fR
+Set the ink/foreground color index
+defaults to 15
 .TP
 .BR \-h ", " \-\-help
 Show the help message.
@@ -58,7 +67,6 @@ Report all bugs to varmfskii at gmail.com
 Copyright 2019 Theodore (Alex) Evans. See full licensing notice
 included in LICENSE.md
 .SH "SEE ALSO"
-.BR fonttotiles (1),
 .BR getpalette (1),
 .BR imagetoasm (1),
 .BR paltoasm (1),

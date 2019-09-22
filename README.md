@@ -8,6 +8,7 @@ See TODO.md for things to do
 
 ## Tools for ZX Spectrum Next
 
+- fonttotiles - convert 768 byte font files to ZX Spectrum Next tiles
 - getpalette - extract palette information from an image
 - imagetoasm - convert an image to assembly language source for ZX Next sprites or tiles
 - libzxntools library - support functions for tools
