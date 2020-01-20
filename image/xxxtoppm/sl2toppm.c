@@ -13,7 +13,7 @@ int pref=320;
 
 int main(int argc, char *argv[]) {
   FILE *in, *out;
-  int opt, ix;
+  int opt, ix, offset, palsz;
   ixed_t ixed;
   char *opts="36hi:o:Vv";
   struct option options[]={
