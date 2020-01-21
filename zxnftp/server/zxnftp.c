@@ -41,7 +41,7 @@ int main() {
 
   // select 14 MHz clock
   NEXT_SEL=0x07;
-  old_clk=NEXT_RW;
+  old_clock=NEXT_RW;
   NEXT_RW=0x02;
   // ensure uart is connected to ESP and not Pi
   UART_CTL=0x00;

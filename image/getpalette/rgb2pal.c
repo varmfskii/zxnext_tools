@@ -17,13 +17,21 @@ pal_t rgb2pal(rgb_t rgb, int len) {
     colors[i].color=i;
     colors[i].count=0;
   }
-  for(i=0; i<rgb.x*rgb.y; i++) {
-    r=PAL8TO3(rgb.dat[0][i].p[R]);
-    g=PAL8TO3(rgb.dat[0][i].p[G]);
-    b=PAL8TO3(rgb.dat[0][i].p[B]);
-    color=(r<<6)|(g<<3)|b;
-    colors[color].count++;
-  }
+  if (rgb.gray)
+    for(i=0; i<rgb.x*rgb.y; i++) {
+      g=PAL8TO3(rgb.gdat[0][i]);
+      color=(g<<6)|(g<<3)|g;
+      colors[color].count++;
+    }
+  else
+    for(i=0; i<rgb.x*rgb.y; i++) {
+      r=PAL8TO3(rgb.dat[0][i].p[R]);
+      g=PAL8TO3(rgb.dat[0][i].p[G]);
+      b=PAL8TO3(rgb.dat[0][i].p[B]);
+      color=(r<<6)|(g<<3)|b;
+      colors[color].count++;
+    }
+    
   qsort(colors, 512, sizeof(pair), cmp);
   pal.dat=(rgba_t *)calloc(len, sizeof(rgba_t));
   for(i=0; i<len; i++) {

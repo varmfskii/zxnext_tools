@@ -4,4 +4,5 @@
 #include "../libzxntools/zxntools.h"
 
 ixed_t readsl2(FILE *in);
+extern int pref;
 #endif

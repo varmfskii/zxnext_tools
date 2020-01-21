@@ -4,17 +4,18 @@
 #include "zxnftp.h"
 
 void cmd_put(char **params) {
-  int i;
+  int pc;
   char *src, *dest;
   FILE *in;
   struct stat st;
   char buf[BLKSZ];
   
-  if (i<2 || i>3) {
+  for(pc=0; params[pc]; pc++);
+  if (pc<2 || pc>3) {
     printerr("Incorrect number of arguments. put <file> [<file>]\n");
     return;
   }
-  src=(i==2)?params[1]:params[2];
+  src=(pc==2)?params[1]:params[2];
   dest=params[1];
   stat(src, &st);
   if (st.st_size>fdata_sz) {

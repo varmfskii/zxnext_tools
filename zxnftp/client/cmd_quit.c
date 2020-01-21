@@ -2,8 +2,6 @@
 #include "zxnftp.h"
 
 void cmd_quit(char **params) {
-  int i;
-  
   if (params && params[1]) {
     printerr("Incorrect number of arguments. Usage exit\n");
     finish();

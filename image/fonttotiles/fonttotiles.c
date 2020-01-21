@@ -1,5 +1,6 @@
 #include <getopt.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #define VERSION "1.00.01"
 #define DATE "20190917"
@@ -10,12 +11,13 @@ void help(char *);
 void version(void);
 
 int verbose=0;
+int ink=INK;
+int paper=PAPER;
 
 int main(int argc, char *argv[]) {
   int i, c, v;
-  int opt, ix, ink, paper;
+  int opt, ix;
   char *opts="b:f:hI:i:o:P:Vv";
-  char *label;
   struct option options[]={
     { "bg", 1, NULL, 'b' },
     { "fg", 1, NULL, 'f' },
@@ -32,8 +34,6 @@ int main(int argc, char *argv[]) {
     
   infile=stdin;
   outfile=stdout;
-  ink=INK;
-  paper=PAPER;
   while((opt=getopt_long(argc, argv, opts, options, &ix))!=-1) {
     switch(opt) {
     case 'b':

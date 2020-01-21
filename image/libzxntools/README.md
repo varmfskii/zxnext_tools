@@ -1,4 +1,4 @@
-# libzxntools version 1.00.00 20190215
+# libzxntools version 2.00.00 20200119
 
 A set of library functions to support ZX Spectrum Next tools
 
@@ -25,5 +25,6 @@ A set of library functions to support ZX Spectrum Next tools
 - void free_rgb(rgb_t)
 - void writeixed(ixed_t, int, FILE *)
 - void writepal(pal_t, FILE *)
+- void writeraw(ixed_t, width, height, depth, swap, FILE *)
 - void writergb(rgb_t, FILE *)
 - void nextpal(pal_t, FILE *)

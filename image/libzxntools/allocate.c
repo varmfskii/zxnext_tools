@@ -24,16 +24,23 @@ pal_t new_pal(int d) {
   return rv;
 }
 
-rgb_t new_rgb(int x, int y) {
+rgb_t new_rgb(int x, int y, int gray) {
   rgb_t rv;
   int i;
   
-  if (verbose>1) fprintf(stderr, "new_rgb(%d, %d)\n", x, y);
+  if (verbose>1) fprintf(stderr, "new_rgb(%d, %d, %d)\n", x, y, gray);
   rv.x=x;
   rv.y=y;
-  rv.dat=(rgba_t **)malloc(y*sizeof(rgba_t *)+x*y*sizeof(rgba_t));
-  rv.dat[0]=(rgba_t *)(rv.dat+y);
-  for(i=1; i<y; i++) rv.dat[i]=rv.dat[0]+rv.x*i;
+  rv.gray=gray;
+  if (gray) {
+    rv.gdat=(uint8_t **)malloc(y*sizeof(uint8_t *)+x*y*sizeof(uint8_t));
+    rv.gdat[0]=(uint8_t *)(rv.gdat+y);
+    for(i=1; i<y; i++) rv.gdat[i]=rv.gdat[0]+rv.x*i;
+  } else {
+    rv.dat=(rgba_t **)malloc(y*sizeof(rgba_t *)+x*y*sizeof(rgba_t));
+    rv.dat[0]=(rgba_t *)(rv.dat+y);
+    for(i=1; i<y; i++) rv.dat[i]=rv.dat[0]+rv.x*i;
+  }
   return rv;
 }
 

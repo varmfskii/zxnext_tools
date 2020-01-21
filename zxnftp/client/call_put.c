@@ -24,7 +24,7 @@ void call_put(char *param, size_t len) {
   if (neterr(NULL)) return;
   nettxln(param);
   if (neterr(NULL)) return;
-  sprintf(buf, "%d", (int) len);
+  sprintf(buf, "%u", (unsigned int) len);
   nettxln(buf);
   for(txlen=0; txlen<len; txlen+=BLKSZ) {
     netrxln(buf);
@@ -37,7 +37,7 @@ void call_put(char *param, size_t len) {
     else
       blen=len-txlen;
     nettx(fdata+txlen, blen);
-    sprintf(buf, "%d", txlen+blen);
+    sprintf(buf, "%u", (unsigned int) txlen+blen);
 #ifdef CURSES
     waddstr(win, buf);
     wrefresh(win);
@@ -53,6 +53,6 @@ void call_put(char *param, size_t len) {
   if (!neterr(NULL)) printout("\nOk\n");
   clock_gettime(CLOCK_REALTIME, &e);
   time=e.tv_sec-s.tv_sec+(e.tv_nsec-s.tv_nsec)*1e-9;
-  sprintf(buf, "%d b, %0.2f s, %0.2f bps\n", len, time, 8*len/time);
+  sprintf(buf, "%u b, %0.2f s, %0.2f bps\n", (unsigned int) len, time, 8*len/time);
   printout(buf);
 }

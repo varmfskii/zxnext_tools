@@ -14,7 +14,7 @@ void cmd_mput(char **params) {
   char buf[BLKSZ];
   
   if (!params[1]) {
-    printerr("No patterns usage mget <patt> [<patt> ...]\n");
+    printerr("No patterns, usage: mget <patt> [<patt> ...]\n");
     return;
   }
   local=opendir(".");

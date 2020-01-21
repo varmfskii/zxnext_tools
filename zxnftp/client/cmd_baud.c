@@ -6,8 +6,6 @@
 #include "zxnftp.h"
 
 void cmd_baud(char **params) {
-  int i;
-  
   if (!params[1] || params[2]) {
 #ifdef CURSES
     waddstr(win, "Error: Incorrect number of arguments. rm <file/dir>\n");

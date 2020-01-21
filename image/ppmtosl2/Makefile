@@ -5,13 +5,12 @@ CFLAGS += -DDEBUG -g
 else
 CFLAGS += -O3
 endif
-OBJS=ppmtosl2.o writesl2.o libzxntools.a
+OBJS=ppmtosl2.o libzxntools.a
 
 ppmtosl2 : $(OBJS)
 	$(CC) -o $@ $^ $(LOPTS) -lnetpbm
 
 ppmtosl2.o : ppmtosl2.c ppmtosl2.h
-writesl2.o : writesl2.c ppmtosl2.h
 ../libzxntools/libzxntools.a : libzxntools
 
 libzxntools.a : ../libzxntools/libzxntools.a

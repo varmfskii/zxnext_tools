@@ -1,4 +1,4 @@
-TARGETS=image nexcreator zxnftp
+TARGETS=image nexcreator zxnftp zxother
 
 PREFIX=$(CURDIR)
 

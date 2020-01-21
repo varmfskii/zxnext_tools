@@ -8,9 +8,10 @@ CFLAGS += -DDEBUG -g
 else
 CFLAGS += -O3
 endif
-OBJS=allocate.o col_dist.o deallocate.o decimate.o nextpal.o palette.o \
-	readbm.o readixed.o readpal.o readrgb.o rgb2index.o showpal.o \
-	writebm.o writeixed.o writepal.o writergb.o zxntoolsver.o
+OBJS=allocate.o col_dist.o deallocate.o decimate.o nextpal.o		\
+	palette.o readbm.o readixed.o readpal.o readrgb.o rgb2index.o	\
+	showpal.o writebm.o writeixed.o writepal.o writergb.o		\
+	writezxn.o zxntoolsver.o
 
 all : libzxntools.a
 
@@ -39,6 +40,7 @@ writebm.o : writebm.c zxntools.h
 writeixed.o : writeixed.c zxntools.h
 writepal.o : writepal.c zxntools.h
 writergb.o : writergb.c zxntools.h
+writezxn.o : writezxn.c zxntools.h
 zxntoolsver.o : zxntoolsver.c zxntools.h
 
 .PHONY : clean distclean all

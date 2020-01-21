@@ -3,16 +3,17 @@
 #include "zxnftp.h"
 
 void cmd_get(char **params) {
-  int i, len;
+  int pc, len;
   char *data, *src, *dest;
   char buf[BLKSZ];
   FILE *out;
   
-  if (i<2 || i>3) {
+  for(pc=0; params[pc]; pc++);
+  if (pc<2 || pc>3) {
     printerr("Incorrect number of arguments. get <file> [<file>]\n");
     return;
   }
-  src=(i==2)?params[1]:params[2];
+  src=(pc==2)?params[1]:params[2];
   dest=params[1];
   data=call_get(src, &len);
   if (!data) {

@@ -17,7 +17,7 @@ rgb_t scrtorgb(FILE *in) {
     rv.dat=NULL;
     return rv;
   }
-  rv=new_rgb(256, 192);
+  rv=new_rgb(256, 192, 0);
   for(ar=0; ar<24; ar++)
     for(ac=0; ac<32; ac++) {
       a=attr[ar*32+ac];

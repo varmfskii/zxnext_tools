@@ -1,9 +1,9 @@
 TARGETS=fonttotiles getpalette imagetoasm paltoasm pbmtoshr ppmtoscr	\
-	ppmtoshc ppmtosl2 ppmtoslr scrtoppm shctoppm shrtopbm		\
-	sl2toppm slrtoppm
+	ppmtoshc ppmtosl2 scrtoppm shctoppm shrtopbm sl2toppm
+
 
 all : $(TARGETS) libzxntools
-	for file in $(TARGETS); do make -C $$file $$File; done 
+	for file in $(TARGETS); do make -C $$file $$File || break; done 
 
 .PHONY : $(TARGETS) libzxntools clean distclean install
 
@@ -20,6 +20,9 @@ distclean : clean
 
 install : all
 	mkdir -p $(PREFIX)/bin $(PREFIX)/libs
-	for file in $(TARGETS); do cp $$file/$$file $(PREFIX)/bin; done 
+	for file in $(TARGETS); do cp $$file/$$file $(PREFIX)/bin; done
+	rm -f $(PREFIX)/bin/ppmtoslr $(PREFIX)/bin/slrtoppm
+	ln -s $(PREFIX)/bin/ppmtosl2 $(PREFIX)/bin/ppmtoslr
+	ln -s $(PREFIX)/bin/sl2toppm $(PREFIX)/bin/slrtoppm
 	cp libzxntools/libzxntools.a $(PREFIX)/libs
-	cp libzxntools/libzxntools.so $(PREFIX)/libs
+	-cp libzxntools/libzxntools.so $(PREFIX)/libs

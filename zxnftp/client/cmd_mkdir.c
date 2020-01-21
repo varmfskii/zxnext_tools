@@ -1,8 +1,6 @@
 #include "zxnftp.h"
 
 void cmd_mkdir(char **params) {
-  int i;
-  
   if (!params[1] || params[2]) {
     printerr("ncorrect number of arguments. mkdir <dir>\n");
     return;

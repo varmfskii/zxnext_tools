@@ -29,7 +29,7 @@ void cmd_mget(char **params) {
     sscanf(buf, "%02x\n%02u/%02u/%04u\n%02u:%02u:%02u",
 	   &attr, &dy, &mo, &yr, &h, &m, &s);
     netrxln(buf);
-    if (!attr&0x10) { // skip directories
+    if (!(attr&0x10)) { // skip directories
       len=strlen(buf);
       if (ix+len+1>ddata_sz) {
 	ddata_sz*=2;

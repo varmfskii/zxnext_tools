@@ -1,5 +1,34 @@
 # ZX Spectrum Next tools
 
+## Description
+
+A set of tools used to complement the netpbm set of image processing
+tools with reasonable interoperability with the functions provided by
+imagemagick and graphicsmagick.
+
+The tools use a fairly unified set of options to make understanding
+them easier and all have builtin help functionality. The expectation
+is for the user to process their images with other tools and perform
+final conversion from ppm (occasionally pbm) to ZX Spectrum Next
+formats using these tools.
+
+Ideally an image passed to these tools will already be using the
+Next's 3:3:3 colourspace, already have the correct number of colours,
+and already be the right resolution. When this is not true the tools
+don't fail, but may not do what you wish.
+
+PPM is not an indexed image format. This is a potential problem when
+dealing with a system like the ZX Next that uses indexed colour. The
+solution here is that, where indexed colour is necessary, the tools
+support the use of a separate palette file and when not passed a
+palette file use the default palette of the ZX Spectrum Next.
+
+Additionally, there is a directory zxother which contains tools for ZX
+Spectrum related machines other than the ZX Next. Many of these tools
+were written for Windows and have been modified to work in Linux. In
+cases where they were essentially C masquerading as C++, they have
+been converted to C.
+
 See LICENSE.md for license
 
 See PHILOSOPHY.md for philosophy statement

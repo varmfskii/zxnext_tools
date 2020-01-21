@@ -10,6 +10,7 @@ objects=$(sources:.c=.o)
 
 PREFIX=$(CURDIR)/..
 
+#CFLAGS=-DCURSES -Wall -Werror
 CFLAGS=-DCURSES
 
 all: dependencies zxnftp zxnftp.conf

@@ -1,7 +1,6 @@
 #include "zxnftp.h"
 
 void cmd_pwd(char **params) {
-  int i;
   char buf[BLKSZ];
   
   if (params[1]) {

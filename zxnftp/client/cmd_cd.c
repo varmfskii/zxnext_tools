@@ -3,7 +3,7 @@
 #include "zxnftp.h"
 
 void cmd_cd(char **params) {
-  int i, len;
+  int len;
   char buf[BLKSZ];
   
   if (!params[1] || params[2]) {

@@ -23,7 +23,10 @@ void free_pal(pal_t p) {
 
 void free_rgb(rgb_t r) {
   if (verbose>1) fprintf(stderr, "free_rgb(rgb_t: %dx%d)\n", r.x, r.y);
-  if (r.dat) {
+  if (r.gray && r.gdat) {
+    free(r.gdat);
+    r.gdat=NULL;
+  } else if (!r.gray && r.dat) {
     free(r.dat);
     r.dat=NULL;
   }
