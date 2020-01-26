@@ -4,7 +4,7 @@ PREFIX=$(CURDIR)
 
 all : $(TARGETS)
 	for file in $(TARGETS) ;\
-	  do make PREFIX=$(PREFIX) -C $$file $$File ;\
+	  do make PREFIX=$(PREFIX) -C $$file $$File || break;\
 	done 
 
 .PHONY : $(TARGETS) clean distclean install

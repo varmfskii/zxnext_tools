@@ -37,7 +37,7 @@ int main(int argc, char *argv[]) {
     { NULL, 0, NULL, '\0' }
   };
   FILE *infile, *outfile, *pin;
-  rgb_t rgb;
+  //rgb_t rgb;
   pal_t pal;
   ixed_t ixed;
     
@@ -157,6 +157,13 @@ int main(int argc, char *argv[]) {
       }
       optind++;
   }
+  if (pin) {
+    pal=readpal(1<<depth, pin);
+    fclose(pin);
+  }  else
+    pal=palette(depth);
+  ixed=readixed(infile, pal);
+  /*
   rgb=readrgb(infile);
   if (infile!=stdin) fclose(stdin);
   if (pin) {
@@ -166,6 +173,7 @@ int main(int argc, char *argv[]) {
     pal=palette(depth);
   ixed=rgb2index(rgb, pal);
   free_rgb(rgb);
+  */
   free_pal(pal);
   writezxn(ixed, width, height, depth, swap, outfile);
   if (pin) nextpal(ixed.pal, outfile);

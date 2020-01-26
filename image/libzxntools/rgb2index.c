@@ -19,13 +19,20 @@ ixed_t rgb2index(rgb_t rgb, pal_t pal) {
 		       rgb.x, rgb.y, pal.l);
   ixed=new_ixed(rgb.x, rgb.y, pal.l);
   memcpy(ixed.pal.dat, pal.dat, pal.l*sizeof(rgba_t));
-  if (rgb.gray)
-    for (r=0; r<ixed.y; r++) {
-      for (c=0; c<ixed.x; c++) {
-	ixed.dat[r][c]=palixg(rgb.gdat[r][c], pal);
+  if (rgb.gray) {
+      for (r=0; r<ixed.y; r++) {
+        for (c=0; c<ixed.x; c++) {
+	  ixed.dat[r][c]=(pal.l-1)*rgb.gdat[r][c]/255;
+        }
       }
-    }
-  else
+    /*
+      for (r=0; r<ixed.y; r++) {
+        for (c=0; c<ixed.x; c++) {
+          ixed.dat[r][c]=palixg(rgb.gdat[r][c], pal);
+        }
+      }
+    */
+  } else
     for (r=0; r<ixed.y; r++) {
       for (c=0; c<ixed.x; c++) {
 	ixed.dat[r][c]=palix(rgb.dat[r][c], pal);

@@ -33,8 +33,8 @@ typedef struct bm_t {
   int x, y;
 } bm_t;
 
-#define ZXNV 0x020000
-#define ZXND "20200119"
+#define ZXNV 0x020001
+#define ZXND "20200126"
 #define R 0
 #define G 1
 #define B 2

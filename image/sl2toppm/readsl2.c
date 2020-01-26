@@ -135,16 +135,17 @@ ixed_t readsl2(FILE *in) {
     for(i=0; i<0x010; i++) {
       pal.dat[i].p[R]=PAL3TO8((buffer[offset+i]>>5)&7);
       pal.dat[i].p[G]=PAL3TO8((buffer[offset+i]>>2)&7);
-      pal.dat[i].p[B]=(buffer[offset+i]&3)/85;
+      pal.dat[i].p[B]=(buffer[offset+i]&3)*85;
       pal.dat[i].p[A]=0xff;
     }
     break;
   case 0x020:
     pal.dat=calloc(0x010, sizeof(rgba_t));
     for(i=0; i<0x010; i++) {
-      pal.dat[i].p[R]=PAL3TO8((buffer[offset+i]>>5)&7);
-      pal.dat[i].p[G]=PAL3TO8((buffer[offset+i]>>2)&7);
-      pal.dat[i].p[B]=(buffer[offset+i]&3)/85;
+      pal.dat[i].p[R]=PAL3TO8((buffer[offset+2*i]>>5)&7);
+      pal.dat[i].p[G]=PAL3TO8((buffer[offset+2*i]>>2)&7);
+      pal.dat[i].p[B]=PAL3TO8(((buffer[offset+2*i]<<1)&6)
+			      |(buffer[offset+2*i+1]&1));
       pal.dat[i].p[A]=0xff;
     }
     break;
@@ -153,7 +154,7 @@ ixed_t readsl2(FILE *in) {
     for(i=0; i<0x100; i++) {
       pal.dat[i].p[R]=PAL3TO8((buffer[offset+i]>>5)&7);
       pal.dat[i].p[G]=PAL3TO8((buffer[offset+i]>>2)&7);
-      pal.dat[i].p[B]=(buffer[offset+i]&3)/85;
+      pal.dat[i].p[B]=(buffer[offset+i]&3)*85;
       pal.dat[i].p[A]=0xff;
     }
     break;

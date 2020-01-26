@@ -10,10 +10,12 @@ void nextpal(pal_t pal, FILE *out) {
     for(v=c=0; c<3; c++)
       v=(v<<3)|PAL8TO3(pal.dat[i].p[c]);
     putc(v>>1, out);
-    putc((v&0x100)?1:0, out);
+    putc(v&0x001, out);
   }
-  for(; i<256; i++) {
+  /*
+  for(; i<pal.l; i++) {
     putc(0, out);
     putc(0, out);
   }
+  */
 }

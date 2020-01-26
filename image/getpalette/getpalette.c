@@ -5,8 +5,8 @@
 #include <string.h>
 
 #define BITS 8
-#define VERSION "1.01.01"
-#define DATE "20190215"
+#define VERSION "2.00.00"
+#define DATE "20190226"
 
 void help(char *);
 void version(void);
@@ -37,7 +37,7 @@ int main(int argc, char *argv[]) {
     case 'b':
       bits=atoi(optarg);
       if (bits!=1 && bits!=2 && bits!=4 && bits!=8) {
-	fprintf(stderr, "Unlibzxntoolsed bit depth %d\n", bits);
+	fprintf(stderr, "Unsupported bit depth %d\n", bits);
 	return 1;
       }
       break;

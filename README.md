@@ -1,10 +1,5 @@
 # ZX Spectrum Next tools
 
-Please note that this is a secondary repository which contains
-"release" versions of the code and may be outdated. The for more up to
-date code that is even more likely to be buggy, see the [development
-repository.](https://gitlab.com/varmfskii/zxnext.git)
-
 ## Description
 
 A set of tools used to complement the netpbm set of image processing
