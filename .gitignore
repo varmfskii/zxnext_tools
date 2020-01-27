@@ -1,2 +1,5 @@
+*.o
+*.a
 bin
+libs
 zxnext
