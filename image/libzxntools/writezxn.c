@@ -8,7 +8,7 @@ void writezxn(ixed_t ixed, int width, int height,
   int r, c, ix, bits, byte;
   unsigned char buffer[width*height];
 
-  if (verbose>1)
+  if (get_verbose()>1)
     fprintf(stderr, "writezxn(ixed_t: %dx%d, width: %d, height: %d, "
 	    "depth: %d, swap: %d, out: %p)\n",
 	    ixed.x, ixed.y, width, height, depth, swap, (void *) out);
@@ -43,7 +43,7 @@ void writezxn(ixed_t ixed, int width, int height,
   }
   bits=byte=0;
   for(ix=0; ix<width*height; ix++) {
-    if (verbose>2) fprintf(stderr, "bits: %d\n", bits);
+    if (get_verbose()>2) fprintf(stderr, "bits: %d\n", bits);
     byte=(byte<<depth)|buffer[ix];
     bits+=depth;
     if (bits>=8) {

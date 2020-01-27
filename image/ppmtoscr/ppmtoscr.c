@@ -8,15 +8,11 @@
 void help(char *);
 void version(void);
 
-#ifdef DEBUG
-int verbose=2;
-#else
-int verbose=0;
-#endif
 
 int main(int argc, char *argv[]) {
   FILE *in, *out, *pin;
-  int opt, ix;
+  struct pam *inpam;
+  int opt, ix, verbose;
   char *opts="hi:o:p:qVv";
   struct option options[]={
     { "help", 0, NULL, 'h' },
@@ -28,13 +24,19 @@ int main(int argc, char *argv[]) {
     { "verbose", 0, NULL, 'v' },
     { NULL, 0, NULL, '\0' }
   };
-  //rgb_t rgb;
   ixed_t ixed;
   pal_t pal;
   
+#ifdef DEBUG
+  verbose=2;
+#else
+  verbose=0;
+#endif
   in=stdin;
   out=stdout;
   pin=NULL;
+  pnm_init(&argc, argv);
+  inpam=(struct pam *)calloc(sizeof(struct pam), 1);
   while((opt=getopt_long(argc, argv, opts, options, &ix))!=-1) {
     switch(opt) {
     case 'h':
@@ -85,18 +87,14 @@ int main(int argc, char *argv[]) {
     }
     optind++;
   }
+  set_verbose(verbose);
+  pnm_readpaminit(in, inpam, sizeof(struct pam));
   if (pin) {
     pal=readpal(16, pin);
     fclose(pin);
   }  else
     pal=palette(4);
-  ixed=readixed(in, pal);
-  /*
-  rgb=readrgb(in);
-  pal=palette(4);
-  ixed=rgb2index(rgb, pal);
-  free_rgb(rgb);
-  */
+  ixed=readixed(inpam, pal);
   free_pal(pal);
   writescr(ixed, out);
   if (pin) nextpal(ixed.pal, out);

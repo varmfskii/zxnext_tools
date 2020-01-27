@@ -5,7 +5,7 @@ ixed_t new_ixed(int x, int y, int d) {
   ixed_t rv;
   int i;
   
-  if (verbose>1) fprintf(stderr, "new_ixed(%d, %d, %d)\n", x, y, d);
+  if (get_verbose()>1) fprintf(stderr, "new_ixed(%d, %d, %d)\n", x, y, d);
   rv.x=x;
   rv.y=y;
   rv.dat=(uint8_t **)malloc(y*sizeof(uint8_t *)+x*y*sizeof(uint8_t));
@@ -18,7 +18,7 @@ ixed_t new_ixed(int x, int y, int d) {
 pal_t new_pal(int d) {
   pal_t rv;
   
-  if (verbose>1) fprintf(stderr, "new_pal(%d)\n", d);
+  if (get_verbose()>1) fprintf(stderr, "new_pal(%d)\n", d);
   rv.l=d;
   rv.dat=(rgba_t *)malloc(d*sizeof(rgba_t));
   return rv;
@@ -28,7 +28,7 @@ rgb_t new_rgb(int x, int y, int gray) {
   rgb_t rv;
   int i;
   
-  if (verbose>1) fprintf(stderr, "new_rgb(%d, %d, %d)\n", x, y, gray);
+  if (get_verbose()>1) fprintf(stderr, "new_rgb(%d, %d, %d)\n", x, y, gray);
   rv.x=x;
   rv.y=y;
   rv.gray=gray;
@@ -48,7 +48,7 @@ bm_t new_bm(int x, int y) {
   bm_t rv;
   int i;
   
-  if (verbose>1) fprintf(stderr, "new_bm(%d, %d)\n", x, y);
+  if (get_verbose()>1) fprintf(stderr, "new_bm(%d, %d)\n", x, y);
   rv.x=x;
   rv.y=y;
   rv.dat=(uint8_t **)malloc(y*(sizeof(uint8_t *)+(7+x*sizeof(uint8_t))/8));

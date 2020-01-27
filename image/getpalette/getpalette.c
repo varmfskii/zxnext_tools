@@ -11,8 +11,6 @@
 void help(char *);
 void version(void);
 
-int verbose=0;
-
 int main(int argc, char *argv[]) {
   int opt, ix, bits;
   char *opts="b:hi:o:Vv";
@@ -26,12 +24,17 @@ int main(int argc, char *argv[]) {
     { NULL, 0, NULL, '\0' }
   };
   FILE *infile, *outfile;
+  struct pam *inpam;
   rgb_t rgb;
   pal_t pal;
+  int verbose;
 
+  verbose=0;
   bits=BITS;
   infile=stdin;
   outfile=stdout;
+  pnm_init(&argc, argv);
+  inpam=(struct pam *)calloc(sizeof(struct pam), 1);
   while((opt=getopt_long(argc, argv, opts, options, &ix))!=-1) {
     switch(opt) {
     case 'b':
@@ -82,7 +85,9 @@ int main(int argc, char *argv[]) {
     }
     optind++;
   }
-  rgb=readrgb(infile);
+  set_verbose(verbose);
+  pnm_readpaminit(infile, inpam, sizeof(struct pam));
+  rgb=readrgb(inpam);
   pal=rgb2pal(rgb, 1<<bits);
   free_rgb(rgb);
   writepal(pal, outfile);

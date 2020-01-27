@@ -17,8 +17,6 @@
 void help(char *);
 void version(void);
 
-int verbose=0;
-
 /*
  * imagetoasm: a tool for splitting image files into assembly code
  *
@@ -48,6 +46,8 @@ int main(int argc, char *argv[]) {
   char optstring[]="ab:ghi:l:o:O:p:rsS:tvVz:";
   int opt, ix;
   FILE *infile, *outfile, *palfile;
+  struct pam *inpam;
+  int verbose=0;
   int offset=OFFSET;
   int skip=SKIP;
   int size=SIZE;
@@ -61,6 +61,8 @@ int main(int argc, char *argv[]) {
   infile=stdin;
   outfile=stdout;
   palfile=NULL;
+  pnm_init(&argc, argv);
+  inpam=(struct pam *)calloc(sizeof(struct pam), 1);
   while((opt=getopt_long(argc, argv, optstring, opts, &ix))!=-1) {
     switch(opt) {
     case 'b':
@@ -141,6 +143,8 @@ int main(int argc, char *argv[]) {
     }
     optind++;
   }
+  set_verbose(verbose);
+  pnm_readpaminit(infile, inpam, sizeof(struct pam));
   if (palfile) {
     pal=readpal(1<<bits, palfile);
     fclose(palfile);
@@ -148,7 +152,7 @@ int main(int argc, char *argv[]) {
     pal=palette(bits);
   }
   if (!pal.l) return 1;
-  rgb=readrgb(infile);
+  rgb=readrgb(inpam);
   if (!rgb.dat) return 1;
   fclose(infile);
   dec=decimate(rgb, offset, offset, skip, skip);

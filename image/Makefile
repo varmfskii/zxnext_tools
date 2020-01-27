@@ -1,5 +1,6 @@
-TARGETS=fonttotiles getpalette imagetoasm paltoasm pbmtoshr ppmtoscr	\
-	ppmtoshc ppmtosl2 scrtoppm shctoppm shrtopbm sl2toppm
+TARGETS=fonttotiles getpalette imagetoasm paltoasm paltoppm pbmtoshr	\
+	ppmtoscr ppmtoshc ppmtosl2 scrtoppm shctoppm shrtopbm		\
+	sl2toppm
 
 
 all : $(TARGETS) libzxntools

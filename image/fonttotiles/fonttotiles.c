@@ -10,11 +10,11 @@
 void help(char *);
 void version(void);
 
-int verbose=0;
 int ink=INK;
 int paper=PAPER;
 
 int main(int argc, char *argv[]) {
+  int verbose;
   int i, c, v;
   int opt, ix;
   char *opts="b:f:hI:i:o:P:Vv";
@@ -32,6 +32,7 @@ int main(int argc, char *argv[]) {
   };
   FILE *infile, *outfile;
     
+  verbose=0;
   infile=stdin;
   outfile=stdout;
   while((opt=getopt_long(argc, argv, opts, options, &ix))!=-1) {
@@ -91,6 +92,7 @@ int main(int argc, char *argv[]) {
     }
     optind++;
   }
+  //set_verbose(verbose);
   for(i=0; i<32*8*4; i++) putc('\0', outfile);
   while((c=getc(infile))!=EOF) {
     for(i=0; i<4; i++) {

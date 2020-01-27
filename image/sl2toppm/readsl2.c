@@ -15,7 +15,7 @@ ixed_t readsl2(FILE *in) {
   rv.pal=pal;
   rv.dat=NULL;
   size=fread(buffer, 1, sizeof(buffer), in);
-  if (verbose) fprintf(stderr, "read size %x\n", size);
+  if (get_verbose()) fprintf(stderr, "read size %x\n", size);
   switch(size) {
   case 0x1800:
     /* radistan */

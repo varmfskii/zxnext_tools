@@ -8,15 +8,9 @@
 void help(char *);
 void version(void);
 
-#ifdef DEBUG
-int verbose=2;
-#else
-int verbose=0;
-#endif
-
 int main(int argc, char *argv[]) {
   FILE *in, *out;
-  int opt, ix;
+  int opt, ix, verbose;
   char *opts="hi:o:qVv";
   struct option options[]={
     { "help", 0, NULL, 'h' },
@@ -29,6 +23,11 @@ int main(int argc, char *argv[]) {
   };
   rgb_t rgb;
 
+#ifdef DEBUG
+  verbose=2;
+#else
+  verbose=0;
+#endif
   in=stdin;
   out=stdout;
   while((opt=getopt_long(argc, argv, opts, options, &ix))!=-1) {
@@ -75,6 +74,7 @@ int main(int argc, char *argv[]) {
     }
     optind++;
   }
+  set_verbose(verbose);
   rgb=scrtorgb(in);
   if (!rgb.dat) return 1;
   writergb(rgb, out);

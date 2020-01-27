@@ -12,10 +12,8 @@
 void help(char *);
 void version(void);
 
-int verbose=0;
-
 int main(int argc, char *argv[]) {
-  int opt, ix, bits;
+  int opt, ix, bits, verbose;
   char *opts="b:hi:l:o:Vv";
   char *label;
   struct option options[]={
@@ -30,9 +28,9 @@ int main(int argc, char *argv[]) {
   };
   FILE *infile, *outfile;
   pal_t pal;
+
   bits=BITS;
   label=LABEL;
-    
   infile=stdin;
   outfile=stdout;
   while((opt=getopt_long(argc, argv, opts, options, &ix))!=-1) {
@@ -88,6 +86,7 @@ int main(int argc, char *argv[]) {
     }
     optind++;
   }
+  set_verbose(verbose);
   pal=readpal(1<<bits, infile);
   fclose(infile);
   writeasm(pal, outfile, label);

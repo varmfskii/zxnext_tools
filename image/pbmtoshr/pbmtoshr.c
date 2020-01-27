@@ -8,15 +8,10 @@
 void help(char *);
 void version(void);
 
-#ifdef DEBUG
-int verbose=2;
-#else
-int verbose=0;
-#endif
-
 int main(int argc, char *argv[]) {
   FILE *in, *out;
-  int opt, ix;
+  struct pam *inpam;
+  int opt, ix, verbose;
   char *opts="2hi:o:qVv";
   struct option options[]={
     { "double", 0, NULL, '2' },
@@ -31,8 +26,15 @@ int main(int argc, char *argv[]) {
   bm_t bm;
   int dbl=0;
   
+#ifdef DEBUG
+  verbose=2;
+#else
+  verbose=0;
+#endif
   in=stdin;
   out=stdout;
+  pnm_init(&argc, argv);
+  inpam=(struct pam *)calloc(sizeof(struct pam), 1);
   while((opt=getopt_long(argc, argv, opts, options, &ix))!=-1) {
     switch(opt) {
     case '2':
@@ -80,7 +82,9 @@ int main(int argc, char *argv[]) {
     }
     optind++;
   }
-  bm=readbm(in);
+  set_verbose(verbose);
+  pnm_readpaminit(in, inpam, sizeof(struct pam));
+  bm=readbm(inpam);
   if (!bm.dat) return 1;
   bmtoshr(bm, dbl, out);
   free_bm(bm);

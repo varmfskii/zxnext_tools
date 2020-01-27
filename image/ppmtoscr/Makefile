@@ -1,5 +1,8 @@
 CC=gcc
 CFLAGS=-Wall
+ifeq ($(PAMPREFIX),1)
+CFLAGS += -DPAMPREFIX
+endif
 ifeq ($(DEBUG),1)
 CFLAGS += -g -DDEBUG
 else

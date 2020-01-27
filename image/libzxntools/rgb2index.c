@@ -15,7 +15,7 @@ ixed_t rgb2index(rgb_t rgb, pal_t pal) {
   ixed_t ixed;
   int r, c;
   
-  if (verbose>1) fprintf(stderr, "rgb2index(rgb_t: %dx%d, pal_t: %d)\n",
+  if (get_verbose()>1) fprintf(stderr, "rgb2index(rgb_t: %dx%d, pal_t: %d)\n",
 		       rgb.x, rgb.y, pal.l);
   ixed=new_ixed(rgb.x, rgb.y, pal.l);
   memcpy(ixed.pal.dat, pal.dat, pal.l*sizeof(rgba_t));
@@ -38,7 +38,8 @@ ixed_t rgb2index(rgb_t rgb, pal_t pal) {
 	ixed.dat[r][c]=palix(rgb.dat[r][c], pal);
       }
     }
-  if (verbose>1) fprintf(stderr, "return ixed_t: %dx%d\n", ixed.x, ixed.y);
+  if (get_verbose()>1)
+    fprintf(stderr, "return ixed_t: %dx%d\n", ixed.x, ixed.y);
   return ixed;
 }
 

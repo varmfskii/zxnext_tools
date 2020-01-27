@@ -1,9 +1,12 @@
 CC=gcc
 CFLAGS=-Wall
+ifeq ($(PAMPREFIX),1)
+CFLAGS += -DPAMPREFIX
+endif
 ifeq ($(DEBUG),1)
 CFLAGS += -DDEBUG -g
 else
-CFLAGS = -O3
+CFLAGS += -O3
 endif
 OBJS=sl2toppm.o readsl2.o libzxntools.a
 

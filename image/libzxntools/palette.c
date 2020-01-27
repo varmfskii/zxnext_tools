@@ -23,7 +23,7 @@ pal_t palette(int n) {
   };
   static uint32_t pal4[]=ULACOLOURS;
 
-  if (verbose>1) fprintf(stderr, "palette(%d)\n", n);
+  if (get_verbose()>1) fprintf(stderr, "palette(%d)\n", n);
   switch (n) {
     case 1:
       rv=new_pal(2);
@@ -49,6 +49,6 @@ pal_t palette(int n) {
   }
   rv.dat=NULL;
   rv.l=0;
-  if (verbose>1) fprintf(stderr, "return pal_t: %d\n", rv.l);
+  if (get_verbose()>1) fprintf(stderr, "return pal_t: %d\n", rv.l);
   return rv;
 }

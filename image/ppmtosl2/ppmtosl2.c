@@ -1,8 +1,8 @@
+#include "ppmtosl2.h"
 #include <getopt.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "ppmtosl2.h"
 
 #define VERSION "2.00.00"
 #define DATE "20200119"
@@ -10,13 +10,12 @@
 void help(char *);
 void version(void);
 
-int verbose=0;
 char *name;
 int width, height, depth, swap;
 
 int main(int argc, char *argv[]) {
   int opt, ix;
-  int i;
+  int i, verbose;
   char *opts="236dhi:lo:p:rsVvx:y:";
   struct option options[]={
     { "128x96", 0, NULL, 'l' },
@@ -37,13 +36,20 @@ int main(int argc, char *argv[]) {
     { NULL, 0, NULL, '\0' }
   };
   FILE *infile, *outfile, *pin;
-  //rgb_t rgb;
+  struct pam *inpam;
   pal_t pal;
   ixed_t ixed;
     
+#ifdef DEBUG
+  verbose=2;
+#else
+  verbose=0;
+#endif
   infile=stdin;
   outfile=stdout;
   pin=NULL;
+  inpam=(struct pam *)calloc(sizeof(struct pam),1);
+  pnm_init(&argc, argv);
   for(name=argv[0], i=0; argv[0][i]; i++)
     if (argv[0][i]=='/') name=argv[0]+i+1;
   if (!strcmp(name, "ppmtoslr")) {
@@ -157,23 +163,14 @@ int main(int argc, char *argv[]) {
       }
       optind++;
   }
+  set_verbose(verbose);
+  pnm_readpaminit(infile, inpam, sizeof(struct pam));
   if (pin) {
     pal=readpal(1<<depth, pin);
     fclose(pin);
   }  else
     pal=palette(depth);
-  ixed=readixed(infile, pal);
-  /*
-  rgb=readrgb(infile);
-  if (infile!=stdin) fclose(stdin);
-  if (pin) {
-    pal=readpal(1<<depth, pin);
-    fclose(pin);
-  }  else
-    pal=palette(depth);
-  ixed=rgb2index(rgb, pal);
-  free_rgb(rgb);
-  */
+  ixed=readixed(inpam, pal);
   free_pal(pal);
   writezxn(ixed, width, height, depth, swap, outfile);
   if (pin) nextpal(ixed.pal, outfile);

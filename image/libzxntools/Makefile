@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS = -Wall
+CFLAGS = -Wall -fPIC
 ifeq ($(PAMPREFIX),1)
 CFLAGS += -DPAMPREFIX
 endif
@@ -8,12 +8,12 @@ CFLAGS += -DDEBUG -g
 else
 CFLAGS += -O3
 endif
-OBJS=allocate.o col_dist.o deallocate.o decimate.o nextpal.o		\
-	palette.o readbm.o readixed.o readpal.o readrgb.o rgb2index.o	\
-	showpal.o writebm.o writeixed.o writepal.o writergb.o		\
-	writezxn.o zxntoolsver.o
+OBJS=allocate.o col_dist.o deallocate.o decimate.o misc.o palette.o	\
+	readbm.o readpal.o readrgb.o rgb2index.o writeixed.o		\
+	writergb.o writezxn.o
 
-all : libzxntools.a
+all : libzxntools.a libzxntools.so
+#all : libzxntools.a
 
 libzxntools.a : $(OBJS)
 	ar cr $@ $^
@@ -27,21 +27,16 @@ test : test.o libzxntools.a
 col_dist.o : col_dist.c zxntools.h
 deallocate.o : deallocate.c zxntools.h
 decimate.o : decimate.c zxntools.h
-nextpal.o : nextpal.c zxntools.h
+misc.o : misc.c zxntools.h
 palette.o : palette.c zxntools.h
 readbm.o : readbm.c zxntools.h
-readixed.o : readixed.c zxntools.h
 readpal.o : readpal.c zxntools.h
 readrgb.o : readrgb.c zxntools.h
 rgb2index.o : rgb2index.c zxntools.h
-showpal.o : showpal.c zxntools.h
 test.o : test.c zxntools.h 
-writebm.o : writebm.c zxntools.h
 writeixed.o : writeixed.c zxntools.h
-writepal.o : writepal.c zxntools.h
 writergb.o : writergb.c zxntools.h
 writezxn.o : writezxn.c zxntools.h
-zxntoolsver.o : zxntoolsver.c zxntools.h
 
 .PHONY : clean distclean all
 

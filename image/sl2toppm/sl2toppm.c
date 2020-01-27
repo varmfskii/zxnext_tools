@@ -8,12 +8,12 @@
 void help(char *);
 void version(void);
 
-int verbose=0;
 int pref=320;
 
 int main(int argc, char *argv[]) {
   FILE *in, *out;
-  int opt, ix, offset, palsz;
+  int opt, ix;
+  int verbose;
   ixed_t ixed;
   char *opts="36hi:o:Vv";
   struct option options[]={
@@ -27,6 +27,11 @@ int main(int argc, char *argv[]) {
     { NULL, 0, NULL, '\0' }
   };
 
+#ifdef DEBUG
+  verbose=2;
+#else
+  verbose=0;
+#endif
   in=stdin;
   out=stdout;
   while((opt=getopt_long(argc, argv, opts, options, &ix))!=-1) {
@@ -76,7 +81,7 @@ int main(int argc, char *argv[]) {
     }
     optind++;
   }
-
+  set_verbose(verbose);
   ixed=readsl2(in);
   if (!ixed.x) return 1;
   writeixed(ixed, 0, out);
