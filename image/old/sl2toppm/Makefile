@@ -1,10 +1,4 @@
-CC=gcc
-CFLAGS=-Wall
-ifeq ($(DEBUG),1)
-CFLAGS += -DDEBUG -g
-else
-CFLAGS = -O3
-endif
+include ../include.mk
 OBJS=sl2toppm.o readsl2.o libzxntools.a
 
 sl2toppm : $(OBJS)
@@ -15,7 +9,7 @@ readsl2.o : readsl2.c sl2toppm.h
 ../libzxntools/libzxntools.a : libzxntools
 
 libzxntools.a : ../libzxntools/libzxntools.a
-	cp ../libzxntools/libzxntools.a .
+	$(CP) ../libzxntools/libzxntools.a .
 
 sl2toppm.h : ../libzxntools/zxntools.h
 	touch $@
@@ -23,13 +17,13 @@ sl2toppm.h : ../libzxntools/zxntools.h
 .PHONY : clean distclean libzxntools
 
 clean :
-	rm -f $(OBJS)  *~
+	$(RM) $(OBJS)  *~
 
 distclean : clean
-	rm -f sl2toppm
+	$(RM) sl2toppm
 
 libzxntools :
-	make -C ../libzxntools
+	$(MAKE) -C ../libzxntools
 
 install: all
-	cp sl2toppm $(PREFIX)/bin/
+	$(CP) sl2toppm $(PREFIX)/bin/

@@ -1,10 +1,4 @@
-CC=gcc
-CFLAGS=-Wall
-ifeq ($(DEBUG),1)
-CFLAGS += -g -DDEBUG
-else
-CFLAGS += -O3
-endif
+include ../include.mk
 OBJS=ppmtoslr.o writeslr.o libzxntools.a
 
 ppmtoslr : $(OBJS)
@@ -15,7 +9,7 @@ writeslr.o : writeslr.c ppmtoslr.h
 ../libzxntools/libzxntools.a : libzxntools
 
 libzxntools.a : ../libzxntools/libzxntools.a
-	cp ../libzxntools/libzxntools.a .
+	$(CP) ../libzxntools/libzxntools.a .
 
 ppmtoslr.h : ../libzxntools/zxntools.h
 	touch $@
@@ -23,13 +17,13 @@ ppmtoslr.h : ../libzxntools/zxntools.h
 .PHONY : clean distclean libzxntools
 
 clean :
-	rm -f $(OBJS)  *~
+	$(RM) $(OBJS)  *~
 
 distclean : clean
-	rm -f ppmtoslr
+	$(RM) ppmtoslr
 
 libzxntools :
-	make -C ../libzxntools
+	$(MAKE) -C ../libzxntools
 
 install: all
-	cp ppmtoslr $(PREFIX)/bin/
+	$(CP) ppmtoslr $(PREFIX)/bin/

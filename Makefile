@@ -1,25 +1,21 @@
 TARGETS=image nexcreator zxnftp zxother
+TASKS=all clean distclean install
 
 PREFIX=$(CURDIR)
 
-all : $(TARGETS)
-	for file in $(TARGETS) ;\
-	  do make PREFIX=$(PREFIX) -C $$file $$File || break;\
-	done 
+default: all
+install: all
+distclean: clean
 
-.PHONY : $(TARGETS) clean distclean install
+.PHONY : $(TARGETS) $(TASKS)
 
-clean :
-	for file in $(TARGETS) ;\
-	  do make PREFIX=$(PREFIX) -C $$file clean ;\
-	done 
+define do_all =
+$(1) : $(1)-$(2)
+$(1)-$(2):
+	$(MAKE) -C $(2) $(1)
+endef
 
-distclean : clean
-	for file in $(TARGETS) ;\
-	  do make PREFIX=$(PREFIX) -C $$file distclean ;\
-	done 
+# iterate over tasks and targets
+$(foreach task, $(TASKS), $(eval \
+	$(foreach tgt, $(TARGETS), $(eval $(call do_all,$(task),$(tgt))))))
 
-install : all
-	for file in $(TARGETS) ;\
-	  do make PREFIX=$(PREFIX) -C $$file install ;\
-	done

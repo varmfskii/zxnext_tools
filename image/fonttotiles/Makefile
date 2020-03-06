@@ -1,9 +1,5 @@
-CC=gcc
-CFLAGS=-Wall
-ifeq ($(DEBUG),1)
-CFLAGS += -DDEBUG -g
-else
-CFLAGS += -O3
+ifneq ($(IMAGE_MK),1)
+include ../image.mk
 endif
 OBJS=fonttotiles.o
 fonttotiles : $(OBJS)
@@ -14,7 +10,7 @@ fonttotiles.o : fonttotiles.c
 .PHONY : clean distclean
 
 clean :
-	rm -f $(OBJS)  *~
+	$(RM) $(OBJS)  *~
 
 distclean : clean
-	rm -f fonttotiles
+	$(RM) fonttotiles

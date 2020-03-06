@@ -1,12 +1,5 @@
-CC=gcc
-CFLAGS=-Wall
-ifeq ($(PAMPREFIX),1)
-CFLAGS += -DPAMPREFIX
-endif
-ifeq ($(DEBUG),1)
-CFLAGS += -DDEBUG -g
-else
-CFLAGS += -O3
+ifneq ($(IMAGE_MK),1)
+include ../image.mk
 endif
 OBJS=paltoasm.o writeasm.o libzxntools.a
 paltoasm : $(OBJS)
@@ -17,7 +10,7 @@ writeasm.o : writeasm.c paltoasm.h
 ../libzxntools/libzxntools.a : libzxntools
 
 libzxntools.a : ../libzxntools/libzxntools.a
-	cp ../libzxntools/libzxntools.a .
+	$(CP) ../libzxntools/libzxntools.a .
 
 paltoasm.h : ../libzxntools/zxntools.h
 	touch $@
@@ -25,13 +18,13 @@ paltoasm.h : ../libzxntools/zxntools.h
 .PHONY : clean distclean libzxntools
 
 clean :
-	rm -f $(OBJS)  *~
+	$(RM) $(OBJS)  *~
 
 distclean : clean
-	rm -f paltoasm
+	$(RM) paltoasm
 
 libzxntools :
-	make -C ../libzxntools
+	$(MAKE) -C ../libzxntools
 
 install: all
-	cp paltoasm $(PREFIX)/bin/
+	$(CP) paltoasm $(PREFIX)/bin/

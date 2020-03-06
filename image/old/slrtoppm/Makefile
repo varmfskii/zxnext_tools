@@ -1,10 +1,4 @@
-CC=gcc
-CFLAGS=-Wall
-ifeq ($(DEBUG),1)
-CFLAGS += -DDEBUG -g
-else
-CFLAGS += -O3
-endif
+include ../../include.mk
 OBJS=slrtoppm.o readslr.o libzxntools.a
 
 slrtoppm : $(OBJS)
@@ -15,7 +9,7 @@ readslr.o : readslr.c slrtoppm.h
 ../libzxntools/libzxntools.a : libzxntools
 
 libzxntools.a : ../libzxntools/libzxntools.a
-	cp ../libzxntools/libzxntools.a .
+	$(CP) ../libzxntools/libzxntools.a .
 
 slrtoppm.h : ../libzxntools/zxntools.h
 	touch $@
@@ -23,13 +17,13 @@ slrtoppm.h : ../libzxntools/zxntools.h
 .PHONY : clean distclean libzxntools
 
 clean :
-	rm -f $(OBJS)  *~
+	$(RM) $(OBJS)  *~
 
 distclean : clean
-	rm -f slrtoppm
+	$(RM) slrtoppm
 
 libzxntools :
-	make -C ../libzxntools
+	$(MAKE) -C ../libzxntools
 
 install: all
-	cp slrtoppm $(PREFIX)/bin/
+	$(CP) slrtoppm $(PREFIX)/bin/

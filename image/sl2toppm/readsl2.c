@@ -4,7 +4,7 @@
 
 ixed_t readsl2(FILE *in) {
   int size, i, j, offset, palsz;
-  uint8_t buffer[0x14200];
+  uint8_t space[0x14200], *buffer;
   ixed_t rv;
   pal_t pal;
   
@@ -14,107 +14,64 @@ ixed_t readsl2(FILE *in) {
   pal.dat=NULL;
   rv.pal=pal;
   rv.dat=NULL;
-  size=fread(buffer, 1, sizeof(buffer), in);
+  buffer=space;
+  size=fread(buffer, 1, sizeof(space), in);
   if (get_verbose()) fprintf(stderr, "read size %x\n", size);
+  if (plus3dos(buffer)) {
+    size-=0x80;
+    buffer=buffer+0x80;
+  }
+  palsz=size&0x3ff;
   switch(size) {
   case 0x1800:
     /* radistan */
-    rv.x=128;
-    rv.y=96;
-    offset=0x1800;
-    palsz=0x000;
-    break;
   case 0x1810:
     /* radistan w/ palette 1 */
-    rv.x=128;
-    rv.y=96;
-    offset=0x1800;
-    palsz=0x010;
-    break;
   case 0x1820:
     /* radistan w/ palette 2 */
     rv.x=128;
     rv.y=96;
     offset=0x1800;
-    palsz=0x020;
     break;
   case 0x3000:
     /* lores */
-    rv.x=128;
-    rv.y=96;
-    offset=0x3000;
-    palsz=0x000;
-    break;
   case 0x3100:
     /* lores w/ palette 1 */
-    rv.x=128;
-    rv.y=96;
-    offset=0x3000;
-    palsz=0x100;
-    break;
   case 0x3200:
     /* lores w/ palette 2 */
     rv.x=128;
     rv.y=96;
     offset=0x3000;
-    palsz=0x200;
     break;
   case 0xc000:
     /* layer 2 256x192 */
-    rv.x=256;
-    rv.y=192;
-    offset=0xc000;
-    palsz=0x000;
-    break;
   case 0xc100:
     /* layer 2 256x192 w/ palette 1 */
-    rv.x=256;
-    rv.y=192;
-    offset=0xc000;
-    palsz=0x100;
-    break;
   case 0xc200:
     /* layer 2 256x192 w/ palette 2 */
     rv.x=256;
     rv.y=192;
     offset=0xc000;
-    palsz=0x200;
     break;
   case 0x14000:
     /* layer 2 320x256 */
     /* layer 2 640x256 */
-    rv.x=pref;
-    rv.y=256;
-    offset=0x14000;
-    palsz=0x000;
-    break;
   case 0x14010:
     /* layer 2 640x256 w/ palette 1 */
-    rv.x=640;
-    rv.y=256;
-    offset=0x14000;
-    palsz=0x010;
-    break;
   case 0x14020:
     /* layer 2 640x256 w/ palette 2 */
-    rv.x=640;
-    rv.y=256;
-    offset=0x14000;
-    palsz=0x020;
-    break;
   case 0x14100:
     /* layer 2 320x256 w/ palette 1 */
-    rv.x=320;
-    rv.y=256;
-    offset=0x14000;
-    palsz=0x100;
-    break;
+    if (palsz==0x10 || palsz==0x20)
   case 0x14200:
     /* layer 2 320x256 w/ palette 2 */
-    rv.x=320;
+      rv.x=640;
+    else if (palsz==0x100 || palsz==0x200)
+      rv.x=320;
+    else
+      rv.x=pref;
     rv.y=256;
     offset=0x14000;
-    palsz=0x200;
     break;
   default:
     fprintf(stderr, "Invalid file size\n");

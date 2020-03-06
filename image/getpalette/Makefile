@@ -1,12 +1,5 @@
-CC=gcc
-CFLAGS=-Wall
-ifeq ($(PAMPREFIX),1)
-CFLAGS += -DPAMPREFIX
-endif
-ifeq ($(DEBUG),1)
-CFLAGS += -DDEBUG -g
-else
-CFLAGS += -O3
+ifneq ($(IMAGE_MK),1)
+include ../image.mk
 endif
 OBJS=getpalette.o rgb2pal.o writeasm.o libzxntools.a
 getpalette : $(OBJS)
@@ -17,7 +10,7 @@ rgb2pal.o : rgb2pal.c getpalette.h
 writeasm.o : writeasm.c getpalette.h
 
 libzxntools.a : ../libzxntools/libzxntools.a
-	cp ../libzxntools/libzxntools.a .
+	$(CP) ../libzxntools/libzxntools.a .
 
 ../libzxntools/libzxntools.a : libzxntools
 
@@ -27,13 +20,13 @@ getpalette.h : ../libzxntools/zxntools.h
 .PHONY : clean distclean libzxntools
 
 clean :
-	rm -f $(OBJS)  *~
+	$(RM) $(OBJS)  *~
 
 distclean : clean
-	rm -f getpalette
+	$(RM) getpalette
 
 libzxntools :
-	make -C ../libzxntools
+	$(MAKE) -C ../libzxntools
 
 install: all
-	cp getpalette $(PREFIX)/bin/
+	$(CP) getpalette $(PREFIX)/bin/

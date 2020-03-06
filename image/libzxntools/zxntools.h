@@ -38,8 +38,8 @@ typedef struct bm_t {
   int x, y;
 } bm_t;
 
-#define ZXNV 0x020001
-#define ZXND "20200126"
+#define ZXNV 0x020002
+#define ZXND "20200226"
 #define R 0
 #define G 1
 #define B 2
@@ -67,6 +67,7 @@ pal_t readpal(int len, FILE *palfile);
 rgb_t decimate(rgb_t in, int xoff, int yoff, int xstep, int ystep);
 rgb_t new_rgb(int x, int y, int gray);
 rgb_t readrgb(struct pam *in);
+uint32_t plus3dos(uint8_t *buf);
 void free_bm(bm_t i);
 void free_ixed(ixed_t i);
 void free_pal(pal_t p);

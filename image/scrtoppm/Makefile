@@ -1,12 +1,5 @@
-CC=gcc
-CFLAGS=-Wall
-ifeq ($(PAMPREFIX),1)
-CFLAGS += -DPAMPREFIX
-endif
-ifeq ($(DEBUG),1)
-CFLAGS += -g -DDEBUG
-else
-CFLAGS += -O3
+ifneq ($(IMAGE_MK),1)
+include ../image.mk
 endif
 OBJS=scrtoppm.o scrtorgb.o libzxntools.a
 
@@ -18,7 +11,7 @@ scrtorgb.o : scrtorgb.c scrtoppm.h
 ../libzxntools/libzxntools.a : libzxntools
 
 libzxntools.a : ../libzxntools/libzxntools.a
-	cp ../libzxntools/libzxntools.a .
+	$(CP) ../libzxntools/libzxntools.a .
 
 scrtoppm.h : ../libzxntools/zxntools.h
 	touch $@
@@ -26,13 +19,13 @@ scrtoppm.h : ../libzxntools/zxntools.h
 .PHONY : clean distclean libzxntools
 
 clean :
-	rm -f $(OBJS)  *~
+	$(RM) $(OBJS)  *~
 
 distclean : clean
-	rm -f scrtoppm
+	$(RM) scrtoppm
 
 libzxntools :
-	make -C ../libzxntools
+	$(MAKE) -C ../libzxntools
 
 install: all
-	cp scrtoppm $(PREFIX)/bin/
+	$(CP) scrtoppm $(PREFIX)/bin/

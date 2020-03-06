@@ -1,12 +1,5 @@
-CC=gcc
-CFLAGS=-Wall
-ifeq ($(PAMPREFIX),1)
-CFLAGS += -DPAMPREFIX
-endif
-ifeq ($(DEBUG),1)
-CFLAGS += -g -DDEBUG
-else
-CFLAGS += -O3
+ifneq ($(IMAGE_MK),1)
+include ../image.mk
 endif
 OBJS=pbmtoshr.o bmtoshr.o libzxntools.a
 
@@ -18,7 +11,7 @@ bmtoshr.o : bmtoshr.c pbmtoshr.h
 ../libzxntools/libzxntools.a : libzxntools
 
 libzxntools.a : ../libzxntools/libzxntools.a
-	cp ../libzxntools/libzxntools.a .
+	$(CP) ../libzxntools/libzxntools.a .
 
 pbmtoshr.h : ../libzxntools/zxntools.h
 	touch $@
@@ -26,13 +19,13 @@ pbmtoshr.h : ../libzxntools/zxntools.h
 .PHONY : clean distclean libzxntools
 
 clean :
-	rm -f $(OBJS)  *~
+	$(RM) $(OBJS)  *~
 
 distclean : clean
-	rm -f pbmtoshr
+	$(RM) pbmtoshr
 
 libzxntools :
-	make -C ../libzxntools
+	$(MAKE) -C ../libzxntools
 
 install: all
-	cp pbmtoshr $(PREFIX)/bin
+	$(CP) pbmtoshr $(PREFIX)/bin

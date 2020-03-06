@@ -3,6 +3,8 @@ PREFIX=$(CURDIR)
 DIRS=addcrc bin2avr bin2case bin2defb crcbldr csum32 dxt2dxp fsplit	\
 	make_fw sdcc-lib-split sfep spgbld spiffs tga2ts tsspiffs
 
+all: build
+
 build: $(DIRS)
 
 $(DIRS): FORCE
@@ -22,3 +24,5 @@ distclean:
 	for DIR in $(DIRS);do make distclean -C $$DIR;done
 
 FORCE:
+
+.PHONY: all build $(DIRS) install inst_par clean distclean

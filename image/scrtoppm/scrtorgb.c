@@ -6,13 +6,24 @@ uint32_t ulacolor[]=ULACOLOURS;
 
 rgb_t scrtorgb(FILE *in) {
   rgb_t rv;
-  uint8_t pixel[0x1800], attr[0x300];
+  uint8_t data[0x1c00], *buffer;
+  uint8_t *pixel, *attr;
   int ar, ac, r, c;
-  int ix, a, ink, paper;
+  int ix, a, ink, paper, size;
 
-  if (fread(pixel, 1, 0x1800, in)!=0x1800 ||
-      fread(attr, 1, 0x300, in)!=0x300) {
-    fprintf(stderr, "Input file too short\n");
+  buffer=data;
+  size=fread(buffer, 1, 0x1c00, in);
+  if(plus3dos(buffer)) {
+    buffer+=0x80;
+    size-=0x80;
+  }
+  switch(fread(buffer, 1, 0x1c00, in)) {
+  case 0x1b00:
+    pixel=buffer;
+    attr=buffer+0x1800;
+    break;
+  default:
+    fprintf(stderr, "Input file invalid size\n");
     rv.x=rv.y=0;
     rv.dat=NULL;
     return rv;

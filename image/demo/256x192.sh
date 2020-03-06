@@ -18,6 +18,6 @@ else
     let BT=$Y2-$Y-$TP
     S1="-gravity north -splice 0x${BT}"
     S2="-gravity south -splice 0x${TP}"
-    convert $IN $S1 $S2 -resize 256x192! $OUT
 fi
+convert $IN $S1 $S2 -resize 256x192! $OUT
 

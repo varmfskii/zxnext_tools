@@ -33,6 +33,7 @@ int main(int argc, char *argv[]) {
   label=LABEL;
   infile=stdin;
   outfile=stdout;
+  verbose=0;
   while((opt=getopt_long(argc, argv, opts, options, &ix))!=-1) {
     switch(opt) {
     case 'b':

@@ -1,24 +1,36 @@
+include image.mk
 TARGETS=fonttotiles getpalette imagetoasm paltoasm paltoppm pbmtoshr	\
 	ppmtoscr ppmtoshc ppmtosl2 scrtoppm shctoppm shrtopbm		\
 	sl2toppm
 
+define all_t =
+all : all-$(1)
+all-$(1):
+	$(MAKE) -C $(1)
+endef
 
-all : $(TARGETS) libzxntools
-	for file in $(TARGETS); do make -C $$file $$File || break; done 
+$(foreach _, $(TARGETS) libzxntools, $(eval $(call all_t,$_)))
 
 .PHONY : $(TARGETS) libzxntools clean distclean install
 
-libzxntools :
-	make -C libzxntools
+define clean_t =
+clean : clean-$(1)
+clean-$(1):
+	$(MAKE) -C $(1) clean
+endef
 
-clean :
-	for file in $(TARGETS); do make -C $$file clean; done 
-	make -C libzxntools clean
+$(foreach _, $(TARGETS) libzxntools, $(eval $(call clean_t,$_)))
 
-distclean : clean
-	for file in $(TARGETS); do make -C $$file distclean; done 
-	make -C libzxntools distclean
+define distclean_t =
+distclean : clean-$(1) distclean-$(1)
+distclean-$(1):
+	$(MAKE) -C $(1) distclean
+endef
 
+$(foreach _, $(TARGETS) libzxntools, $(eval $(call distclean_t,$_)))
+
+ifeq ($(OS),Windows_NT)
+else
 install : all
 	mkdir -p $(PREFIX)/bin $(PREFIX)/libs
 	for file in $(TARGETS); do cp $$file/$$file $(PREFIX)/bin; done
@@ -27,3 +39,5 @@ install : all
 	ln -s $(PREFIX)/bin/sl2toppm $(PREFIX)/bin/slrtoppm
 	cp libzxntools/libzxntools.a $(PREFIX)/libs
 	-cp libzxntools/libzxntools.so $(PREFIX)/libs
+endif
+

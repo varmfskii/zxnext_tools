@@ -24,35 +24,30 @@ case $mode in
     gray)
 	dither=palettes/gray3.ppm
 	pal=palettes/gray3_8.pal
-    ;;
-
+	;;
     grayc1)
-	dither=palettes/gray4.ppm
-	pal=palettes/gray4c1_8.pal
-    ;;
-
+	dither=palettes/gray50.ppm
+	pal=palettes/gray50c_8.pal
+	;;
     grayc2)
 	dither=palettes/gray4.ppm
-	pal=palettes/gray4c2_8.pal
-    ;;
-
+	pal=palettes/gray4c1_8.pal
+	;;
     image)
 	convert -resize 320x256! $infile ${tmp}.ppm
 	getpalette ${tmp}.ppm ${tmp}.pal
 	paltoppm ${tmp}.pal ${tmp}_pal.ppm
 	dither=${tmp}_pal.ppm
 	pal=${tmp}.pal
-    ;;
-
+	;;
     next)
 	dither=palettes/next.ppm
 	pal=palettes/next_8.pal
-    ;;
-    
+	;;
     *)
 	dither=$mode
 	pal=$mode
-    ;;
+	;;
 esac
 if [ ! -f $dither ]
 then
@@ -70,7 +65,6 @@ case $mode in
 	convert ${tmp}.ppm -remap ${dither} ${tmp}_dither.pgm
 	ppmtosl2 -3 -p ${pal} ${tmp}_dither.pgm $outfile
 	;;
-
     *)
 	convert ${tmp}.ppm -remap ${dither} ${tmp}_dither.ppm
 	ppmtosl2 -3 -p ${pal} ${tmp}_dither.ppm $outfile

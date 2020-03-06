@@ -2,8 +2,8 @@
 #include <getopt.h>
 #include "sl2toppm.h"
 
-#define VERSION "2.00.00"
-#define DATE "20200119"
+#define VERSION "2.00.02"
+#define DATE "20200305"
 
 void help(char *);
 void version(void);
