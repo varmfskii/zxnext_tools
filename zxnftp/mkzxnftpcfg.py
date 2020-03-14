@@ -1,4 +1,4 @@
-#!/bin/python
+#!/usr/bin/python3
 ip=input("Server Address: ")
 pt=input("Server port: ")
 gw=input("Gateway address: ")
