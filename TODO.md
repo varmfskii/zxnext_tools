@@ -6,3 +6,4 @@
 - zxncreator
 - improve documentation
 - build zx spectrum next dot file to load zxn files
+- Add MLT support to .showsimg
