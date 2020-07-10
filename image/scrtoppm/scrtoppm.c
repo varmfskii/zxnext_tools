@@ -3,7 +3,7 @@
 #include "scrtoppm.h"
 
 #define VERSION "1.00.02"
-#define DATE "20200225"
+#define DATE "20200706"
 
 void help(char *);
 void version(void);

@@ -4,8 +4,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define VERSION "2.00.00"
-#define DATE "20200119"
+#define VERSION "2.01.00"
+#define DATE "20200710"
 
 void help(char *);
 void version(void);

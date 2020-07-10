@@ -16,8 +16,9 @@ rgb_t scrtorgb(FILE *in) {
   if(plus3dos(buffer)) {
     buffer+=0x80;
     size-=0x80;
+    fprintf(stderr, "+3dos header\n");
   }
-  switch(fread(buffer, 1, 0x1c00, in)) {
+  switch(size) {
   case 0x1b00:
     pixel=buffer;
     attr=buffer+0x1800;

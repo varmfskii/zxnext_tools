@@ -5,50 +5,36 @@ void writezxn(ixed_t ixed, int width, int height,
 	      int depth, int swap, FILE *out) {
   /* Assumes depth is 1, 2, 4, or 8
    swap = swap x and y axes */
-  int r, c, ix, bits, byte;
-  unsigned char buffer[width*height];
+  int r, c, sc, bits, byte, ppb;
 
   if (get_verbose()>1)
     fprintf(stderr, "writezxn(ixed_t: %dx%d, width: %d, height: %d, "
 	    "depth: %d, swap: %d, out: %p)\n",
 	    ixed.x, ixed.y, width, height, depth, swap, (void *) out);
-  if (swap) {
-    if ((depth*height)%8) {
-      fputs("Column does not contain a whole number of bytes\n", stderr);
-      return;
-    }
-    ix=0;
-    for(c=0; c<ixed.x && c<width; c++) {
-      for(r=0; r<ixed.y && r<height; r++) buffer[ix++]=ixed.dat[r][c];
-      for(; r<height; r++) buffer[ix++]='\0';
-    }
-    for(; c<width; c++)
-      for(r=0; r<height; r++) buffer[ix++]='\0';
-  } else {
-    if ((depth*width)%8) {
-      fputs("Row does not contain a whole number of bytes\n", stderr);
-      return;
-    }
-    ix=0;
-    for(r=0; r<ixed.y && r<height; r++) {
-      for(c=0; c<ixed.x && c<width; c++) buffer[ix++]=ixed.dat[r][c];
-      for(; c<width; c++) buffer[ix++]='\0';
-    }
-    for(; r<height; r++)
-      for(c=0; c<width; c++) buffer[ix++]='\0';
-  }      
-  if (depth==8) {
-    fwrite(buffer, 1, width*height, out);
+  ppb=8/depth;
+  if (width%ppb) {
+    fputs("Row does not contain a whole number of bytes\n", stderr);
     return;
   }
-  bits=byte=0;
-  for(ix=0; ix<width*height; ix++) {
-    if (get_verbose()>2) fprintf(stderr, "bits: %d\n", bits);
-    byte=(byte<<depth)|buffer[ix];
-    bits+=depth;
-    if (bits>=8) {
-      putc(byte, out);
-      bits=byte=0;
+  if (swap) {
+    for(c=0; c<ixed.x && c<width; c+=ppb) {
+      for(r=0; r<ixed.y && r<height; r++) {
+	for(byte=sc=0; sc<ppb; sc++) byte=(byte<<depth)|ixed.dat[r][c+sc];
+	putc(byte, out);
+      }
+      for(; r<height; r++) putc('\0', out);
     }
-  }
+    for(; c<width; c+=ppb)
+      for(r=0; r<height; r++) putc('\0', out);
+  } else {
+    for(r=0; r<ixed.y && r<height; r++) {
+      for(c=0; c<ixed.x && c<width; c+=ppb) {
+	for(byte=sc=0; sc<ppb; sc++) byte=(byte<<depth)|ixed.dat[r][c+sc];
+	putc(byte, out);
+      }
+      for(; c<width; c+=ppb) putc('\0', out);
+    }
+    for(; r<height; r++)
+      for(c=0; c<width; c+=ppb) putc('\0', out);
+  }      
 }

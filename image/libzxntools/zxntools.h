@@ -47,8 +47,8 @@ typedef struct bm_t {
 #define PAL3TO8(X) ((((int) (X))*510+7)/14)
 #define PAL8TO3(X) ((((int) (X))*14+255)/510)
 #define ULACOLOURS \
-  { 0xff000000, 0xffd70000, 0xff0000d7, 0xffd700d7, \
-    0xff00d700, 0xffd7d700, 0xff00d7d7, 0xffd7d7d7, \
+  { 0xff000000, 0xffb60000, 0xff0000b6, 0xffb600b6, \
+    0xff00b600, 0xffb6b600, 0xff00b6b6, 0xffb6b6b6, \
     0xff000000, 0xffff0000, 0xff0000ff, 0xffff00ff, \
     0xff00ff00, 0xffffff00, 0xff00ffff, 0xffffffff }    
 
