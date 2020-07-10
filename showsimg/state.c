@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "zxnext.h"
-#include "show.h"
+#include "showsimg.h"
 
 void restorestate(void) {
   int i;

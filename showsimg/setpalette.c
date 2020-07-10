@@ -2,7 +2,7 @@
 #include <errno.h>
 #include <arch/zxn/esxdos.h>
 #include "zxnext.h"
-#include "show.h"
+#include "showsimg.h"
 
 void setpalette(uint8_t in) {
   uint8_t *palette, data[516];

@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "show.h"
+#include "showsimg.h"
 
 void error(uint8_t errno, char *s1, char *s2) {
   restorestate();

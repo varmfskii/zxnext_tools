@@ -1,7 +1,7 @@
 #include <errno.h>
 #include <arch/zxn/esxdos.h>
 #include <input.h>
-#include "show.h"
+#include "showsimg.h"
 
 nextstate_t *state;
 opt_t opts;

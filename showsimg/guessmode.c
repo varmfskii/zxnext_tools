@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include "show.h"
+#include "showsimg.h"
 
 void guessmode(uint32_t size) {
   if (size==6912 || size==6976) {

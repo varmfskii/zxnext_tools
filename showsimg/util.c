@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "show.h"
+#include "showsimg.h"
 
 //static char num[12];
 
@@ -90,7 +90,7 @@ char *getopts(int argc, char *argv[]) {
 }
 
 void help(void) {
-  puts("Usage: .show [<options>] <filename>");
+  puts("Usage: .showsimg [<options>] <filename>");
   puts("options:");
   puts("\t-2: Layer 2 256x192x8");
   puts("\t-3: Layer 2 320x256x8");

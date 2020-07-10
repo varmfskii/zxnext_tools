@@ -1,7 +1,7 @@
 #include <errno.h>
 #include <arch/zxn/esxdos.h>
 #include "zxnext.h"
-#include "show.h"
+#include "showsimg.h"
 
 void readdata(uint8_t in, uint16_t len);
 
