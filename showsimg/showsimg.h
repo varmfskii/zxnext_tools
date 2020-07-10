@@ -35,10 +35,11 @@ typedef struct opt_t {
   uint16_t size;
 } opt_t;
 
+char *getext(char *name);
 char *getopts(int argc, char *argv[]);
 char *string32(int32_t num);
 void error(uint8_t errno, char *s1, char *s2);
-void guessmode(uint32_t size);
+void guessmode(uint32_t size, char *name);
 void help(void);
 void restorestate(void);
 void savestate(void);

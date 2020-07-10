@@ -90,6 +90,7 @@ char *getopts(int argc, char *argv[]) {
 }
 
 void help(void) {
+  puts(".showsimg 1.00.00");
   puts("Usage: .showsimg [<options>] <filename>");
   puts("options:");
   puts("\t-2: Layer 2 256x192x8");
@@ -97,13 +98,13 @@ void help(void) {
   puts("\t-6: Layer 2 640x256x4");
   puts("\t-8: 8-bit palette entries");
   puts("\t-9: 9-bit palette entries");
-  puts("\t-R: Radistan 128x96x4");
+  puts("\t-R: Radastan 128x96x4");
   puts("\t-l: LoRes 128x96x8");
   puts("\t-r: Timex HiRes 512x192x1");
   puts("\t-c: Timex HiCol 256x192/8x1");
   puts("\t-u: ULA 256x192/8x8");
   puts("\t-x: Do not wait, do not restore");
-  puts("\t-+: ULA+");
+  puts("\t-+: ULAplus");
 }
 /*
 char *string32(int32_t n) {
@@ -121,3 +122,12 @@ char *string32(int32_t n) {
   return num+i;
 }
 */
+
+char *getext(char *name) {
+  char *ext=NULL;
+
+  for(; *name; name++)
+    if (*name=='.') ext=name;
+  if (!ext) ext=name;
+  return ext;
+}
