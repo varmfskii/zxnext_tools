@@ -10,6 +10,7 @@ void restorestate(void) {
   for(i=0; i<512; i++) SETNEXTREG(R_PALVAL9, state->palette[i]);
   SETNEXTREG(R_PALCTL, state->palctl);
   SETNEXTREG(R_ULAATTRFMT, state->ulaattrfmt);
+  SETNEXTREG(R_GLBLTRANS, state->glbltrans);
   SETNEXTREG(R_CLIPCTL, 0x01);
   SETNEXTREG(R_L2CLIP, state->x1);
   pNextDat=state->x2;
@@ -42,6 +43,7 @@ void savestate(void) {
   state->y1 = pNextDat;
   state->y2 = pNextDat;
   state->ulactl = GETNEXTREG(R_ULACTL);
+  state->glbltrans=GETNEXTREG(R_GLBLTRANS);
   state->ulaattrfmt = GETNEXTREG(R_ULAATTRFMT);
   state->palctl = GETNEXTREG(R_PALCTL);
   if (opts.mode&ULAP)

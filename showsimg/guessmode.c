@@ -14,8 +14,10 @@ void guessmode(uint32_t size, char *name) {
   } else if (!strcmp(ext, ".shr")) {
     opts.mode=HIRES;
   } else if (!strcmp(ext, ".sl2")) {
-    if (size>=81920l)
+    if (size==81920l || size>81952l)
       opts.mode=L2_320;
+    else if (size>81920l)
+      opts.mode=L2_640;
     else
       opts.mode=L2_256;
   } else if (!strcmp(ext, ".slr")) {

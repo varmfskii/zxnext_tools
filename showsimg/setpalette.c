@@ -55,25 +55,35 @@ void setpalette(uint8_t in) {
     }
   } else if (opts.palbits==8) {
     SETNEXTREG(R_PALIDX, 0);
-    pNextReg = R_PALVAL8; 
-    if (attr) {
+    pNextReg = R_PALVAL8;
+    if (attr==0xff) {
+      for(ix=0; ix<256; ix++) pNextDat = palette[ix];
+      SETNEXTREG(R_GLBLTRANS, palette[ix]);
+      SETNEXTREG(R_ULAATTRFMT, attr);
+    } else if (attr) {
       for(ix=0; ix<=attr; ix++) pNextDat = palette[ix];
       SETNEXTREG(R_PALIDX, 0x80);
       pNextReg = R_PALVAL8; 
-      for(; ix<=size; ix++) pNextDat = palette[ix];
+      for(; ix<size; ix++) pNextDat = palette[ix];
+      SETNEXTREG(R_ULAATTRFMT, attr);
     } else {
-      for(ix=0; ix<=size; ix++) pNextDat = palette[ix];
+      for(ix=0; ix<size; ix++) pNextDat = palette[ix];
     }
   } else {
     SETNEXTREG(R_PALIDX, 0);
     pNextReg = R_PALVAL9; 
-    if (attr) {
+    if (attr==0xff) {
+      for(ix=0; ix<512; ix++) pNextDat = palette[ix];
+      SETNEXTREG(R_GLBLTRANS, palette[ix]);
+      SETNEXTREG(R_ULAATTRFMT, attr);
+    } else if (attr) {
       for(ix=0; ix<=2*attr; ix++) pNextDat = palette[ix];
       SETNEXTREG(R_PALIDX, 0x80);
       pNextReg = R_PALVAL9; 
-      for(; ix<=size; ix++) pNextDat = palette[ix];
+      for(; ix<size; ix++) pNextDat = palette[ix];
+      SETNEXTREG(R_ULAATTRFMT, attr);
     } else {
-      for(ix=0; ix<=size; ix++) pNextDat = palette[ix];
+      for(ix=0; ix<size; ix++) pNextDat = palette[ix];
     }
   }
 }

@@ -25,7 +25,7 @@
 typedef struct nextstate_t {
   uint8_t valid;
   uint8_t mmu5, timex;
-  uint8_t per3, ulactl, ulaattrfmt, palctl, dispctl1;
+  uint8_t per3, ulactl, ulaattrfmt, glbltrans, palctl, dispctl1;
   uint8_t l2ctl, loresctl, sprtctl, x1, x2, y1, y2;
   uint8_t palette[512];
 } nextstate_t;
