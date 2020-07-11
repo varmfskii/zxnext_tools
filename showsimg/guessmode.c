@@ -7,18 +7,18 @@ void guessmode(uint32_t size, char *name) {
 
   ext=getext(name);
   opts.mode=UNKNOWN;
-  if (!strcmp(ext, "scr")) {
+  if (!strcmp(ext, ".scr")) {
     opts.mode=ULA;
-  } else if (!strcmp(ext, "shc")) {
+  } else if (!strcmp(ext, ".shc")) {
     opts.mode=HICOL;
-  } else if (!strcmp(ext, "shr")) {
+  } else if (!strcmp(ext, ".shr")) {
     opts.mode=HIRES;
-  } else if (!strcmp(ext, "sl2")) {
+  } else if (!strcmp(ext, ".sl2")) {
     if (size>=81920l)
       opts.mode=L2_320;
     else
       opts.mode=L2_256;
-  } else if (!strcmp(ext, "slr")) {
+  } else if (!strcmp(ext, ".slr")) {
     if (size>=12288)
       opts.mode=LORES;
     else
