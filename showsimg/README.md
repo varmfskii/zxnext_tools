@@ -9,7 +9,7 @@ options:\
   	-6: Layer 2 640x256x4\
   	-R: Radastan 128x96x4\
   	-l: LoRes 128x96x8\
-	-n: NXI format (palette first)
+	-n: NXI format (palette first)\
   	-r: Timex HiRes 512x192x1\
   	-c: Timex HiCol 256x192/8x1\
   	-u: ULA 256x192/8x8\
