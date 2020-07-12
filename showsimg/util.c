@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "showsimg.h"
 
-//static char num[12];
+static char num[12];
 
 void error(uint8_t errno, char *s1, char *s2) {
   restorestate();
@@ -18,95 +18,24 @@ void error(uint8_t errno, char *s1, char *s2) {
   exit(errno);
 }
 
-char *getopts(int argc, char *argv[]) {
-  char *name=NULL;
-  uint8_t i, j;
-  
-  opts.mode=UNKNOWN;
-  opts.size=0;
-  opts.palbits=0;
-  opts.ulaplus=0;
-  opts.autoexit=0;
-  for(i=1; i<argc; i++){
-    if (argv[i][0]=='-') { //options
-      for(j=1; argv[i][j]; j++) {
-	switch(argv[i][j]) {
-	case '2':
-	  opts.mode = L2_256;
-	  break;
-	case '3':
-	  opts.mode = L2_320;
-	  break;
-	case '6':
-	  opts.mode = L2_640;
-	  break;
-	case '8':
-	  opts.palbits = 8;
-	  break;
-	case '9':
-	  opts.palbits = 9;
-	  break;
-	case 'R':
-	  opts.mode = RAD;
-	  break;
-	case 'c':
-	  opts.mode = HICOL;
-	  break;
-	case 'h':
-	  help();
-	  exit(0);
-	case 'l':
-	  opts.mode = LORES;
-	  break;
-	case 'r':
-	  opts.mode = HIRES;
-	  break;
-	case 'u':
-	  opts.mode = ULA;
-	  break;
-	case 'x':
-	  opts.autoexit = 1;
-	  break;
-	case '+':
-	  opts.ulaplus = 1;
-	  break;
-	default:
-	  help();
-	  error(7, "Unknown option", NULL);
-	}
-      }
-    } else {
-      name = argv[i];
-    }
-  }
-  if (opts.ulaplus && opts.palbits) error(7, "Multiple palette modes", NULL);
-  if (!(opts.mode&TIMEX) && opts.ulaplus)
-    error(7, "Incompatible palette mode", NULL);
-  if (!name) {
-    help();
-    error(7, "Bad command", NULL);
-  }
-  return name;
-}
-
 void help(void) {
-  puts(".showsimg 1.00.00");
+  puts(".showsimg 1.01.00 Beta");
   puts("Usage: .showsimg [<options>] <filename>");
   puts("options:");
   puts("\t-2: Layer 2 256x192x8");
   puts("\t-3: Layer 2 320x256x8");
   puts("\t-6: Layer 2 640x256x4");
-  puts("\t-8: 8-bit palette entries");
-  puts("\t-9: 9-bit palette entries");
   puts("\t-R: Radastan 128x96x4");
+#ifdef DEBUG
+  puts("\t-i: Information about image");
+#endif
   puts("\t-l: LoRes 128x96x8");
   puts("\t-r: Timex HiRes 512x192x1");
   puts("\t-c: Timex HiCol 256x192/8x1");
   puts("\t-u: ULA 256x192/8x8");
   puts("\t-x: Do not wait, do not restore");
-  puts("\t-+: ULAplus");
 }
-/*
+
 char *string32(int32_t n) {
   uint8_t neg, i;
 
@@ -121,7 +50,77 @@ char *string32(int32_t n) {
   if (neg) num[--i]='-';
   return num+i;
 }
-*/
+
+#ifdef DEBUG
+void info(void) {
+  puts(opts.name);
+  switch(opts.mode) {
+  case ULA:
+    puts("ULA");
+    break;
+  case HICOL:
+    puts("High Color");
+    break;
+  case HIRES:
+    puts("High Resolution");
+    break;
+  case L2_256:
+    puts("Layer 2 256x192x8");
+    break;
+  case L2_320:
+    puts("Layer 2 320x256x8");
+    break;
+  case L2_640:
+    puts("Layer 2 640x256x4");
+    break;
+  case LORES:
+    puts("Low Resolution 128x96x8");
+    break;
+  case RAD:
+    puts("Radistan 128x96x4");
+    break;
+  default:
+    puts("Unknown");
+  }
+  if ((opts.mode&LAYER)==L1)
+    puts("Layer 1");
+  else
+    puts("Layer 2");
+  if ((opts.mode&XRES)==X128)
+    puts("X=128");
+  else if ((opts.mode&XRES)==X256)
+    puts("X=256");
+  else if ((opts.mode&XRES)==X256A)
+    puts("X=256+");
+  else if ((opts.mode&XRES)==X320)
+    puts("X=320");
+  else if ((opts.mode&XRES)==X512)
+    puts("X=512");
+  else if ((opts.mode&XRES)==X640)
+    puts("X=640");
+  if ((opts.mode&DEPTH)==DATTR)
+    puts("ULA Attributes");
+  else if ((opts.mode&DEPTH)==D1)
+    puts("1 BPP");
+  else if ((opts.mode&DEPTH)==D4)
+    puts("4 BPP");
+  else if ((opts.mode&DEPTH)==D8)
+    puts("8 BPP");
+  if ((opts.palette&PTYPE)==PNORM)
+      puts("Normal Palette");
+  else if ((opts.palette&PTYPE)==ULAPLUS)
+    puts("ULAplus");
+  else if ((opts.palette&PTYPE)==ULANEXT)
+    puts("ULANext");
+  if ((opts.palette&PDEPTH)==PNONE)
+    puts("No Palette");
+  else if ((opts.palette&PDEPTH)==P8)
+    puts("8-bit palette");
+  else if ((opts.palette&PDEPTH)==P9)
+    puts("9-bit palette");
+  exit(1);
+}
+#endif
 
 char *getext(char *name) {
   char *ext=NULL;

@@ -20,6 +20,7 @@ void setimage(uint8_t in) {
     readdata(in, 6144);
     pNextDat = 11;
     readdata(in, 6144);
+    break;
   case RAD:
     SETNEXTREG(R_MMU5, 10);
     readdata(in, 6144);

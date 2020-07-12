@@ -1,7 +1,7 @@
 OPT=-clib=sdcc_iy -SO3 --max-allocs-per-node200000 --opt-code-size
 DOT=-create-app -subtype=dot -startup=30 $(OPT)
 TGTS=SHOWSIMG
-OBJS=showsimg.o guessmode.o state.o setimage.o setpalette.o util.o
+OBJS=showsimg.o getopts.o state.o setimage.o setpalette.o util.o
 
 .PHONY: clean distclean all
 

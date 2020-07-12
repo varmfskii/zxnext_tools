@@ -46,7 +46,7 @@ void savestate(void) {
   state->glbltrans=GETNEXTREG(R_GLBLTRANS);
   state->ulaattrfmt = GETNEXTREG(R_ULAATTRFMT);
   state->palctl = GETNEXTREG(R_PALCTL);
-  if (opts.mode&ULAP)
+  if ((opts.mode&LAYER)==L1)
     pNextDat = 0x00;
   else
     pNextDat = 0x10;
@@ -61,19 +61,19 @@ void savestate(void) {
 void setstate(void) {
   switch(opts.mode) {
   case ULA:
-    SETNEXTREG(R_SPRTCTL, 0x04);
+    SETNEXTREG(R_SPRTCTL, 0x10);
     SETNEXTREG(R_DISPCTL1, 0x00); 
     break;
   case HICOL:
-    SETNEXTREG(R_SPRTCTL, 0x04);
+    SETNEXTREG(R_SPRTCTL, 0x10);
     SETNEXTREG(R_DISPCTL1, 0x02); 
     break;
   case HIRES:
-    SETNEXTREG(R_SPRTCTL, 0x04);
+    SETNEXTREG(R_SPRTCTL, 0x10);
     SETNEXTREG(R_DISPCTL1, 0x06);  
     break;
   case L2_256:
-    SETNEXTREG(R_SPRTCTL, 0x01);
+    SETNEXTREG(R_SPRTCTL, 0x04);
     SETNEXTREG(R_DISPCTL1, 0x80);
     SETNEXTREG(R_L2CTL, 0x00);
     SETNEXTREG(R_L2CLIP, 0);
@@ -82,7 +82,7 @@ void setstate(void) {
     pNextDat=191;
     break;
   case L2_320:
-    SETNEXTREG(R_SPRTCTL, 0x01);
+    SETNEXTREG(R_SPRTCTL, 0x04);
     SETNEXTREG(R_DISPCTL1, 0x80);
     SETNEXTREG(R_L2CTL, 0x10);
     SETNEXTREG(R_CLIPCTL, 0x01);
@@ -92,7 +92,7 @@ void setstate(void) {
     pNextDat=255;
     break;
   case L2_640:
-    SETNEXTREG(R_SPRTCTL, 0x01);
+    SETNEXTREG(R_SPRTCTL, 0x04);
     SETNEXTREG(R_DISPCTL1, 0x80);
     SETNEXTREG(R_L2CTL, 0x20);
     SETNEXTREG(R_CLIPCTL, 0x01);

@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <errno.h>
 #include <arch/zxn/esxdos.h>
 #include <input.h>
@@ -8,24 +9,26 @@ opt_t opts;
 
 int main(int argc, char *argv[]) {
   uint8_t in;
-  char *name;
-  struct esx_stat stat;
   nextstate_t nextstate;
   
   state=&nextstate;
   nextstate.valid=0;
-  name=getopts(argc, argv);
-  if (esx_f_stat(name, &stat)==0xff) {
-    error(errno, "Unable to stat:", name);
+  getopts(argc, argv);
+  if ((in=esx_f_open(opts.name,ESX_MODE_R))==0xff) {
+    error(errno, "Unable to open:", opts.name);
   }
-  if (opts.mode==UNKNOWN) guessmode(stat.size, name);
+#ifdef DEBUG
+  if (opts.info) info();
+#endif
   savestate();
   setstate();
-  if ((in=esx_f_open(name,ESX_MODE_R))==0xff) {
-    error(errno, "Unable to open:", name);
+  if ((opts.mode&ORDER)==IEP) {
+    setimage(in);
+    setpalette(in);
+  } else {
+    setpalette(in);
+    setimage(in);
   }
-  setimage(in);
-  setpalette(in);
   if (!opts.autoexit) {
     in_wait_key();
     restorestate();

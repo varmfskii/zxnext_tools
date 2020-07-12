@@ -24,6 +24,10 @@ SL2: 256x192x8
 * 49152 bytes image data
 * Palette data
 
+NXI: 256x192x8
+* 512 bytes palette data
+* 49152 bytes image data
+
 SL2: 320x256x8
 * 81920 bytes image data
 * Palette data
