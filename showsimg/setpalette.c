@@ -33,9 +33,10 @@ void setpalette(uint8_t in) {
     palette=data;
     attr=0;
   }
-  if (attr)
+  if (attr) {
     SETNEXTREG(R_PALCTL, 0x01);
-  else if ((opts.mode&LAYER)==L1)
+    SETNEXTREG(R_ULAATTRFMT, attr);
+  } else if ((opts.mode&LAYER)==L1)
     SETNEXTREG(R_PALCTL, 0x00);
   else
     SETNEXTREG(R_PALCTL, 0x10);
@@ -66,7 +67,7 @@ void setpalette(uint8_t in) {
 	pNextReg = R_PALVAL8; 
 	for(ix=0; ix<opts.size; ix++) pNextDat=palette[ix];	
       } else {
-	for(ix=0; ix<=attr<<1 && ix<opts.size; ix++) pNextDat=palette[ix];
+	for(ix=0; ix<=2*attr && ix<opts.size; ix++) pNextDat=palette[ix];
 	SETNEXTREG(R_PALIDX, 0x80);
 	pNextReg = R_PALVAL9; 
       }
