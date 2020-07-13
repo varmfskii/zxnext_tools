@@ -62,12 +62,12 @@ void setpalette(uint8_t in) {
       SETNEXTREG(R_GLBLTRANS, palette[ix]);
     } else {
       if ((opts.palette&PDEPTH)==P8) {
-	for(ix=0; ix<=attr && ix<opts.size; ix++) pNextDat=palette[ix];
+	for(ix=0; ix<attr+1 && ix<opts.size; ix++) pNextDat=palette[ix];
 	SETNEXTREG(R_PALIDX, 0x80);
 	pNextReg = R_PALVAL8; 
 	for(ix=0; ix<opts.size; ix++) pNextDat=palette[ix];	
       } else {
-	for(ix=0; ix<=2*attr && ix<opts.size; ix++) pNextDat=palette[ix];
+	for(ix=0; ix<2*attr+2 && ix<opts.size; ix++) pNextDat=palette[ix];
 	SETNEXTREG(R_PALIDX, 0x80);
 	pNextReg = R_PALVAL9; 
       }
