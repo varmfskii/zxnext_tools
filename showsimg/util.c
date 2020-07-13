@@ -19,7 +19,8 @@ void error(uint8_t errno, char *s1, char *s2) {
 }
 
 void help(void) {
-  puts(".showsimg 1.01.00 Beta");
+  puts(".showsimg 1.02.00");
+  puts("Theodore (Alex) Evans 2020");
   puts("Usage: .showsimg [<options>] <filename>");
   puts("options:");
   puts("\t-2: Layer 2 256x192x8");

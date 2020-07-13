@@ -33,5 +33,5 @@ int main(int argc, char *argv[]) {
     in_wait_key();
     restorestate();
   }
-  return 1;
+  return 0;
 }
