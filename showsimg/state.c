@@ -73,6 +73,7 @@ void setstate(void) {
     SETNEXTREG(R_DISPCTL1, 0x06);  
     break;
   case L2_256:
+  case NXI:
     SETNEXTREG(R_SPRTCTL, 0x04);
     SETNEXTREG(R_DISPCTL1, 0x80);
     SETNEXTREG(R_L2CTL, 0x00);

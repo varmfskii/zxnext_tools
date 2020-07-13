@@ -26,6 +26,7 @@ void setimage(uint8_t in) {
     readdata(in, 6144);
     break;
   case L2_256:
+  case NXI:
     pNextReg = R_MMU5;
     for(i=L2PAGE; i<L2PAGE+6; i++) {
       pNextDat = i;

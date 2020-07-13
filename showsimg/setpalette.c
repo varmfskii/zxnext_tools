@@ -24,7 +24,7 @@ void setpalette(uint8_t in) {
   if (opts.extra) {
     palette=&data[1];
     if (opts.mode==HIRES) {
-      pTimex=data[0];
+      pTimex=data[0]|0x06;
       attr=0;
     } else {
       attr=data[0];

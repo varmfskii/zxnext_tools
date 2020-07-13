@@ -107,7 +107,7 @@ void getopts(int argc, char *argv[]) {
     } else if (opts.size>=49152l) {
       opts.mode=L2_256;
     } else if (opts.size>=12288l) {
-      if ((opts.extra=opts.size&0x01)) {
+      if (opts.size&0x01) {
 	if (opts.size==12289l || opts.size==12353l) {
 	  opts.mode=HIRES;
 	} else {
@@ -121,7 +121,6 @@ void getopts(int argc, char *argv[]) {
 	}
       }
     } else if (opts.size>=6912l) {
-      opts.extra=opts.size&0x01;
       opts.mode=ULA;
     } else if (opts.size>=6144l) {
       opts.mode=LORES;
@@ -129,6 +128,8 @@ void getopts(int argc, char *argv[]) {
       error(4, "Unable to guess mode", NULL);
     }
   }
+  if ((opts.mode&DEPTH)==DATTR || opts.mode==HIRES)
+    opts.extra=opts.size&0x01;
   switch(opts.mode) {
   case RAD:
     opts.size-=6144;
