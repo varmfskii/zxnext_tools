@@ -14,9 +14,8 @@ options:\
   	-c: Timex HiCol 256x192/8x1\
   	-u: ULA 256x192/8x8\
   	-x: Do not wait, do not restore\
-  	-+: ULAplus
 
-* Supports SCR, SHC, SHR, SL2, SLR, and NXI files.
+* Supports SCR, SHC, SHR, SL2, SLR, NXI, MC, and MLT files.
 * SCR, SHC, and SHR support including ULAplus information.
 * SHR files have an optional byte to choose the colour pair.
 * All file formats support the addition of palette information.
