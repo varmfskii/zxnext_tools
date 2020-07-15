@@ -8,10 +8,13 @@ options:\
   	-3: Layer 2 320x256x8\
   	-6: Layer 2 640x256x4\
   	-R: Radastan 128x96x4\
+  	-M: MLT HiCol\
+  	-c: Timex HiCol 256x192/8x1\
+  	-h: Help\
   	-l: LoRes 128x96x8\
+  	-m: MC HiCol\
 	-n: NXI format (palette first)\
   	-r: Timex HiRes 512x192x1\
-  	-c: Timex HiCol 256x192/8x1\
   	-u: ULA 256x192/8x8\
   	-x: Do not wait, do not restore\
 
