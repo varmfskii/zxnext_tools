@@ -22,7 +22,7 @@ int main(int argc, char *argv[]) {
 #endif
   savestate();
   setstate();
-  if ((opts.mode&ORDER)==IEP) {
+  if (opts.partord==IEP) {
     setimage(in);
     setpalette(in);
   } else {

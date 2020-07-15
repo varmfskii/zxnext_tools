@@ -19,7 +19,7 @@ void error(uint8_t errno, char *s1, char *s2) {
 }
 
 void help(void) {
-  puts(".showsimg 1.02.00");
+  puts(".showsimg 1.03.00");
   puts("Theodore (Alex) Evans 2020");
   puts("Usage: .showsimg [<options>] <filename>");
   puts("options:");
@@ -83,42 +83,34 @@ void info(void) {
   default:
     puts("Unknown");
   }
-  if ((opts.mode&LAYER)==L1)
+  if (opts.paltype==PALTYPE_NONE)
+    puts("No palette");
+  else if (opts.paltype==PALTYPE_ULAPLUS)
+    puts("ULAplus");
+  else if (opts.paltype==PALTYPE_ULANEXT)
+    puts("ULANext");
+  else
+    puts("Normal Palette");
+  if (opts.palbits==PALBITS_8)
+    puts("8-bit palette entries");
+  else
+    puts("9-bit palette entries");
+  if (opts.layer==LAYER1)
     puts("Layer 1");
   else
     puts("Layer 2");
-  if ((opts.mode&XRES)==X128)
-    puts("X=128");
-  else if ((opts.mode&XRES)==X256)
-    puts("X=256");
-  else if ((opts.mode&XRES)==X256A)
-    puts("X=256+");
-  else if ((opts.mode&XRES)==X320)
-    puts("X=320");
-  else if ((opts.mode&XRES)==X512)
-    puts("X=512");
-  else if ((opts.mode&XRES)==X640)
-    puts("X=640");
-  if ((opts.mode&DEPTH)==DATTR)
-    puts("ULA Attributes");
-  else if ((opts.mode&DEPTH)==D1)
-    puts("1 BPP");
-  else if ((opts.mode&DEPTH)==D4)
-    puts("4 BPP");
-  else if ((opts.mode&DEPTH)==D8)
-    puts("8 BPP");
-  if ((opts.palette&PTYPE)==PNORM)
-      puts("Normal Palette");
-  else if ((opts.palette&PTYPE)==ULAPLUS)
-    puts("ULAplus");
-  else if ((opts.palette&PTYPE)==ULANEXT)
-    puts("ULANext");
-  if ((opts.palette&PDEPTH)==PNONE)
-    puts("No Palette");
-  else if ((opts.palette&PDEPTH)==P8)
-    puts("8-bit palette");
-  else if ((opts.palette&PDEPTH)==P9)
-    puts("9-bit palette");
+  if (opts.partord==IEP)
+    puts("IEP");
+  else
+    puts("PEI");
+  if (opts.pixord==ORD_NATIVE)
+    puts("Pixels Native Order");
+  else
+    puts("Pixels Normal Order");
+  if (opts.attrord==ORD_NATIVE)
+    puts("Attributes Native Order");
+  else
+    puts("Attributes Normal Order");
   exit(1);
 }
 #endif

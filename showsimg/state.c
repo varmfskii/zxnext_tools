@@ -46,7 +46,7 @@ void savestate(void) {
   state->glbltrans=GETNEXTREG(R_GLBLTRANS);
   state->ulaattrfmt = GETNEXTREG(R_ULAATTRFMT);
   state->palctl = GETNEXTREG(R_PALCTL);
-  if ((opts.mode&LAYER)==L1)
+  if (opts.layer==LAYER1)
     pNextDat = 0x00;
   else
     pNextDat = 0x10;
@@ -65,6 +65,8 @@ void setstate(void) {
     SETNEXTREG(R_DISPCTL1, 0x00); 
     break;
   case HICOL:
+  case MLT:
+  case MC:
     SETNEXTREG(R_SPRTCTL, 0x10);
     SETNEXTREG(R_DISPCTL1, 0x02); 
     break;

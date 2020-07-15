@@ -6,16 +6,17 @@
 #include "showsimg.h"
 
 void getopts(int argc, char *argv[]) {
-  uint8_t i, j;
+  uint8_t i, j, palstyle;
+  uint32_t fsize;
   struct esx_stat stat;
+  char *ext;
   
   opts.name=NULL;
-  opts.ext=NULL;
-  opts.mode=UNKNOWN;
-  opts.size=0;
-  opts.palette=0;
+  ext=NULL;
+  opts.mode=UNK;
   opts.autoexit=0;
   opts.info=0;
+  palstyle=PALSTYLE_ULA;
   for(i=1; i<argc; i++){
     if (argv[i][0]=='-') { //options
       for(j=1; argv[i][j]; j++) {
@@ -32,6 +33,9 @@ void getopts(int argc, char *argv[]) {
 	case 'R':
 	  opts.mode = RAD;
 	  break;
+	case 'M':
+	  opts.mode = MLT;
+	  break;
 	case 'c':
 	  opts.mode = HICOL;
 	  break;
@@ -43,6 +47,9 @@ void getopts(int argc, char *argv[]) {
 	  break;
 	case 'l':
 	  opts.mode = LORES;
+	  break;
+	case 'm':
+	  opts.mode=MC;
 	  break;
 	case 'n':
 	  opts.mode = NXI;
@@ -67,7 +74,7 @@ void getopts(int argc, char *argv[]) {
       }
     } else {
       opts.name = argv[i];
-      opts.ext = getext(opts.name);
+      ext = getext(opts.name);
     }
   }
   if (!opts.name) {
@@ -76,129 +83,274 @@ void getopts(int argc, char *argv[]) {
   }
   if (esx_f_stat(opts.name, &stat)==0xff)
     error(errno, "Unable to stat:", opts.name);
-  opts.size=stat.size;
-  if (opts.mode==UNKNOWN) {
-    if (!strcmp(opts.ext, ".scr")) {
+  fsize=stat.size;
+  if (opts.mode==UNK) {
+    if (!strcmp(ext, ".scr")) {
       opts.mode=ULA;
-    } else if (!strcmp(opts.ext, ".shc")) {
+    } else if (!strcmp(ext, ".shc")) {
       opts.mode=HICOL;
-    } else if (!strcmp(opts.ext, ".shr")) {
+    } else if (!strcmp(ext, ".shr")) {
       opts.mode=HIRES;
-    } else if (!strcmp(opts.ext, ".sl2")) {
-      if (opts.size==81920l || opts.size>81952l)
+    } else if (!strcmp(ext, ".sl2")) {
+      if (fsize==81920l || fsize>81952l)
 	opts.mode=L2_320;
-      else if (opts.size>81920l)
+      else if (fsize>81920l)
 	opts.mode=L2_640;
       else
 	opts.mode=L2_256;
-    } else if (!strcmp(opts.ext, ".slr")) {
-      if (opts.size>=12288)
+    } else if (!strcmp(ext, ".slr")) {
+      if (fsize>=12288)
 	opts.mode=LORES;
       else
 	opts.mode=RAD;
-    } else if (!strcmp(opts.ext, ".nxi")) {
+    } else if (!strcmp(ext, ".nxi")) {
       opts.mode=NXI;
-    } else if (opts.size>=81920l) {
-      if (opts.size==81936l || opts.size==81952l) {
+    } else if (!strcmp(ext, ".mc")) {
+      opts.mode=MC;
+    } else if (!strcmp(ext, ".mlt")) {
+      opts.mode=MLT;
+    } else if (fsize>=81920l) {
+      if (fsize==81936l || fsize==81952l) {
 	opts.mode=L2_640;
       } else {
 	opts.mode=L2_320;
       }
-    } else if (opts.size>=49152l) {
+    } else if (fsize>=49152l) {
       opts.mode=L2_256;
-    } else if (opts.size>=12288l) {
-      if (opts.size&0x01) {
-	if (opts.size==12289l || opts.size==12353l) {
+    } else if (fsize>=12288l) {
+      if (fsize&0x01) {
+	if (fsize==12289l || fsize==12353l) {
 	  opts.mode=HIRES;
 	} else {
 	  opts.mode=HICOL;
 	}
       } else {
-	if (opts.size==12544l || opts.size==12800l) {
+	if (fsize==12544l || fsize==12800l) {
 	  opts.mode=LORES;
 	} else {
 	  opts.mode=HICOL;
 	}
       }
-    } else if (opts.size>=6912l) {
+    } else if (fsize>=6912l) {
       opts.mode=ULA;
-    } else if (opts.size>=6144l) {
+    } else if (fsize>=6144l) {
       opts.mode=LORES;
     } else {
       error(4, "Unable to guess mode", NULL);
     }
   }
-  if ((opts.mode&DEPTH)==DATTR || opts.mode==HIRES)
-    opts.extra=opts.size&0x01;
   switch(opts.mode) {
   case RAD:
-    opts.size-=6144;
+    palstyle=PALSTYLE_4;
+    opts.imgsz=6144;
+    /*
+    opts.layer=LAYER1;
+    opts.partord=IEP;
+    opts.pixord=ORD_NATIVE;
+    opts.attrord=ORD_NATIVE;
+    */
+    opts.desc=0x00;
     break;
   case ULA:
-    opts.size-=6912+opts.extra;
+    palstyle=PALSTYLE_ULA;
+    opts.imgsz=6912;
+    /*
+    opts.layer=LAYER1;
+    opts.partord=IEP;
+    opts.pixord=ORD_NATIVE;
+    opts.attrord=ORD_NATIVE;
+    */
+    opts.desc=0x00;
     break;
   case HIRES:
+    palstyle=PALSTYLE_1;
+    opts.imgsz=12288;
+    /*
+    opts.layer=LAYER1;
+    opts.partord=IEP;
+    opts.pixord=ORD_NATIVE;
+    opts.attrord=ORD_NATIVE;
+    */
+    opts.desc=0x00;
+    break;
   case HICOL:
-    opts.size-=12288+opts.extra;
+    palstyle=PALSTYLE_ULA;
+    opts.imgsz=12288;
+    /*
+    opts.layer=LAYER1;
+    opts.partord=IEP;
+    opts.pixord=ORD_NATIVE;
+    opts.attrord=ORD_NATIVE;
+    */
+    opts.desc=0x00;
+    break;
+  case MC:
+    palstyle=PALSTYLE_ULA;
+    opts.imgsz=12288;
+    /*
+    opts.layer=LAYER1;
+    opts.partord=IEP;
+    opts.pixord=ORD_NORMAL;
+    opts.attrord=ORD_NORMAL;
+    */
+    opts.desc=0x60;
+    break;
+  case MLT:
+    palstyle=PALSTYLE_ULA;
+    opts.imgsz=12288;
+    /*
+    opts.layer=LAYER1;
+    opts.partord=IEP;
+    opts.pixord=ORD_NATIVE;
+    opts.attrord=ORD_NORMAL;
+    */
+    opts.desc=0x40;
     break;
   case LORES:
-    opts.size-=12288;
+    palstyle=PALSTYLE_8;
+    opts.imgsz=12288;
+    /*
+    opts.layer=LAYER1;
+    opts.partord=IEP;
+    opts.pixord=ORD_NATIVE;
+    opts.attrord=ORD_NATIVE;
+    */
+    opts.desc=0x00;
     break;
   case L2_256:
+    palstyle=PALSTYLE_8;
+    opts.imgsz=49152l;
+    /*
+    opts.layer=LAYER2;
+    opts.partord=IEP;
+    opts.pixord=ORD_NATIVE;
+    opts.attrord=ORD_NATIVE;
+    */
+    opts.desc=0x08;
+    break;
   case NXI:
-    opts.size-=49152l;
+    palstyle=PALSTYLE_8;
+    opts.imgsz=49152l;
+    /*
+    opts.layer=LAYER2;
+    opts.partord=PEI;
+    opts.pixord=ORD_NATIVE;
+    opts.attrord=ORD_NATIVE;
+    */
+    opts.desc=0x18;
     break;
   case L2_320:
+    palstyle=PALSTYLE_8;
+    opts.imgsz=81920l;
+    /*
+    opts.layer=LAYER2;
+    opts.partord=IEP;
+    opts.pixord=ORD_NATIVE;
+    opts.attrord=ORD_NATIVE;
+    */
+    opts.desc=0x08;
+    break;
   case L2_640:
-    opts.size-=81920l;
+    palstyle=PALSTYLE_4;
+    opts.imgsz=81920l;
+    /*
+    opts.layer=LAYER2;
+    opts.partord=IEP;
+    opts.pixord=ORD_NATIVE;
+    opts.attrord=ORD_NATIVE;
+    */
+    opts.desc=0x08;
     break;
   }
-  switch(opts.size) {
+  opts.extra=fsize&0x01;
+  opts.palsz=fsize-opts.imgsz-opts.extra;
+  switch(opts.palsz) {
   case 0:
-    opts.palette=PNONE;
+    /*
+    opts.paltype=PALTYPE_NONE;
+    */
+    opts.desc|=0x00;
     break;
   case 16: /* normal 8-bit, 16 colour */
   case 256: /* normal 8-bit, 256 colour */
-    opts.palette=P8|PNORM;
+    /*
+    opts.paltype=PALTYPE_NORM;
+    opts.palbits=PALBITS_8;
+    */
+    opts.desc|=0x03;
     break;
   case 32: /* normal 9-bit, 16 colour or ULANext 0b00001111, 8-bit */
-    if (opts.mode&0x20)
-      opts.palette=P9|PNORM;
-    else
-      opts.palette=P8|ULANEXT;
+    if (palstyle==PALSTYLE_4) {
+      /*
+      opts.paltype=PALTYPE_NORM;
+      opts.palbits=PALBITS_9;
+      */
+      opts.desc|=0x07;
+    } else {
+      /*
+      opts.paltype=PALTYPE_ULANEXT;
+      opts.palbits=PALBITS_8;
+      */
+      opts.desc|=0x02;
+    }
     break;
   case 40: /* ULANext 0b00000111/0b00011111, 8-bit */
   case 68: /* ULANext 0b00000011/0b00111111, 8-bit */
   case 130: /* ULANext 0b00000001/0b01111111, 8-bit */
-    opts.palette=P8|ULANEXT;
+    /*
+    opts.paltype=PALTYPE_ULANEXT;
+    opts.palbits=PALBITS_8;
+    */
+    opts.desc|=0x02;
     break;
   case 64: /* ULAplus or ULANext 0b00001111, 9-bit */
-    if (opts.extra && opts.mode!=HIRES)
-      opts.palette=P9|ULANEXT;
-    else
-      opts.palette=P8|ULAPLUS;
+    if (opts.extra && palstyle==PALSTYLE_ULA) {
+      /*
+      opts.paltype=PALTYPE_ULANEXT;
+      opts.palbits=PALBITS_9;
+      */
+      opts.desc|=0x06;
+    } else
+      /*
+      opts.paltype=PALTYPE_ULAPLUS;
+      */
+      opts.desc|=0x01;
     break;
   case 80: /* ULANext 0b00000111/0b00011111, 9-bit */
   case 136: /* ULANext 0b00000011/0b00111111, 9-bit */
   case 260: /* ULANext 0b00000001/0b01111111, 9-bit */
-    opts.palette=P9|ULANEXT;
+    /*
+    opts.paltype=PALTYPE_ULANEXT;
+    opts.palbits=PALBITS_9;
+    */
+    opts.desc=0x06;
     break;
   case 258: /* ULANext 0b11111111, 8-bit */
     opts.extra=1;
-    opts.size=257;
-    opts.palette=P8|ULANEXT;
+    opts.palsz=257;
+    /*
+    opts.paltype=PALTYPE_ULANEXT;
+    opts.palbits=PALBITS_8;
+    */
+    opts.desc|=02;
     break;
   case 512: /* normal 9-bit, 256 colour */
-    opts.palette=P9|PNORM;
+    /*
+    opts.paltype=PALTYPE_NORM;
+    opts.palbits=PALBITS_9;
+    */
+    opts.desc|=0x07;
     break;
   case 514:
     opts.extra=1;
-    opts.size=513;
-    opts.palette=P9|ULANEXT;
+    opts.palsz=513;
+    /*
+    opts.paltype=PALTYPE_ULANEXT;
+    opts.palbits=PALBITS_9;
+    */
+    opts.desc|=0x06;
     break;
   default:
-    error(7, "Bad palette", string32(opts.size));
+    error(7, "Bad palette", string32(fsize));
   }
-  if (opts.palette&PTYPE && opts.mode&0x20)
-    error(7, "Incompatible palette mode", NULL);
 }
