@@ -1,7 +1,8 @@
 OPT=-clib=sdcc_iy -SO3 --max-allocs-per-node200000 --opt-code-size
 DOT=-create-app -subtype=dot -startup=30 $(OPT)
 TGTS=SHOWSIMG TESTOPTS
-OBJS=showsimg.o getopts.o remap.o state.o setimage.o setpalette.o util.o
+OBJS=showsimg.o error.o getext.o getopts.o help.o noattr.o remap.o \
+	restorestate.o savestate.o setimage.o setpalette.o setstate.o
 
 .PHONY: clean distclean all
 
@@ -16,13 +17,23 @@ TESTOPTS: testopts.o
 %.o: %.c
 	zcc +zxn $(OPT) -c $<
 
+%.o: %.asm
+	zcc +zxn $(OPT) -c $<
+
 showsimg.o: showsimg.c showsimg.h
+error.o: error.c showsimg.h
+getext.o: getext.c
+getopts.o: getopts.c showsimg.h
 guessmode.o: guessmode.c showsimg.h
+help.o: help.c
+noattr.o: noattr.c
 remap.o: remap.c
-state.o: state.c showsimg.h zxnext.h
-setimage.o: setimage.c showsimg.h zxnext.h
+restorestate.o: restorestate.c showsimg.h zxnext.h
+savestate.o: savestate.c showsimg.h zxnext.h
+setimage.o: setimage.c showsimg.h
 setpalette.o: setpalette.c showsimg.h zxnext.h
-util.o: util.c showsimg.h
+setstate.o: setpalette.c showsimg.h zxnext.h
+string32.o: string32.c
 testopts.o: testopts.c showsimg.h
 
 clean:

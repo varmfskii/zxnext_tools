@@ -153,7 +153,10 @@ void getopts(int argc, char *argv[]) {
     break;
   case ULA:
     palstyle=PALSTYLE_ULA;
-    opts.imgsz=6912;
+    if (fsize<6912)
+      opts.imgsz=6144;
+    else
+      opts.imgsz=6912;
     /*
     opts.layer=LAYER1;
     opts.partord=IEP;
@@ -351,6 +354,6 @@ void getopts(int argc, char *argv[]) {
     opts.desc|=0x06;
     break;
   default:
-    error(7, "Bad palette", string32(fsize));
+    error(7, "Bad palette", NULL);
   }
 }

@@ -7,17 +7,19 @@ static const uint16_t lmap[] =
 
 void remap(void) {
   uint8_t t, a, b, c;
-  uint8_t *base;
-  uint16_t block;
+  uint16_t base, block, addy1, addy2;
   
-  base=(uint8_t *)0xa000;
+  base=0xa000;
   //for(block=0; block<0x800; block++) base[block]=0x00;
   for(block=0; block<0x1800; block+=0x800)
     for(a=0; a<7; a++)
-      for(b=a+1; b<8; b++)
+      for(b=a+1; b<8; b++) {
+	addy1 = base|block|hmap[a]|lmap[b];
+	addy2 = base|block|hmap[b]|lmap[a];
 	for(c=0; c<0x20; c++) {
-	  t=base[block|hmap[a]|lmap[b]|c];
-	  base[block|hmap[a]|lmap[b]|c]=base[block|hmap[b]|lmap[a]|c];
-	  base[block|hmap[b]|lmap[a]|c]=t;
+	  t=*(char *)(addy1|c);
+	  *(char *)(addy1|c)=*(char *)(addy2|c);
+	  *(char *)(addy2|c)=t;
 	}
+      }
 }

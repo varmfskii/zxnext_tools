@@ -79,6 +79,7 @@ void error(uint8_t errno, char *s1, char *s2);
 void getopts(int argc, char *argv[]);
 void help(void);
 void info(void);
+void noattr(void);
 void remap(void);
 void restorestate(void);
 void savestate(void);

@@ -19,6 +19,8 @@ void setimage(uint8_t in) {
 	SETNEXTREG(R_MMU5, ULAPAGE+1);
 	readdata(in, 6144);
 	if (opts.attrord==ORD_NORMAL) remap();
+      } else {
+	noattr();
       }
     }
   } else {
