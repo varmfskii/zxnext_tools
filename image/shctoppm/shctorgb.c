@@ -19,7 +19,7 @@ rgb_t shctorgb(FILE *in) {
   switch(size) {
   case 0x3000:
     pixel=buffer;
-    attr=buffer+0x3000;
+    attr=buffer+0x1800;
     break;
   default:
     fprintf(stderr, "Input file invalid size\n");
