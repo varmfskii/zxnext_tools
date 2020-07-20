@@ -20,7 +20,9 @@ int main(int argc, char *argv[]) {
 #ifdef DEBUG
   if (opts.info) info();
 #endif
+  if (opts.sread) readstate();
   savestate();
+  if (opts.swrite) writestate();
   setstate();
   if (opts.partord==IEP) {
     setimage(in);
@@ -31,7 +33,7 @@ int main(int argc, char *argv[]) {
   }
   if (!opts.autoexit) {
     in_wait_key();
-    restorestate();
+    restorestate(state);
   }
   return 0;
 }

@@ -15,6 +15,8 @@ void getopts(int argc, char *argv[]) {
   ext=NULL;
   opts.mode=UNK;
   opts.autoexit=0;
+  opts.sread=0;
+  opts.swrite=0;
   opts.info=0;
   palstyle=PALSTYLE_ULA;
   for(i=1; i<argc; i++){
@@ -30,11 +32,14 @@ void getopts(int argc, char *argv[]) {
 	case '6':
 	  opts.mode = L2_640;
 	  break;
+	case 'M':
+	  opts.mode = MLT;
+	  break;
 	case 'R':
 	  opts.mode = RAD;
 	  break;
-	case 'M':
-	  opts.mode = MLT;
+	case 'S':
+	  opts.swrite = 1;
 	  break;
 	case 'c':
 	  opts.mode = HICOL;
@@ -57,6 +62,9 @@ void getopts(int argc, char *argv[]) {
 	case 'r':
 	  opts.mode = HIRES;
 	  break;
+	case 's':
+	  opts.sread = 1;
+	  break;
 	case 'u':
 	  opts.mode = ULA;
 	  break;
@@ -78,8 +86,24 @@ void getopts(int argc, char *argv[]) {
     }
   }
   if (!opts.name) {
-    help();
-    error(7, "Bad command", NULL);
+    if (opts.swrite) {
+      opts.layer=LAYER1;
+      writestate();
+      opts.layer=LAYER2;
+      writestate();
+      puts("State saved");
+      exit(0);
+    } else if (opts.sread) {
+      opts.layer=LAYER1;
+      readstate();
+      opts.layer=LAYER2;
+      readstate();
+      puts("state restored");
+      exit(0);
+    } else {
+      help();
+      error(7, "Bad command", NULL);
+    }
   }
   if (esx_f_stat(opts.name, &stat)==0xff)
     error(errno, "Unable to stat:", opts.name);

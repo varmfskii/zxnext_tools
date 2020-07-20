@@ -3,7 +3,7 @@
 #include "showsimg.h"
 
 void error(uint8_t errno, char *s1, char *s2) {
-  restorestate();
+  restorestate(state);
   puts("Error");
   if (s1) {
     for(; *s1; s1++) putchar(*s1);

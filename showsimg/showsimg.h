@@ -52,18 +52,18 @@ typedef struct fmtdesc_t {
 } fmtdesc_t;
 
 typedef struct nextstate_t {
-  uint8_t valid;
+  uint8_t palette[512];
   uint8_t mmu5, timex;
   uint8_t per3, ulactl, ulaattrfmt, glbltrans, palctl, dispctl1;
   uint8_t l2ctl, loresctl, sprtctl, x1, x2, y1, y2;
-  uint8_t palette[512];
+  uint8_t valid:1;
 } nextstate_t;
 
 typedef struct opt_t {
   char *name;
   uint8_t mode;
   uint32_t imgsz, palsz;
-  unsigned int extra:1, autoexit:1, info:1;
+  unsigned int extra:1, autoexit:1, info:1, sread:1, swrite:1;
   union {
     uint8_t desc;
     struct {
@@ -80,12 +80,14 @@ void getopts(int argc, char *argv[]);
 void help(void);
 void info(void);
 void noattr(void);
+void readstate(void);
 void remap(void);
-void restorestate(void);
+void restorestate(nextstate_t *s);
 void savestate(void);
 void setimage(uint8_t in);
 void setpalette(uint8_t in);
 void setstate(void);
+void writestate(void);
 
 extern nextstate_t *state;
 extern opt_t opts;

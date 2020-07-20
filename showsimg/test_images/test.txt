@@ -1,0 +1,13 @@
+#program test
+  10 .showsimg -S
+  20 READ N$
+  30 IF N$="" THEN : RESTORE : GO TO %20
+  40 n$="-sx "+n$:.$ showsimg N$
+  50 PAUSE 100: GO TO %20
+  60 DATA "test_01.scr","test_03.scr","test_07.scr","test_0f.scr","test_1f.scr"
+  70 DATA "test_256_pal.sl2","test_256.sl2","test_320_pal.sl2","test_320.sl2"
+  80 DATA "test_3f.scr","test_640_pal.sl2","test_640.sl2","test_7f.scr"
+  90 DATA "test_dith.scr","test_ff.scr","test.mlt","test_pal.slr"
+ 100 DATA "test_rad_pal.slr","test_rad.slr","test.scr","test.shc"
+ 110 DATA "test.shr","test.slr","test_ulaplus.mlt","test_ulaplus.scr",""
+ 

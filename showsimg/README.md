@@ -7,16 +7,22 @@ options:\
   	-2: Layer 2 256x192x8\
   	-3: Layer 2 320x256x8\
   	-6: Layer 2 640x256x4\
-  	-R: Radastan 128x96x4\
   	-M: MLT HiCol\
+  	-R: Radastan 128x96x4\
+  	-S: Save state\
   	-c: Timex HiCol 256x192/8x1\
   	-h: Help\
   	-l: LoRes 128x96x8\
   	-m: MC HiCol\
 	-n: NXI format (palette first)\
   	-r: Timex HiRes 512x192x1\
+	-s: Restore state\
   	-u: ULA 256x192/8x8\
   	-x: Do not wait, do not restore\
+
+With the -S and -s options an image filename is optional. It is useful
+for writing slideshows in basic (see the test.bas example in the
+test_images directory).
 
 * Supports SCR, SHC, SHR, SL2, SLR, NXI, MC, and MLT files.
 * SCR, SHC, and SHR support including ULAplus information.
