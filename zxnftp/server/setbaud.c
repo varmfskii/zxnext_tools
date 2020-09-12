@@ -8,7 +8,7 @@ const int32_t clks[]={ 28000000, 28571429, 29464286, 30000000,
 		     31000000, 32000000, 33000000, 27000000 };
 
 #define MINSUB 12
-#define MAXSUB 16383
+#define MAXSUB 131071
 
 uint8_t setbaud(int32_t baud) {
   int32_t clk, sub;
@@ -35,6 +35,7 @@ uint8_t setbaud(int32_t baud) {
   }
   RX=sub&0x7f;
   RX=0x80|(sub>>7);
+  UART_CTL=0x10|((sub>>14)&0x07);
   for(i=1; i; i++);
   printf("AT\n");
   if ((r=cmdresponse("AT\r\n"))) printf("%d\n", r);

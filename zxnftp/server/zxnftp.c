@@ -39,10 +39,10 @@ const struct cmd cmds[]={
 int main() {
   int16_t f, i, j, len;
 
-  // select 14 MHz clock
+  // select 28 MHz clock
   NEXT_SEL=0x07;
   old_clock=NEXT_RW;
-  NEXT_RW=0x02;
+  NEXT_RW=0x03;
   // ensure uart is connected to ESP and not Pi
   UART_CTL=0x00;
 #ifdef DOTN
