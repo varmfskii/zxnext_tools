@@ -19,7 +19,7 @@ void call_put(char *param, size_t len) {
 #endif
   double time;
 
-  clock_gettime(CLOCK_REALTIME, &s);
+  gettime(&s);
   nettxln("PT");
   if (neterr(NULL)) return;
   nettxln(param);
@@ -51,7 +51,7 @@ void call_put(char *param, size_t len) {
 #endif
   }
   if (!neterr(NULL)) printout("\nOk\n");
-  clock_gettime(CLOCK_REALTIME, &e);
+  gettime(&e);
   time=e.tv_sec-s.tv_sec+(e.tv_nsec-s.tv_nsec)*1e-9;
   sprintf(buf, "%u b, %0.2f s, %0.2f bps\n", (unsigned int) len, time, 8*len/time);
   printout(buf);

@@ -21,7 +21,7 @@ char *call_get(char *param, int *fsize) {
   int y, x;
 #endif
   
-  clock_gettime(CLOCK_REALTIME, &s);
+  gettime(&s);
   nettxln("GT");
   if (neterr(NULL)) return NULL;
   nettxln(param);
@@ -63,7 +63,7 @@ char *call_get(char *param, int *fsize) {
   if (neterr(NULL)) {
     return NULL;
   }
-  clock_gettime(CLOCK_REALTIME, &e);
+  gettime(&e);
   time=e.tv_sec-s.tv_sec+(e.tv_nsec-s.tv_nsec)*1e-9;
   sprintf(buf, "%d b, %0.2f s, %0.2f bps\n", *fsize, time, 8**fsize/time);
   printout(buf);

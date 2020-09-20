@@ -1,5 +1,6 @@
 #ifndef ZXNFTPC_H
 #define ZXNFTPC_H
+#include <time.h>
 #include <stddef.h>
 #include <stdint.h>
 #ifdef CURSES
@@ -50,6 +51,7 @@ int neterr(char *);
 void error(char *, int);
 void execute(char *);
 void finish(void);
+void gettime(struct timespec *);
 void init(void);
 void netrx(char *, int16_t *, int16_t);
 void nettx(const char *, int16_t);
