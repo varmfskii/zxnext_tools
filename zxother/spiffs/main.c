@@ -1,10 +1,10 @@
 
 #include "stdafx.h"
-#include <iostream>
+//#include <iostream>
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <vector>
+//#include <vector>
 #include "spiffs.h"
 #include <getopt.h>
 
@@ -18,8 +18,10 @@ u8_t spiffs_cache_buf[(LOG_PAGE_SIZE + 32) * 4];
 spiffs fs;
 spiffs_config cfg;
 u32 spi_size;
-std::string img_name;
-std::string add_name;
+//std::string img_name;
+char *img_name;
+//std::string add_name;
+char *add_name;
 u8 *mem = 0;
 
 /*
@@ -57,7 +59,7 @@ s32_t spi_erase(u32_t addr, u32_t size)
 
 void img_read()
 {
-  FILE *fp = fopen((char*)img_name.c_str(), "rb");
+  FILE *fp = fopen(img_name, "rb");
 
   if (fp)
   {
@@ -68,7 +70,7 @@ void img_read()
 
 void img_write()
 {
-  FILE *fp = fopen((char*)img_name.c_str(), "wb");
+  FILE *fp = fopen(img_name, "wb");
 
   if (fp)
   {
@@ -116,7 +118,7 @@ void img_add()
   mem = (u8*)malloc(spi_size);
   img_read();
 
-  FILE *fp = fopen((char*)add_name.c_str(), "rb");
+  FILE *fp = fopen(add_name, "rb");
   
   if(!fp) return;
   
@@ -138,7 +140,7 @@ void img_add()
     sizeof(spiffs_cache_buf),
     0);
 
-  spiffs_file fd = SPIFFS_open(&fs, add_name.c_str(), SPIFFS_CREAT | SPIFFS_TRUNC | SPIFFS_RDWR, 0);
+  spiffs_file fd = SPIFFS_open(&fs, add_name, SPIFFS_CREAT | SPIFFS_TRUNC | SPIFFS_RDWR, 0);
   if (SPIFFS_write(&fs, fd, buf, fsize) < 0) printf("errno %i\n", SPIFFS_errno(&fs));
   SPIFFS_close(&fs, fd);
   free(buf);
