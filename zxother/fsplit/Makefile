@@ -1,4 +1,5 @@
 OBJS=fsplit.o itoa.o
+CFLAGS+=-std=gnu99
 
 fsplit: $(OBJS)
 	$(CC) -o $@ $^

@@ -2,6 +2,9 @@ ifneq ($(IMAGE_MK),1)
 include ../image.mk
 endif
 OBJS=paltoppm.o libzxntools.a
+
+all: paltoppm
+
 paltoppm : $(OBJS)
 	$(CC) -o $@ $^ $(LOPTS) -lnetpbm
 

@@ -7,7 +7,7 @@
 
 #include <stdio.h>
 //#include <tchar.h>
-#include <malloc.h>
+#include <stdlib.h>
 #include <sys/stat.h>
 
 #ifndef max

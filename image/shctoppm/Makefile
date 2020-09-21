@@ -3,6 +3,8 @@ include ../image.mk
 endif
 OBJS=shctoppm.o shctorgb.o libzxntools.a
 
+all: shctoppm
+
 shctoppm : $(OBJS)
 	$(CC) -o $@ $^ $(LOPTS) -lnetpbm
 
@@ -16,7 +18,7 @@ libzxntools.a : ../libzxntools/libzxntools.a
 shctoppm.h : ../libzxntools/zxntools.h
 	touch $@
 
-.PHONY : clean distclean libzxntools
+.PHONY : all clean distclean libzxntools
 
 clean :
 	$(RM) $(OBJS)  *~

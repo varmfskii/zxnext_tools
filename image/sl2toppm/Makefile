@@ -3,6 +3,8 @@ include ../image.mk
 endif
 OBJS=sl2toppm.o readsl2.o libzxntools.a
 
+all: sl2toppm
+
 sl2toppm : $(OBJS)
 	$(CC) -o $@ $^ $(LOPTS) -lnetpbm
 

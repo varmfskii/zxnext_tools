@@ -1,4 +1,4 @@
-﻿#include <string.h>
+#include <string.h>
 #include <stdio.h>
 
 void splitpath(char *path, char *drive, char *dir, char *file, char *ext) {

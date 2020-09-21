@@ -86,6 +86,7 @@ int main(int argc, char *argv[]) {
   if (!ixed.x) return 1;
   writeixed(ixed, 0, out);
   free_ixed(ixed);
+  return 0;
 }
 
 void help(char *name) {

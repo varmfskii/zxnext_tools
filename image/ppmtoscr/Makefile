@@ -3,6 +3,8 @@ include ../image.mk
 endif
 OBJS=ppmtoscr.o writescr.o libzxntools.a
 
+all: ppmtoscr
+
 ppmtoscr : $(OBJS)
 	$(CC) -o $@ $^ $(LOPTS) -lnetpbm
 

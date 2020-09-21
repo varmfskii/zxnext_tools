@@ -2,6 +2,9 @@ ifneq ($(IMAGE_MK),1)
 include ../image.mk
 endif
 OBJS=paltoasm.o writeasm.o libzxntools.a
+
+all: paltoasm
+
 paltoasm : $(OBJS)
 	$(CC) -o $@ $^ $(LOPTS) -lnetpbm
 
@@ -15,7 +18,7 @@ libzxntools.a : ../libzxntools/libzxntools.a
 paltoasm.h : ../libzxntools/zxntools.h
 	touch $@
 
-.PHONY : clean distclean libzxntools
+.PHONY : all clean distclean libzxntools
 
 clean :
 	$(RM) $(OBJS)  *~

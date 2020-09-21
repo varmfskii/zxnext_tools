@@ -2,6 +2,9 @@ ifneq ($(IMAGE_MK),1)
 include ../image.mk
 endif
 OBJS=getpalette.o rgb2pal.o writeasm.o libzxntools.a
+
+all: getpalette
+
 getpalette : $(OBJS)
 	$(CC) -o $@ $^ $(LOPTS) -lnetpbm
 
@@ -17,7 +20,7 @@ libzxntools.a : ../libzxntools/libzxntools.a
 getpalette.h : ../libzxntools/zxntools.h
 	touch $@
 
-.PHONY : clean distclean libzxntools
+.PHONY : all clean distclean libzxntools
 
 clean :
 	$(RM) $(OBJS)  *~

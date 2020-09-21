@@ -3,6 +3,8 @@ include ../image.mk
 endif
 OBJS=scrtoppm.o scrtorgb.o libzxntools.a
 
+all: scrtoppm
+
 scrtoppm : $(OBJS)
 	$(CC) -o $@ $^ $(LOPTS) -lnetpbm
 

@@ -2,6 +2,10 @@ ifneq ($(IMAGE_MK),1)
 include ../image.mk
 endif
 OBJS=imagetoasm.o writeasm.o writepgm.o writeraw.o libzxntools.a
+CFLAGS += -std=gnu99
+
+all: imagetoasm
+
 imagetoasm : $(OBJS)
 	$(CC) -o $@ $^ $(LOPTS) -lnetpbm
 
@@ -20,7 +24,7 @@ libzxntools.a : ../libzxntools/libzxntools.a
 libzxntools :
 	$(MAKE) -C ../libzxntools
 
-.PHONY : clean distclean libzxntools
+.PHONY : all clean distclean libzxntools
 
 clean :
 	$(RM) $(OBJS) *~

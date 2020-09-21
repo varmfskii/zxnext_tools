@@ -1,4 +1,5 @@
 OBJS=dxt2dxp.o splitpath.o
+CFLAGS+=-std=gnu99
 
 dxt2dxp: $(OBJS)
 	$(CC) -o $@ $^

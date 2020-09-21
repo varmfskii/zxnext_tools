@@ -1,4 +1,5 @@
 OBJS=main.o func.o msg.o stdafx.o
+CFLAGS+=-std=gnu99
 
 spgbld: $(OBJS)
 	$(CC) -o $@ $^

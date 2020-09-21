@@ -5,8 +5,11 @@ OBJS=allocate.o col_dist.o deallocate.o decimate.o misc.o palette.o	\
 	plus3dos.o readbm.o readpal.o readrgb.o rgb2index.o		\
 	writeixed.o writergb.o writezxn.o
 
+ifeq ($(SHARED),1)
 all : libzxntools.a libzxntools.so
-#all : libzxntools.a
+else
+all : libzxntools.a
+endif
 
 libzxntools.a : $(OBJS)
 	$(AR) cr $@ $^

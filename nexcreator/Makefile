@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall
+CFLAGS = -Wall -std=gnu99
 ifeq ($(DEBUG),1)
 CFLAGS += -DDEBUG -g
 else

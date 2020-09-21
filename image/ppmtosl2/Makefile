@@ -3,6 +3,8 @@ include ../image.mk
 endif
 OBJS=ppmtosl2.o libzxntools.a
 
+all: ppmtosl2
+
 ppmtosl2 : $(OBJS)
 	$(CC) -o $@ $^ $(LOPTS) -lnetpbm
 
