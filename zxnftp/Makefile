@@ -1,4 +1,8 @@
+ifeq ($(ZXNEXT),1)
 TARGETS=client server
+else
+TARGETS=client
+endif
 
 PREFIX=$(CURDIR)
 

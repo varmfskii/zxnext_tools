@@ -1,44 +1,43 @@
 
 #include "stdafx.h"
-#include <iostream>
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <vector>
 #include "tsspiffs.h"
 #include <getopt.h>
+#include <stdint.h>
 
 #define SPI_SIZE (4096 * 1024)
 #define BLK_SIZE 4096
 
-u8 buf[256];
+uint8_t buf[256];
 
-std::string img_name;
-std::string add_name;
-u32 spi_size;
-u32 blk_size;
-u8 *mem = 0;
-bool is_debug = false;
+char *img_name;
+char *add_name;
+uint32_t spi_size;
+uint32_t blk_size;
+uint8_t *mem = 0;
+int is_debug = 0;
 
 TSF_CONFIG cfg;
 TSF_VOLUME vol;
 TSF_FILE file;
 
-TSF_RESULT spi_read(u32 addr, void *buf, u32 size)
+TSF_RESULT spi_read(uint32_t addr, void *buf, uint32_t size)
 {
   if (is_debug) printf("spi_read: %08X, %u\n", addr, size);
   memcpy(buf, &mem[addr], size);
   return TSF_RES_OK;
 }
 
-TSF_RESULT spi_write(u32 addr, const void *buf, u32 size)
+TSF_RESULT spi_write(uint32_t addr, const void *buf, uint32_t size)
 {
   if (is_debug) printf("spi_write: %08X, %u\n", addr, size);
   memcpy(&mem[addr], buf, size);
   return TSF_RES_OK;
 }
 
-TSF_RESULT spi_erase(u32 addr)
+TSF_RESULT spi_erase(uint32_t addr)
 {
   if (is_debug) printf("spi_erase: %08X, %u\n", addr, BLK_SIZE);
   memset(&mem[addr], 255, BLK_SIZE);
@@ -47,7 +46,7 @@ TSF_RESULT spi_erase(u32 addr)
 
 void img_read()
 {
-  FILE *fp = fopen((char*)img_name.c_str(), "rb");
+  FILE *fp = fopen(img_name, "rb");
 
   if (fp)
   {
@@ -58,7 +57,7 @@ void img_read()
 
 void img_write()
 {
-  FILE *fp = fopen((char*)img_name.c_str(), "wb");
+  FILE *fp = fopen(img_name, "wb");
 
   if (fp)
   {
@@ -83,7 +82,7 @@ void img_config()
 
 void img_create()
 {
-  mem = (u8*)malloc(spi_size);
+  mem = (uint8_t*)malloc(spi_size);
 
   tsf_format(&cfg);
 
@@ -93,22 +92,22 @@ void img_create()
 
 void img_add()
 {
-  mem = (u8*)malloc(spi_size);
+  mem = (uint8_t*)malloc(spi_size);
   img_read();
 
-  FILE *fp = fopen((char*)add_name.c_str(), "rb");
+  FILE *fp = fopen(add_name, "rb");
   if(!fp) return;
 
   fseek(fp, 0 , SEEK_END);
   int fsize = ftell(fp);
   fseek(fp, 0 , SEEK_SET);
 
-  u8 *buf = (u8*)malloc(fsize);
+  uint8_t *buf = (uint8_t*)malloc(fsize);
   fread(buf, 1, fsize, fp);
   fclose(fp);
 
   tsf_mount(&cfg, &vol);
-  tsf_open(&vol, &file, add_name.c_str(), TSF_MODE_CREATE_WRITE);
+  tsf_open(&vol, &file, add_name, TSF_MODE_CREATE_WRITE);
   tsf_write(&file, buf, fsize);
   tsf_close(&file);
 
@@ -120,7 +119,7 @@ void img_add()
 
 void img_list()
 {
-  mem = (u8*)malloc(spi_size);
+  mem = (uint8_t*)malloc(spi_size);
   img_read();
 
   tsf_mount(&cfg, &vol);
