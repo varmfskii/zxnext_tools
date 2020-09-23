@@ -13,3 +13,5 @@
 -- (client side) scripting support
 -- integrate in main menu?? how complicated is this
 -- call applications on next side (dream a dream)
+-- auto scroll on next side
+-- break from next size
