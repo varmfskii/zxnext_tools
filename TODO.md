@@ -7,3 +7,9 @@
 - improve documentation
 - build zx spectrum next dot file to load zxn files
 - Add MLT support to .showsimg
+
+- zxnftp
+-- no curses binary
+-- (client side) scripting support
+-- integrate in main menu?? how complicated is this
+-- call applications on next side (dream a dream)
