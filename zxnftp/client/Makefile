@@ -10,16 +10,22 @@ objects=$(sources:.c=.o)
 
 PREFIX=$(CURDIR)/..
 
-#CFLAGS=-DCURSES -Wall -Werror
+ifeq ($(CURSES),1)
 CFLAGS+=-DCURSES
+endif
 
 all: dependencies zxnftp zxnftp.conf
 
 dependencies: $(sources)
 	./mkdeps.sh $@ $^
 
+ifeq ($(CURSES),1)
 zxnftp: $(objects)
 	$(CC) $(LDFLAGS) -o $@ $^ -lcurses
+else
+zxnftp: $(objects)
+	$(CC) $(LDFLAGS) -o $@ $^
+endif
 
 zxnftp.conf:
 	cd .. ; ./mkzxnftpcfg.py

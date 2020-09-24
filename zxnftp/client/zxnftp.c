@@ -22,7 +22,8 @@ WINDOW *debug;
 #endif
 #endif
 
-int main() {
+int main(int argc, char *argv[]) {
+  int j;
 #ifndef CURSES
   int i;
 #endif
@@ -30,6 +31,15 @@ int main() {
   char buffer[LEN];
   
   init();
+  
+  if (argc > 1) {
+    for (j = 1; j < argc; j++) {
+      execute(argv[j]);
+    }
+    cmd_exit(NULL);
+    return 0;
+  }
+  
 #ifdef CURSES
   refresh();
   waddstr(win, "> ");
