@@ -3,6 +3,7 @@
 #include <time.h>
 #include <stddef.h>
 #include <stdint.h>
+#include <stdio.h>
 #ifdef CURSES
 #include <curses.h>
 #endif
@@ -45,6 +46,7 @@ extern int server, w, h, disp_mode;
 extern command commands[];
 
 char **parse(char *);
+char *readline(FILE *);
 int cmpdir(const void *, const void *);
 int cmpls(const void *, const void *);
 int neterr(char *);
@@ -85,6 +87,7 @@ void cmd_pwd(char **);
 void cmd_quit(char **);
 void cmd_rm(char **);
 void cmd_rmdir(char **);
+void cmd_script(char **);
 
 extern char *id;
 extern char *addr;

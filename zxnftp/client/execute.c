@@ -11,7 +11,7 @@ void execute(char *command) {
 #ifdef CURSES
   printch('\n');
 #endif
-  if (!*command) return;
+  if (!*command || *command=='#') return;
   if (*command=='!') {
     cmd=popen(command+1, "r");
     while((c=getc(cmd))!=EOF) printch(c);

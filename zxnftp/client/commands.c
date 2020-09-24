@@ -62,6 +62,8 @@ command commands[]=
    { "rmdir", cmd_rmdir, "rmdir <dir>",
      "Delete the directory <dir> on the server\n\n"
      "This will not delete non-empty directories\n"},
+   { "script", cmd_script, "script <file>",
+     "Execute a script for zxnftp commands\n"},
    { NULL, NULL, NULL, NULL }
 };
 
