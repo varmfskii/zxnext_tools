@@ -1,0 +1,9 @@
+Package: zxnftp
+Version: 1.01.00
+Section: custom
+Priority: optional
+Architecture: amd64
+Essential: no
+Installed-Size: 52
+Maintainer: varmfskii@gmail.com
+Description: The client for a ftp like service for the ZX Spectrum Next
