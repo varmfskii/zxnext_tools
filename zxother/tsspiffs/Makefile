@@ -1,7 +1,8 @@
 OBJS=main.o tsspiffs.o
+CFLAGS+=-std=gnu99
 
 tsspiffs: $(OBJS)
-	$(CXX) -o $@ $^
+	$(CC) -o $@ $^
 
 clean:
 	rm -f $(OBJS) *~
