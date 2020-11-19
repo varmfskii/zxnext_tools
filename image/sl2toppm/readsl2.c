@@ -62,9 +62,9 @@ ixed_t readsl2(FILE *in) {
     /* layer 2 640x256 w/ palette 2 */
   case 0x14100:
     /* layer 2 320x256 w/ palette 1 */
-    if (palsz==0x10 || palsz==0x20)
   case 0x14200:
     /* layer 2 320x256 w/ palette 2 */
+    if (palsz==0x10 || palsz==0x20)
       rv.x=640;
     else if (palsz==0x100 || palsz==0x200)
       rv.x=320;
