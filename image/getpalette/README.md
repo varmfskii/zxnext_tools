@@ -5,7 +5,7 @@ getpalette: extract a raw binary palette from a ppm file
 ## Usage: getpalette [&lt;options&gt;]  [&lt;infile&gt;]  [&lt;outfile&gt;]
 
 - -b --bits    set bit depth of palette (8)
-- -h --help    show thie help message
+- -h --help    show this help message
 - -i --in      set input file (stdin)
 - -o --out     set output file (stdout)
 - -V --version get version information
