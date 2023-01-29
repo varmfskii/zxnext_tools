@@ -1,3 +1,6 @@
 [submodule "image"]
 	path = image
 	url = git@github.com:varmfskii/zxnimage.git
+[submodule "zxnftp"]
+	path = zxnftp
+	url = git@github.com:varmfskii/zxnftp.git
